@@ -1,13 +1,21 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+    <div class="col-12 col-md-1 col-lg-3 col-xl-2 bd-sidebar">
       <!-- sidebar nav -->
     </div>
     <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content" role="main">
       <h1>
         This Week
       </h1>
-      <p>Planned lessons for week {{day.weekNumber}}</p>
+      <div class="flex justify-between">
+        <div>Planned lessons for week {{day.weekNumber}}</div>
+        <div>
+          <button class="bg-green-200 hover:bg-green-400 rounded-full h-12 w-12 flex items-center justify-center" (click)="add()"
+          matTooltip="Add new lesson" matTooltipPosition="left">
+            <i class="fas fa-plus text-xl"></i>
+          </button>
+        </div>
+      </div>
       <div class="row">
         <div class="col col-lg-2" *ngFor="let day of days">
           <h3>
@@ -18,25 +26,30 @@
           </small>
           <hr>
           <div *ngFor="let lesson of getLessonsOfTheDay(day);">
-            <p class="small">
-              <i class="fas fa-step-forward"></i>{{lesson.start | date:'shortTime' }}
-            </p>
-            <div class="p-2 rounded bg-indigo-400">
+            <div class="p-0 mt-2 hover:border-dashed border-solid border-2 border-indigo-100">
+              <span class="p-0">{{ lesson.room }}</span>
               <p>
                 {{ lesson.course.name }}
                 {{ lesson.course.subject }}
                 <span class="badge badge-secondary pull-right">
-                  {{ lesson.room }}
+
                 </span>
               </p>
               <small>
                 {{ lesson.content }}
               </small>
-              <p class="small">
-                <i class="fas fa-step-backward"></i>{{lesson.end  | date:'shortTime' }}
-              </p>
+
+              <div class="flex items-justify">
+                <div class="text-xs text-left">
+                  <i class="fas fa-step-forward"></i>
+                  {{lesson.start | date:'shortTime' }}
+                </div>
+                <div class="text-xs text-right">
+                  {{lesson.end  | date:'shortTime' }}
+                  <i class="fas fa-step-backward"></i>
+                </div>
+              </div>
             </div>
-            <hr>
           </div>
         </div>
       </div>

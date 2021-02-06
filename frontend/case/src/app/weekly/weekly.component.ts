@@ -40,4 +40,8 @@ export class WeeklyComponent implements OnInit {
 
   }
 
+  add() {
+
+  }
+
 }
