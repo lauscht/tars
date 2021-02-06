@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+      <!-- sidebar nav -->
+    </div>
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content" role="main">
+      <h1>
+        This Week
+      </h1>
+      <p>Planned lessons for week {{day.weekNumber}}</p>
+      <div class="row">
+        <div class="col col-lg-2" *ngFor="let day of days">
+          <h3>
+            {{day.weekdayLong}}
+          </h3>
+          <small>
+            {{day | date:'shortDate' }}
+          </small>
+          <hr>
+          <div *ngFor="let lesson of getLessonsOfTheDay(day);">
+            <p class="small">
+              <i class="fas fa-step-forward"></i>{{lesson.start | date:'shortTime' }}
+            </p>
+            <div class="p-2 rounded bg-indigo-400">
+              <p>
+                {{ lesson.course.name }}
+                {{ lesson.course.subject }}
+                <span class="badge badge-secondary pull-right">
+                  {{ lesson.room }}
+                </span>
+              </p>
+              <small>
+                {{ lesson.content }}
+              </small>
+              <p class="small">
+                <i class="fas fa-step-backward"></i>{{lesson.end  | date:'shortTime' }}
+              </p>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
