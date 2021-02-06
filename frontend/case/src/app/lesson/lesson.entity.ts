@@ -31,11 +31,14 @@ export class Lesson {
     public room: string,
     public start: DateTime,
     public duration: Duration,
-    public content: string,
+    public content?: string,
     public homework?: string
   ) {
   }
 
+  get hasContent() {
+    return this.content !== null;
+  }
   get end(){
     return this.start.plus(this.duration);
   }

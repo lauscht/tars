@@ -1,22 +1,22 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-12 col-md-1 col-lg-3 col-xl-2 bd-sidebar">
+    <div class="col-12 col-md-1 col-lg-2 bd-sidebar">
       <!-- sidebar nav -->
     </div>
-    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content" role="main">
+    <main class="col-12 col-md-9 col-lg-8 py-md-3 pl-md-5 bd-content" role="main">
       <h1>
         This Week
       </h1>
       <div class="flex justify-between">
         <div>Planned lessons for week {{day.weekNumber}}</div>
         <div>
-          <button class="bg-green-200 hover:bg-green-400 rounded-full h-12 w-12 flex items-center justify-center" (click)="add()"
-          matTooltip="Add new lesson" matTooltipPosition="left">
+          <button class="h-12 w-12 bg-green-200 hover:bg-green-400 rounded-full flex items-center justify-center"
+           (click)="add()" matTooltip="Add new lesson" matTooltipPosition="left">
             <i class="fas fa-plus text-xl"></i>
           </button>
         </div>
       </div>
-      <div class="row">
+      <div class="flex item-center justify-between">
         <div class="col col-lg-2" *ngFor="let day of days">
           <h3>
             {{day.weekdayLong}}
@@ -26,8 +26,17 @@
           </small>
           <hr>
           <div *ngFor="let lesson of getLessonsOfTheDay(day);">
-            <div class="p-0 mt-2 hover:border-dashed border-solid border-2 border-indigo-100">
-              <span class="p-0">{{ lesson.room }}</span>
+            <div class="p-0 mt-2 border-2 border-indigo-100 rounded"
+            [ngClass]="{'border-solid': lesson.hasContent, 'border-dashed': !lesson.hasContent}"
+            >
+              <div class="flex justify-between">
+                <span class="p-0 text-xs">{{ lesson.room }}</span>
+                <button class="h-6 w-6 bg-green-200 hover:bg-green-400 rounded-full flex items-center justify-center"
+                  matTooltip="Show lesson" (click)="show(lesson)">
+                  <i class="fa "
+                  [ngClass]="{'fa-eye': lesson.hasContent, 'fa-plus': !lesson.hasContent}" ></i>
+                </button>
+              </div>
               <p>
                 {{ lesson.course.name }}
                 {{ lesson.course.subject }}
@@ -54,5 +63,18 @@
         </div>
       </div>
     </main>
+      <!-- flyout menu?-->
+    <div class="col-md-2">
+      <h3>
+        Todo:
+      </h3>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          Manchmal gibt es auch samstags kurse.
+          Ansicht wechselbar 5,6 oder 7 Tage.
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

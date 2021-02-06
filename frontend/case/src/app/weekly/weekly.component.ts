@@ -3,6 +3,7 @@ import { WeeklyHelper } from './weekly.helper';
 import { LessonService } from './../lesson/lesson.service';
 import { Component, OnInit } from '@angular/core';
 import { _ } from "lodash-es";
+import { Lesson } from '../lesson/lesson.entity';
 
 @Component({
   selector: 'app-weekly',
@@ -37,10 +38,12 @@ export class WeeklyComponent implements OnInit {
 
   ngOnInit(): void {
 
-
   }
 
   add() {
+
+  }
+  show(lesson: Lesson) {
 
   }
 

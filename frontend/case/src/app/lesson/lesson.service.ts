@@ -32,7 +32,7 @@ export class LessonService {
         monday, duration, "Some other monday content"
       ),
       new Lesson(courseA, roomK35,
-      wednesday, duration, "Some wednesday content"
+      wednesday, duration, null
       ),
       new Lesson(courseB, room412,
         friday, duration, "Some friday content"
