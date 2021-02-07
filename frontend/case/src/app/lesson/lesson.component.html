@@ -1,1 +1,37 @@
-<p>lesson works!</p>
+<div class="border border-dashed rounded border-1 border-indigo-200">
+  Lesson:
+  <div class="flex items-center justify-between">
+    <p>
+      Course: {{lesson.course.name}}
+    </p>
+    <p>
+      Room: {{lesson.room}}
+    </p>
+    <p>
+      Start: {{lesson.start | date:'shortTime'}}
+    </p>
+    <p>
+      End: {{lesson.end | date:'shortTime'}}
+    </p>
+  </div>
+  <div class="flex items-center justify-between">
+    <mat-form-field class="flex-grow">
+      <mat-label>Content:</mat-label>
+      <input [(ngModel)]="lesson.content" matInput placeholder="Ex. It makes me feel...">
+    </mat-form-field>
+  </div>
+  <div class="flex items-center justify-between">
+    <mat-form-field class="flex-grow">
+      <mat-label>Detailed Content:</mat-label>
+      <textarea [(ngModel)]="lesson.detailedContent" matInput placeholder="Ex. It makes me feel...">
+      </textarea>
+    </mat-form-field>
+  </div>
+  <div class="flex items-center justify-between">
+    <mat-form-field class="flex-grow">
+      <mat-label>Homework:</mat-label>
+      <textarea [(ngModel)]="lesson.homework" matInput placeholder="Ex. It makes me feel...">
+      </textarea>
+    </mat-form-field>
+  </div>
+</div>

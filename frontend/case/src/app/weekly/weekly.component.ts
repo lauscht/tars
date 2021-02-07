@@ -4,19 +4,23 @@ import { LessonService } from './../lesson/lesson.service';
 import { Component, OnInit } from '@angular/core';
 import { _ } from "lodash-es";
 import { Lesson } from '../lesson/lesson.entity';
+import { FlyInOutAnimation } from '../fly-in.animation';
 
 @Component({
   selector: 'app-weekly',
   templateUrl: './weekly.component.html',
-  styleUrls: ['./weekly.component.css']
+  styleUrls: ['./weekly.component.css'],
+  animations: [FlyInOutAnimation]
 })
 export class WeeklyComponent implements OnInit {
 
   public days: DateTime[];
   public lessons;
+  public lesson: Lesson;
   public day;
   public end;
 
+  editLessonState = 'out';
   constructor(
     private lessonService: LessonService,
   ) {
@@ -41,10 +45,11 @@ export class WeeklyComponent implements OnInit {
   }
 
   add() {
-
+    this.editLessonState = this.editLessonState === 'in' ? 'out' : 'in';
   }
   show(lesson: Lesson) {
-
+    this.lesson = lesson;
+    this.editLessonState = 'in';
   }
 
 }

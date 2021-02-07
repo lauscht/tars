@@ -32,6 +32,7 @@ export class Lesson {
     public start: DateTime,
     public duration: Duration,
     public content?: string,
+    public detailedContent?: string,
     public homework?: string
   ) {
   }

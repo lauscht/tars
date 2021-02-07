@@ -29,7 +29,16 @@ export class LessonService {
         monday.set({ hour: 9, minute: 30 }), duration, "Some detailed monday content"
       ),
       new Lesson(courseB, room412,
-        monday, duration, "Some other monday content"
+        monday, duration, "Some other monday content",
+        `Some detailed monday content
+-  fun game
+- mini presentations 1, 2 + 3
+- Voc intro
+- cachipún
+- HV Global`,
+        `p.37/5+3+9
+Voc wdh
+Lernen für KA - Fragen notieren`
       ),
       new Lesson(courseA, roomK35,
       wednesday, duration, null

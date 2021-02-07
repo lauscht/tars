@@ -20,6 +20,7 @@ As a teacher, I want to
 
 - have an overview what I've done in this class.
    - should contain future / past / all lessons.
+   - Focus / Choose Display Items: Homework, Content
 
 - want to schedule holidays. On a holiday means no lesson.
 - want to schedule exams and tests.

@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WeeklyComponent } from './weekly/weekly.component';
 import { LessonComponent } from './lesson/lesson.component';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { LessonComponent } from './lesson/lesson.component';
     BrowserModule,
     AppRoutingModule,
     MatTooltipModule,
+    FormsModule,
+    MatInputModule,
     BrowserAnimationsModule,
     NgbModule
   ],

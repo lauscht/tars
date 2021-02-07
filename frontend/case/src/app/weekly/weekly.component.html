@@ -47,7 +47,9 @@
               <small>
                 {{ lesson.content }}
               </small>
-
+              <div *ngIf="lesson.homework">
+                <i class="fas fa-home" [matTooltip]="lesson.homework"></i>
+              </div>
               <div class="flex items-justify">
                 <div class="text-xs text-left">
                   <i class="fas fa-step-forward"></i>
@@ -77,4 +79,46 @@
       </ul>
     </div>
   </div>
+
+  <!-- Lesson focus-->
+  <div class="row" *ngIf="lesson">
+    <div class="col-12 col-md-1 col-lg-2 bd-sidebar">
+      <h3>
+        Todo:
+      </h3>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          Select past (letzte) lessons here
+        </li>
+        <li class="list-group-item">
+          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          Select penultimate (vorletzte) lesson here
+        </li>
+        <li class="list-group-item">
+          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          Select antepenultimate (vorvorletzte) lesson here
+        </li>
+      </ul>
+    </div>
+    <div class="col-12 col-md-9 col-lg-8 py-md-3 pl-md-5 bd-content">
+      <app-lesson [lesson]="lesson"></app-lesson>
+    </div>
+    <div class="col-md-2">
+      <h3>
+        Todo:
+      </h3>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          Add / Select next (nächste) lessons here
+        </li>
+        <li class="list-group-item">
+          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          Add / Select next but on (übernächste) lessons here
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
+
