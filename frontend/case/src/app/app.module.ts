@@ -7,23 +7,28 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WeeklyComponent } from './weekly/weekly.component';
+import { LessonEditComponent } from './lesson/lesson-edit.component';
 import { LessonComponent } from './lesson/lesson.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { LuxonModule } from 'luxon-angular';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     WeeklyComponent,
-    LessonComponent
+    LessonComponent,
+    LessonEditComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     MatTooltipModule,
-    FormsModule,
     MatInputModule,
-    BrowserAnimationsModule,
+    FormsModule,
+    LuxonModule,
     NgbModule
   ],
   providers: [

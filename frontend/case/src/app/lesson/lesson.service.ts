@@ -52,4 +52,12 @@ Lernen für KA - Fragen notieren`
   getLessons(){
     return this.lessons;
   }
+
+  getPrevious(l: Lesson): Lesson[] {
+    return this.lessons.filter((v) => v.course === l.course && v.start < l.start);
+  }
+
+  getFuture(l: Lesson): Lesson[] {
+    return this.lessons.filter((v) => v.course === l.course && v.start > l.start);
+  }
 }

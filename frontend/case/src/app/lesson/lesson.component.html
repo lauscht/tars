@@ -1,37 +1,35 @@
-<div class="border border-dashed rounded border-1 border-indigo-200">
-  Lesson:
-  <div class="flex items-center justify-between">
-    <p>
-      Course: {{lesson.course.name}}
-    </p>
-    <p>
-      Room: {{lesson.room}}
-    </p>
-    <p>
-      Start: {{lesson.start | date:'shortTime'}}
-    </p>
-    <p>
-      End: {{lesson.end | date:'shortTime'}}
-    </p>
-  </div>
-  <div class="flex items-center justify-between">
-    <mat-form-field class="flex-grow">
-      <mat-label>Content:</mat-label>
-      <input [(ngModel)]="lesson.content" matInput placeholder="Ex. It makes me feel...">
-    </mat-form-field>
-  </div>
-  <div class="flex items-center justify-between">
-    <mat-form-field class="flex-grow">
-      <mat-label>Detailed Content:</mat-label>
-      <textarea [(ngModel)]="lesson.detailedContent" matInput placeholder="Ex. It makes me feel...">
-      </textarea>
-    </mat-form-field>
-  </div>
-  <div class="flex items-center justify-between">
-    <mat-form-field class="flex-grow">
-      <mat-label>Homework:</mat-label>
-      <textarea [(ngModel)]="lesson.homework" matInput placeholder="Ex. It makes me feel...">
-      </textarea>
-    </mat-form-field>
+<div class="container-fluid">
+  <!-- Lesson focus-->
+  <div class="row">
+    <div class="col-12 col-md-1 col-lg-2 bd-sidebar">
+      <h3>
+        Past lessons
+      </h3>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let l of previous"
+         (click)="lesson=l">
+         <p>{{l.start | date:'fullDate'}}</p>
+         <p>{{l.start | date:'shortTime'}}</p>
+         <i class="fas fa-home" *ngIf="l.homework" [matTooltip]="l.homework"></i>
+       </li>
+      </ul>
+    </div>
+    <div class="col-12 col-md-9 col-lg-8 py-md-3 pl-md-5 bd-content">
+      <app-lesson-edit [lesson]="lesson"></app-lesson-edit>
+    </div>
+    <div class="col-md-2">
+      <h3>
+        Future lessons
+      </h3>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let l of future"
+         (click)="lesson=l">
+          <p>{{l.start | date:'fullDate'}}</p>
+          <p>{{l.start | date:'shortTime'}}</p>
+          <i class="fas fa-home" *ngIf="l.homework" [matTooltip]="l.homework"></i>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
+
