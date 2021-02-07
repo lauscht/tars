@@ -27,6 +27,7 @@
     "lodash-es": "^4.17.20",
     "luxon": "^1.25.0",
     "luxon-angular": "^3.0.0",
+    "ngx-markdown": "^11.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
