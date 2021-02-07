@@ -22,8 +22,11 @@ As a teacher, I want to
    - should contain future / past / all lessons.
    - Focus / Choose Display Items: Homework, Content
 
-- want to schedule holidays. On a holiday means no lesson.
-- want to schedule exams and tests.
+- month view for calender, given I ... (well they should be colour coded)
+    - want to schedule holidays. On a holiday means no lesson.
+    - want to schedule exams and tests.
+    - want to schedule meetings.
+
 - want to put grades in there
     - grade comprise different categories (sub) with different weigths
     - add / delete categories, edit weights
