@@ -18,12 +18,12 @@
       </div>
       <div class="flex item-center justify-between">
         <div class="col col-lg-2" *ngFor="let day of days">
-          <h3>
+          <p class="text-lg font-bold">
             {{day.weekdayLong}}
-          </h3>
-          <small>
+          </p>
+          <p>
             {{day | date:'shortDate' }}
-          </small>
+          </p>
           <hr>
           <div *ngFor="let lesson of getLessonsOfTheDay(day);">
             <div class="p-0 mt-2 border-2 border-indigo-100 rounded"
@@ -38,11 +38,11 @@
                 </button>
               </div>
               <p>
-                {{ lesson.course.name }}
-                {{ lesson.course.subject }}
-                <span class="badge badge-secondary pull-right">
-
+                <span class="font-bold">
+                  {{lesson.course.name }}
                 </span>
+                {{ lesson.course.subject }}
+                <span class="badge badge-secondary pull-right"></span>
               </p>
               <small>
                 {{ lesson.content }}

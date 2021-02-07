@@ -38,7 +38,7 @@ export class Lesson {
   }
 
   get hasContent() {
-    return this.content !== null;
+    return this.content || this.detailedContent;
   }
   get end(){
     return this.start.plus(this.duration);

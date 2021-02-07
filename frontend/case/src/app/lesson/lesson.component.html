@@ -10,7 +10,10 @@
          (click)="lesson=l">
          <p>{{l.start | date:'fullDate'}}</p>
          <p>{{l.start | date:'shortTime'}}</p>
-         <i class="fas fa-home" *ngIf="l.homework" [matTooltip]="l.homework"></i>
+         <p *ngIf="l.homework">
+          <i class="fas fa-home" ></i>
+          {{l.homework}}
+         </p>
        </li>
       </ul>
     </div>
@@ -26,7 +29,10 @@
          (click)="lesson=l">
           <p>{{l.start | date:'fullDate'}}</p>
           <p>{{l.start | date:'shortTime'}}</p>
-          <i class="fas fa-home" *ngIf="l.homework" [matTooltip]="l.homework"></i>
+          <p *ngIf="l.homework">
+           <i class="fas fa-home" ></i>
+           {{l.homework}}
+          </p>
         </li>
       </ul>
     </div>
