@@ -1,0 +1,8 @@
+<div [@openClose]="visible ? 'open' : 'closed'" class="open-close-container" class="bg-green-200 w-100 " id="flyout">
+    <div *ngIf="visible" >
+        <div class="flex justify-end " id="close" >
+            <i class="fas fa-times-circle " (click)="visible = !visible"></i>            
+          </div>
+        <ng-content ></ng-content>  
+    </div>          
+  </div>
