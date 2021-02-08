@@ -14,13 +14,15 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule } from '@angular/forms';
 import { LuxonModule } from 'luxon-angular';
 import { MarkdownModule } from 'ngx-markdown';
+import { FlyoutComponent } from './shared/flyout/flyout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WeeklyComponent,
     LessonComponent,
-    LessonEditComponent
+    LessonEditComponent,
+    FlyoutComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,7 @@ import { MarkdownModule } from 'ngx-markdown';
     MatTabsModule,
     FormsModule,
     LuxonModule,
-    NgbModule
+    NgbModule    
   ],
   providers: [
   ],

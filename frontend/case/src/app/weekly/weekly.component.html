@@ -11,7 +11,7 @@
         <div>Planned lessons for week {{day.weekNumber}}</div>
         <div>
           <button class="h-12 w-12 bg-green-200 hover:bg-green-400 rounded-full flex items-center justify-center"
-           (click)="add()" matTooltip="Add new lesson" matTooltipPosition="left">
+            (click)="add()" matTooltip="Add new lesson" matTooltipPosition="left">
             <i class="fas fa-plus text-xl"></i>
           </button>
         </div>
@@ -27,14 +27,12 @@
           <hr>
           <div *ngFor="let lesson of getLessonsOfTheDay(day);">
             <div class="p-0 mt-2 border-2 border-indigo-100 rounded"
-            [ngClass]="{'border-solid': lesson.hasContent, 'border-dashed': !lesson.hasContent}"
-            >
+              [ngClass]="{'border-solid': lesson.hasContent, 'border-dashed': !lesson.hasContent}">
               <div class="flex justify-between">
                 <span class="p-0 text-xs">{{ lesson.room }}</span>
                 <button class="h-6 w-6 bg-green-200 hover:bg-green-400 rounded-full flex items-center justify-center"
                   matTooltip="Show lesson" (click)="show(lesson)">
-                  <i class="fa "
-                  [ngClass]="{'fa-eye': lesson.hasContent, 'fa-plus': !lesson.hasContent}" ></i>
+                  <i class="fa " [ngClass]="{'fa-eye': lesson.hasContent, 'fa-plus': !lesson.hasContent}"></i>
                 </button>
               </div>
               <p>
@@ -56,7 +54,7 @@
                   {{lesson.start | date:'shortTime' }}
                 </div>
                 <div class="text-xs text-right">
-                  {{lesson.end  | date:'shortTime' }}
+                  {{lesson.end | date:'shortTime' }}
                   <i class="fas fa-step-backward"></i>
                 </div>
               </div>
@@ -65,7 +63,7 @@
         </div>
       </div>
     </main>
-      <!-- flyout menu?-->
+    <!-- flyout menu?-->
     <div class="col-md-2">
       <h3>
         Todo:
@@ -81,3 +79,8 @@
   </div>
 </div>
 <app-lesson *ngIf="lesson" [lesson]="lesson"></app-lesson>
+
+<app-flyout [visible]="this.editLessonState == 'in'">
+  create controll put here
+  <input type="tel">  
+</app-flyout>
