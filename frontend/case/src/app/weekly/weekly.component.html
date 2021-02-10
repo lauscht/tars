@@ -78,9 +78,7 @@
     </div>
   </div>
 </div>
-<app-lesson *ngIf="lesson" [lesson]="lesson"></app-lesson>
 
 <app-flyout [visible]="this.editLessonState == 'in'">
-  create controll put here
-  <input type="tel">  
+  <app-lesson *ngIf="lesson" [lesson]="lesson"></app-lesson>
 </app-flyout>
