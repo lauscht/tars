@@ -1,5 +1,5 @@
 #flyout {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   transition: all 0.3s ease;
   will-change: bottom;
