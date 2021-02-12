@@ -26,22 +26,21 @@
           </p>
           <hr>
           <div *ngFor="let lesson of getLessonsOfTheDay(day);">
-            <div class="p-0 mt-2 border-2 border-indigo-100 rounded"
+            <div class="p-1 mt-2 border-2 border-indigo-100 rounded hover:bg-green-400" matTooltip="Show lesson"
+              (click)="show(lesson)"
               [ngClass]="{'border-solid': lesson.hasContent, 'border-dashed': !lesson.hasContent}">
               <div class="flex justify-between">
-                <span class="p-0 text-xs">{{ lesson.room }}</span>
-                <button class="h-6 w-6 bg-green-200 hover:bg-green-400 rounded-full flex items-center justify-center"
-                  matTooltip="Show lesson" (click)="show(lesson)">
-                  <i class="fa " [ngClass]="{'fa-eye': lesson.hasContent, 'fa-plus': !lesson.hasContent}"></i>
-                </button>
+                <div>
+                  <i class="fas fa-door-closed"></i>
+                  {{ lesson.room }}
+                </div>
+                <div>
+                  <i class="fal fa-users-class"></i>
+                  {{lesson.course.name }}                                  
+                  {{ lesson.course.subject }}                  
+                </div>
               </div>
-              <p>
-                <span class="font-bold">
-                  {{lesson.course.name }}
-                </span>
-                {{ lesson.course.subject }}
-                <span class="badge badge-secondary pull-right"></span>
-              </p>
+
               <small>
                 {{ lesson.content }}
               </small>
@@ -51,7 +50,7 @@
               <div class="flex items-justify">
                 <div class="text-xs text-left">
                   <i class="fas fa-step-forward"></i>
-                  {{lesson.start | date:'shortTime' }}
+                  {{lesson.start | date:'shortTime' }}-
                 </div>
                 <div class="text-xs text-right">
                   {{lesson.end | date:'shortTime' }}
