@@ -8,7 +8,22 @@
         This Week
       </h1>
       <div class="flex justify-between">
-        <div>Planned lessons for week {{day.weekNumber}}</div>
+        <div>
+          Planned lessons for week
+          <div class="btn btn-group">
+            <button class="btn btn-default"
+              (click)="goToPreviousWeek()" matTooltip="Go to previous week" matTooltipPosition="left">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <div>
+              {{day.weekNumber}}
+            </div>
+            <button  class="btn btn-default"
+              (click)="goToNextWeek()" matTooltip="Go to next week" matTooltipPosition="right">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
         <div>
           <button class="h-12 w-12 bg-green-200 hover:bg-green-400 rounded-full flex items-center justify-center"
             (click)="add()" matTooltip="Add new lesson" matTooltipPosition="left">
