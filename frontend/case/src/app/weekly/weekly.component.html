@@ -9,19 +9,26 @@
       </h1>
       <div class="flex justify-between">
         <div>
-          Planned lessons for week
+          Planned lessons for
           <div class="btn btn-group">
-            <button class="btn btn-default"
+            
+              <button class="btn btn-default"
               (click)="goToPreviousWeek()" matTooltip="Go to previous week" matTooltipPosition="left">
               <i class="fas fa-chevron-left"></i>
+            </button>
+            <mat-form-field appearance="fill">
+              <mat-label>Week</mat-label>
+              <input matInput [matDatepicker]="picker" [value]="dayForm.value">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <button  class="btn btn-default"
+            (click)="goToNextWeek()" matTooltip="Go to next week" matTooltipPosition="right">
+              <i class="fas fa-chevron-right"></i>
             </button>
             <div>
               {{day.weekNumber}}
             </div>
-            <button  class="btn btn-default"
-              (click)="goToNextWeek()" matTooltip="Go to next week" matTooltipPosition="right">
-              <i class="fas fa-chevron-right"></i>
-            </button>
           </div>
         </div>
         <div>

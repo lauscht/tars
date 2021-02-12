@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { _ } from "lodash-es";
 import { Lesson } from '../lesson/lesson.entity';
 import { FlyInOutAnimation } from '../fly-in.animation';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-weekly',
@@ -19,6 +20,7 @@ export class WeeklyComponent implements OnInit {
   public lesson: Lesson;
   public day;
   public end;
+  public dayForm;
 
   editLessonState = 'out';
   constructor(
@@ -26,6 +28,7 @@ export class WeeklyComponent implements OnInit {
   ) {
     const weekly = new WeeklyHelper();
     const start = weekly.start();
+    this.dayForm = new FormControl(start);
     this.day = start;
     this.end = start.plus({days:weekly.days});
     this.days = [];
