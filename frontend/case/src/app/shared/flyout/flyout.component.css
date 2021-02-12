@@ -1,8 +1,7 @@
 #flyout {
-  position: absolute;
-  bottom: 0;
+  position: absolute;  
   transition: all 0.3s ease;
-  will-change: bottom;
+  will-change: bottom;    
 }
 
 #close {
