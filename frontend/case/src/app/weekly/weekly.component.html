@@ -57,9 +57,9 @@
                 {{ lesson.course.subject }}
                 <span class="badge badge-secondary pull-right"></span>
               </p>
-              <small>
+              <p class="text-xs truncate">
                 {{ lesson.content }}
-              </small>
+              </p>
               <div *ngIf="lesson.homework">
                 <i class="fas fa-home" [matTooltip]="lesson.homework"></i>
               </div>
@@ -88,6 +88,14 @@
           <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
           Manchmal gibt es auch samstags kurse.
           Ansicht wechselbar 5,6 oder 7 Tage.
+        </li>
+        <li class="list-group-item">
+          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          Add color property to courses.
+        </li>
+        <li class="list-group-item">
+          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          Change alpha with day time
         </li>
       </ul>
     </div>
