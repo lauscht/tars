@@ -26,15 +26,7 @@ export class WeeklyComponent implements OnInit {
   constructor(
     private lessonService: LessonService,
   ) {
-    const weekly = new WeeklyHelper();
-    const start = weekly.start();
-    this.dayForm = new FormControl(start);
-    this.day = start;
-    this.end = start.plus({days:weekly.days});
-    this.days = [];
-    for(var c = 0; c < weekly.days; c++){
-      this.days.push(start.plus({days: c}));
-    }
+    this.day = DateTime.local();
    }
 
    getLessonsOfTheDay(day){
@@ -44,14 +36,30 @@ export class WeeklyComponent implements OnInit {
    }
 
   ngOnInit(): void {
-
+    this.updateDays();
   }
 
+  updateDays() {
+    const weekly = new WeeklyHelper();
+    const start = weekly.startOfWeek(this.day);
+    this.end = start.plus({days:weekly.days});
+    const days = [];
+    for(var c = 0; c < weekly.days; c++){
+      days.push(start.plus({days: c}));
+    }
+    this.days = days;
+  }
+  
+  dayFormChanged() {
+    this.updateDays();
+  }
   goToPreviousWeek() {
     this.day = this.day.minus({days: 7});
+    this.updateDays();
   }
   goToNextWeek() {
     this.day = this.day.plus({days: 7});
+    this.updateDays();
   }
 
   add() {

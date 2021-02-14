@@ -5,20 +5,19 @@
     </div>
     <main class="col-12 col-md-9 col-lg-8 py-md-3 pl-md-5 bd-content" role="main">
       <h1>
-        This Week
+        Week overview
       </h1>
       <div class="flex justify-between">
         <div>
-          Planned lessons for
           <div class="btn btn-group">
-            
               <button class="btn btn-default"
               (click)="goToPreviousWeek()" matTooltip="Go to previous week" matTooltipPosition="left">
               <i class="fas fa-chevron-left"></i>
             </button>
             <mat-form-field appearance="fill">
-              <mat-label>Week</mat-label>
-              <input matInput [matDatepicker]="picker" [value]="dayForm.value">
+              <mat-label>Week {{day.weekNumber}}</mat-label>
+              <input matInput [matDatepicker]="picker" placeholder="{{day | date:'shortDate' }}" [(ngModel)]="day"
+                (dateChange)="dayFormChanged()">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -26,9 +25,6 @@
             (click)="goToNextWeek()" matTooltip="Go to next week" matTooltipPosition="right">
               <i class="fas fa-chevron-right"></i>
             </button>
-            <div>
-              {{day.weekNumber}}
-            </div>
           </div>
         </div>
         <div>
