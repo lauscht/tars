@@ -20,6 +20,7 @@ import { LessonEditComponent } from './lesson/lesson-edit.component';
 import { LessonComponent } from './lesson/lesson.component';
 import { FlyoutComponent } from './shared/flyout/flyout.component';
 import { CourseComponent } from './course/course.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { CourseComponent } from './course/course.component';
     LessonComponent,
     LessonEditComponent,
     FlyoutComponent,
-    CourseComponent
+    CourseComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
