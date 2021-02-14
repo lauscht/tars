@@ -1,7 +1,8 @@
 import { WeeklyHelper } from '../weekly/weekly.helper';
 import { Injectable } from '@angular/core';
-import { Course, Lesson } from './lesson.entity';
+import { Lesson } from './lesson.entity';
 import { DateTime, Duration } from 'luxon';
+import { Course } from '../course/course.entity';
 
 
 @Injectable({
@@ -17,8 +18,8 @@ export class LessonService {
     const roomK35 = "K35";
     const room412 = "412";
     const duration = Duration.fromISO('PT45M');
-    const courseA = new Course("9a", "es");
-    const courseB = new Course("7b", "bk");
+    const courseA = new Course(0, "9a", "es");
+    const courseB = new Course(1, "7b", "bk");
 
     const monday = weekly.start();
     const wednesday = monday.plus({days: 2});
@@ -50,6 +51,10 @@ Lernen für KA - Fragen notieren`
 
   getLessons(){
     return this.lessons;
+  }
+
+  getLessonByCourse(course: Course) {
+      return this.lessons.filter((l) => l.course.id == course.id);
   }
 
   getPrevious(l: Lesson): Lesson[] {
