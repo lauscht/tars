@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { LuxonModule } from 'luxon-angular';
+import { MatLuxonDateModule } from 'ngx-material-luxon';
 import { MarkdownModule } from 'ngx-markdown';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -40,6 +41,7 @@ import { FlyoutComponent } from './shared/flyout/flyout.component';
     MatTabsModule,
     FormsModule,
     LuxonModule,
+    MatLuxonDateModule,
     NgbModule    
   ],
   providers: [
