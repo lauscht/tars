@@ -19,6 +19,7 @@ import { WeeklyComponent } from './weekly/weekly.component';
 import { LessonEditComponent } from './lesson/lesson-edit.component';
 import { LessonComponent } from './lesson/lesson.component';
 import { FlyoutComponent } from './shared/flyout/flyout.component';
+import { CourseComponent } from './course/course.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { FlyoutComponent } from './shared/flyout/flyout.component';
     WeeklyComponent,
     LessonComponent,
     LessonEditComponent,
-    FlyoutComponent
+    FlyoutComponent,
+    CourseComponent
   ],
   imports: [
     BrowserModule,

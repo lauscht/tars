@@ -1,13 +1,6 @@
 import { Duration, DateTime } from 'luxon';
+import { Course } from '../course/course.entity';
 
-export class Course {
-  constructor(
-    public name: string,
-    public subject: string
-  ) {
-
-  }
-}
 
 export class ScheduledLesson {
   constructor(
