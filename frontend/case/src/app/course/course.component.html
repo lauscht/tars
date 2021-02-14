@@ -1,40 +1,43 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12 col-md-1 col-lg-2 bd-sidebar">
-      <ul>
-        <li *ngFor="let c of this.courses" (click)="select(c)">
+      <h2>Courses</h2>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let c of this.courses" (click)="course = c">
           <i class="fal fa-users-class"></i>
           {{c.name}} {{c.subject}}
         </li>
-      </ul>>
+      </ul>
     </div>
     <main class="col-12 col-md-9 col-lg-8 py-md-3 pl-md-5 bd-content" role="main">
       <h1>
-        Course overview
+        <i class="fal fa-users-class"></i> 
+        Course {{course.name}} {{course.subject}}
       </h1>
       <div *ngFor="let lesson of lessons">
-        <div class="flex justify-between">
-          <div>
-            <i class="fas fa-door-closed"></i>
-            {{ lesson.room }}
-          </div>
-        </div>
-        <p class="text-xs">
-          {{ lesson.content }}
-        </p>
-        <div *ngIf="lesson.homework">
-          <i class="fas fa-home" [matTooltip]="lesson.homework"></i>
-        </div>
-        <div class="flex items-justify">
-          <div class="text-xs text-left">
-            <i class="fas fa-step-forward"></i>
-            {{lesson.start | date:'shortTime' }}-
-          </div>
-          <div class="text-xs text-right">
-            {{lesson.end | date:'shortTime' }}
-            <i class="fas fa-step-backward"></i>
-          </div>
-        </div>
+        <ul class="list-group mt-2">
+          <li class="list-group-item">
+            <div class="flex justify-between">
+              <div class="text-xs text-left">
+                {{ lesson.start | date:'fullDate' }}
+                <i class="fas fa-step-forward"></i>
+                {{ lesson.start | date:'shortTime' }}
+              </div>
+              <div>
+                <i class="fas fa-door-closed"></i>
+                {{ lesson.room }}
+              </div>
+              
+            </div>
+            <p class="text-xswa">
+              {{ lesson.content }}
+            </p>
+            <div *ngIf="lesson.homework">
+              <i class="fas fa-home"></i>
+              {{ lesson.homework }}
+            </div>
+          </li>
+        </ul>
       </div>
     </main>
   </div>
