@@ -1,15 +1,23 @@
 <div class="p-1 mt-2 border-2 border-indigo-100 rounded hover:bg-green-400" matTooltip="Show lesson"
-     [ngClass]="{'border-solid': lesson.hasContent, 'border-dashed': !lesson.hasContent}">
+    [ngClass]="{'border-solid': lesson.hasContent, 'border-dashed': !lesson.hasContent}">
     <div class="flex justify-between">
         <div>
             <i class="fas fa-door-closed"></i>
-            {{ lesson.room }}
+            <span>
+                {{ lesson.room }}
+            </span>            
         </div>
         <div>
             <i class="fal fa-users-class"></i>
-            {{lesson.course.name }}
-            {{ lesson.course.subject }}
+            <span>
+                {{lesson.course.name }}
+                {{lesson.course.subject}}               
+            </span>            
         </div>
+    </div>
+    <div class="justify-self-center">
+        <i class="fas far fa-clock fa-fw"></i>
+        <span class="p-1">{{lesson.start | date:'shortTime' }}-{{lesson.end | date:'shortTime' }}</span> 
     </div>
 
     <small>
@@ -18,14 +26,5 @@
     <div *ngIf="lesson.homework">
         <i class="fas fa-home" [matTooltip]="lesson.homework"></i>
     </div>
-    <div class="flex items-justify">
-        <div class="text-xs text-left">
-            <i class="fas fa-step-forward"></i>
-            {{lesson.start | date:'shortTime' }}-
-        </div>
-        <div class="text-xs text-right">
-            {{lesson.end | date:'shortTime' }}
-            <i class="fas fa-step-backward"></i>
-        </div>
-    </div>
+
 </div>
