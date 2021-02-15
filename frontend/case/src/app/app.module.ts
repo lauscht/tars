@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { LuxonModule } from 'luxon-angular';
 import { MarkdownModule } from 'ngx-markdown';
 import { FlyoutComponent } from './shared/flyout/flyout.component';
+import { LessonTileComponent } from './lesson/lesson-tile.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FlyoutComponent } from './shared/flyout/flyout.component';
     WeeklyComponent,
     LessonComponent,
     LessonEditComponent,
-    FlyoutComponent
+    FlyoutComponent,
+    LessonTileComponent
   ],
   imports: [
     BrowserModule,
