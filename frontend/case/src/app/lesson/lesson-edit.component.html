@@ -2,38 +2,38 @@
 
   <div class="flex items-center justify-between">
     <p class="text-lg font-bold">
-      {{currentLesson.course.name}}
+      {{lesson.course.name}}
     </p>
     <p class="text-lg">
-      {{currentLesson.course.subject}}
+      {{lesson.course.subject}}
     </p>
     <p title="room">
       <i class="fas fa-door-open"></i>
-      {{currentLesson.room}}
+      {{lesson.room}}
     </p>
   </div>
   <div class="flex items-center justify-between">
     <p>
-      {{currentLesson.start | date:'fullDate'}}
+      {{lesson.start | date:'fullDate'}}
     </p>
     <p title="starts at">
-      <i class="fas fa-step-forward"></i>{{currentLesson.start | date:'shortTime'}}
+      <i class="fas fa-step-forward"></i>{{lesson.start | date:'shortTime'}}
     </p>
     <p title="ends at">
-      {{currentLesson.end | date:'shortTime'}}
+      {{lesson.end | date:'shortTime'}}
       <i class="fas fa-step-backward"></i>
     </p>
   </div>
   <div class="flex items-center justify-between">
     <mat-form-field class="flex-grow">
       <mat-label>Content:</mat-label>
-      <textarea class="flex-grow" [(ngModel)]="currentLesson.content" matInput placeholder="Type in some content...">
+      <textarea class="flex-grow" [(ngModel)]="lesson.content" matInput placeholder="Type in some content...">
     </mat-form-field>
   </div>
   <div class="flex items-center justify-between">
     <mat-form-field class="flex-grow">
       <mat-label>Homework:</mat-label>
-      <textarea [(ngModel)]="currentLesson.homework" matInput placeholder="Ex. It makes me feel...">
+      <textarea [(ngModel)]="lesson.homework" matInput placeholder="Ex. It makes me feel...">
       </textarea>
     </mat-form-field>
   </div>

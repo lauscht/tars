@@ -8,7 +8,7 @@ import { Lesson } from './lesson.entity';
 })
 export class LessonEditComponent implements OnInit {
 
-  @Input() currentLesson: Lesson;
+  @Input() lesson: Lesson;
 
   constructor() { }
 

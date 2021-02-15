@@ -9,13 +9,13 @@ import { Lesson } from './lesson.entity';
 })
 export class LessonComponent implements OnInit {
 
-  private currentLesson: Lesson;
+  private _lesson: Lesson;
   get lesson(): Lesson {
-    return this.currentLesson;
+    return this._lesson;
   }
   @Input()
   set lesson(l: Lesson){
-    this.currentLesson = l;
+    this._lesson = l;
     this.previous = this.lessonService.getPrevious(this.lesson);
     this.future = this.lessonService.getFuture(this.lesson);
   }
