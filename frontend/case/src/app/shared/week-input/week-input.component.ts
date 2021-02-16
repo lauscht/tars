@@ -10,6 +10,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class WeekInputComponent implements OnInit {
 
   public edit: boolean = false;
+
   @Input() date: DateTime;
 
   @Output() dateChanged = new EventEmitter();
