@@ -1,3 +1,4 @@
+import { _ } from "lodash-es";
 import { WeekDay } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { DateTime, Duration } from 'luxon';
@@ -12,7 +13,7 @@ export class ColorService {
 
   public getColor(time: DateTime):string {
 
-    let baseColor = "";    
+    let baseColor = "";
 
     ///https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Date/getDay
     switch (time.toJSDate().getDay()) {
@@ -35,17 +36,15 @@ export class ColorService {
         baseColor = "pink";
         break;
       default:
-        baseColor = "gray";        
+        baseColor = "gray";
         break;
     }
 
-    let hours = time.toJSDate().getHours();
     const min = 6;
-    //range is 100-900    
-    const gradient = Math.abs(hours - min) * 100;        
-    
+    // gradient range is 100-900
+    const gradient = _.clamp(Math.abs(time.hour - min) * 100, 100, 900);
+
     var test = `bg-${baseColor}-${gradient}`;
-    console.debug(test);
     return test;
   }
 
