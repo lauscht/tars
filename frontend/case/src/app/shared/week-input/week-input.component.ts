@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 
 @Component({
-  selector: 'app-week-input',
+  selector: 'week-input',
   templateUrl: './week-input.component.html',
   styleUrls: ['./week-input.component.css']
 })
