@@ -13,25 +13,30 @@ import { MatLuxonDateModule } from 'ngx-material-luxon';
 import { MarkdownModule } from 'ngx-markdown';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WeeklyComponent } from './weekly/weekly.component';
-import { LessonEditComponent } from './lesson/lesson-edit.component';
-import { LessonComponent } from './lesson/lesson.component';
-import { FlyoutComponent } from './shared/flyout/flyout.component';
-import { CourseComponent } from './course/course.component';
+import { AppRoutingModule } from './app-routing.module';
+
 import { HeaderComponent } from './header/header.component';
+import { WeeklyComponent } from './weekly/weekly.component';
+import { CourseComponent } from './course/course.component';
+
+import { LessonComponent } from './lesson/lesson.component';
+import { LessonEditComponent } from './lesson/lesson-edit.component';
+
+import { FlyoutComponent } from './shared/flyout/flyout.component';
+import { WeekInputComponent } from './shared/week-input/week-input.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    WeekInputComponent,
     WeeklyComponent,
     LessonComponent,
     LessonEditComponent,
     FlyoutComponent,
     CourseComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +51,7 @@ import { HeaderComponent } from './header/header.component';
     FormsModule,
     LuxonModule,
     MatLuxonDateModule,
-    NgbModule    
+    NgbModule
   ],
   providers: [
   ],

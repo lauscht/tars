@@ -49,18 +49,6 @@ export class WeeklyComponent implements OnInit {
     }
     this.days = days;
   }
-  
-  dayFormChanged() {
-    this.updateDays();
-  }
-  goToPreviousWeek() {
-    this.day = this.day.minus({days: 7});
-    this.updateDays();
-  }
-  goToNextWeek() {
-    this.day = this.day.plus({days: 7});
-    this.updateDays();
-  }
 
   add() {
     this.editLessonState = this.editLessonState === 'in' ? 'out' : 'in';

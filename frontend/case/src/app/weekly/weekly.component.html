@@ -10,23 +10,7 @@
       </h1>
       <div class="flex justify-between">
         <div>
-          <div class="btn btn-group">
-              <button class="btn btn-default"
-              (click)="goToPreviousWeek()" matTooltip="Go to previous week" matTooltipPosition="left">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <mat-form-field appearance="fill">
-              <mat-label>Week {{day.weekNumber}}</mat-label>
-              <input matInput [matDatepicker]="picker" placeholder="{{day | date:'shortDate' }}" [(ngModel)]="day"
-                (dateChange)="dayFormChanged()">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <button  class="btn btn-default"
-            (click)="goToNextWeek()" matTooltip="Go to next week" matTooltipPosition="right">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-          </div>
+          <app-week-input [date]="day" (dateChanged)="updateDays()"></app-week-input>
         </div>
         <div>
           <button class="h-12 w-12 bg-green-200 hover:bg-green-400 rounded-full flex items-center justify-center"
@@ -55,8 +39,8 @@
                 </div>
                 <div>
                   <i class="fal fa-users-class"></i>
-                  {{lesson.course.name }}                                  
-                  {{ lesson.course.subject }}                  
+                  {{lesson.course.name }}
+                  {{ lesson.course.subject }}
                 </div>
               </div>
               <p class="text-xs truncate">
