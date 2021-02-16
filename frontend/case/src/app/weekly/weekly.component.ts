@@ -8,7 +8,7 @@ import { FlyInOutAnimation } from '../fly-in.animation';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-weekly',
+  selector: 'weekly',
   templateUrl: './weekly.component.html',
   styleUrls: ['./weekly.component.css'],
   animations: [FlyInOutAnimation]

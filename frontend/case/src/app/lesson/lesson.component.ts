@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Lesson } from './lesson.entity';
 
 @Component({
-  selector: 'app-lesson',
+  selector: 'lesson',
   templateUrl: './lesson.component.html',
   styleUrls: ['./lesson.component.css']
 })

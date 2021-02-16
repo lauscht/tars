@@ -7,7 +7,7 @@ import { Course } from './course.entity';
 import { CourseService } from './course.service';
 
 @Component({
-  selector: 'app-course',
+  selector: 'course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css']
 })
@@ -22,7 +22,7 @@ export class CourseComponent implements OnInit {
     private courseService: CourseService,
     private lessonService: LessonService,
     private pupilService: PupilService,
-  ) { 
+  ) {
     this.courses = this.courseService.getCourses();
     this.course = this.courses[0];
   }

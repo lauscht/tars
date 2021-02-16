@@ -88,6 +88,6 @@
   </div>
 </div>
 
-<app-flyout [visible]="this.editLessonState == 'in'">
-  <app-lesson *ngIf="lesson" [lesson]="lesson"></app-lesson>
-</app-flyout>
+<flyout [visible]="this.editLessonState == 'in'">
+  <lesson *ngIf="lesson" [lesson]="lesson"></lesson>
+</flyout>
