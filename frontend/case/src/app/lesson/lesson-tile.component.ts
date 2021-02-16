@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ColorService } from '../shared/color.service';
 import { Lesson } from './lesson.entity';
 
 @Component({
@@ -11,9 +12,14 @@ export class LessonTileComponent implements OnInit {
   @Input()
   lesson: Lesson;
 
-  constructor() { }
+  colorCss: string;
+
+  constructor( private colorService: ColorService) { }
 
   ngOnInit(): void {
+
+    this.colorCss = this.colorService.getColor(this.lesson.start);
+
   }
 
 }

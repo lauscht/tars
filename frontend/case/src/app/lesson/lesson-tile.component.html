@@ -1,7 +1,9 @@
 <div class="p-1 mt-2 border-2 border-indigo-100 rounded hover:bg-green-400" matTooltip="Show lesson"
-    [ngClass]="{'border-solid': lesson.hasContent, 'border-dashed': !lesson.hasContent}">
+    [ngClass]="{'border-solid': lesson.hasContent, 'border-dashed': !lesson.hasContent}"
+    [ngClass]="colorCss">
+    
 
-    <div class="grid grid-cols-1 xl:grid-cols-2 gap-2">       
+    <div class="grid grid-cols-1 2xl:grid-cols-2 gap-2">       
         <div>
             <i class="fas fa-door-closed"></i>
             <span>
@@ -15,7 +17,7 @@
                 {{lesson.course.subject}}               
             </span>        
         </div>
-        <div class="xl:col-span-2">
+        <div class="2xl:col-span-2">
             <i class="fas far fa-clock fa-fw"></i>
             <span class="p-1">{{lesson.start | date:'shortTime' }}-{{lesson.end | date:'shortTime' }}</span> 
         </div>       
