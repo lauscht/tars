@@ -31,10 +31,10 @@ export class CourseComponent implements OnInit {
     return this._course;
   }
 
-  set course(v: Course) {
-    this._course = v;
-    this.lessons = this.lessonService.getLessonByCourse(v);
-    this.pupils = this.pupilService.getByCourse(v);
+  set course(value: Course) {
+    this._course = value;
+    this.lessons = this.lessonService.getLessonByCourse(value);
+    this.pupils = this.pupilService.getByCourse(value);
   }
 
   ngOnInit(): void {
