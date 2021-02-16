@@ -42,7 +42,7 @@ export class ColorService {
 
     const min = 6;
     // gradient range is 100-900
-    const gradient = _.clamp(Math.abs(time.hour - min) * 50 + 100, 100, 900);
+    const gradient = _.clamp(Math.abs(time.hour - min) * 100, 100, 900);
 
     var test = `bg-${baseColor}-${gradient}`;
     return test;
