@@ -2,7 +2,6 @@ import { DateTime } from 'luxon';
 import { WeeklyHelper } from './weekly.helper';
 import { LessonService } from './../lesson/lesson.service';
 import { Component, OnInit } from '@angular/core';
-import { _ } from "lodash-es";
 import { Lesson } from '../lesson/lesson.entity';
 import { FlyInOutAnimation } from '../fly-in.animation';
 

@@ -1,4 +1,4 @@
-import { _ } from "lodash-es";
+import _ from "lodash-es";
 import { WeekDay } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { DateTime, Duration } from 'luxon';
@@ -42,7 +42,7 @@ export class ColorService {
 
     const min = 6;
     // gradient range is 100-900
-    const gradient = _.clamp(Math.abs(time.hour - min) * 100, 100, 900);
+    const gradient = _.clamp(Math.abs(time.hour - min) * 50 + 100, 100, 900);
 
     var test = `bg-${baseColor}-${gradient}`;
     return test;
