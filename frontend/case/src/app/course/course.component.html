@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-md-1 col-lg-2 bd-sidebar">
+      <h2>Courses</h2>
+      <div class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action cursor-pointer" *ngFor="let c of this.courses"
+           (click)="course = c">
+          <i class="fal fa-users-class"></i>
+          {{c.name}} {{c.subject}}
+        </a>
+      </div>
+    </div>
+    <main class="col-12 col-md-9 col-lg-8 py-md-3 pl-md-5 bd-content" role="main">
+      <h1>
+        <i class="fal fa-users-class"></i>
+        Course {{course.name}} {{course.subject}}
+      </h1>
+      <mat-tab-group>
+        <mat-tab label="Content">
+          <div *ngFor="let lesson of lessons">
+            <ul class="list-group mt-2">
+              <li class="list-group-item">
+                <div class="flex justify-between">
+                  <div class="text-xs text-left">
+                    {{ lesson.start | date:'fullDate' }}
+                    <i class="fas fa-step-forward"></i>
+                    {{ lesson.start | date:'shortTime' }}
+                  </div>
+                  <div>
+                    <i class="fal fa-door-closed"></i>
+                    {{ lesson.room }}
+                  </div>
+                </div>
+                <p class="text-xswa">
+                  {{ lesson.content }}
+                </p>
+                <div *ngIf="lesson.homework">
+                  <i class="fas fa-home"></i>
+                  {{ lesson.homework }}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </mat-tab>
+        <mat-tab label="Pupils ({{pupils.length}})">
+          <ul class="list-group mt-2">
+            <li class="list-group-item" *ngFor="let p of pupils">
+              {{ p.name }}
+            </li>
+          </ul>
+        </mat-tab>
+      </mat-tab-group>
+    </main>
+    <div class="col-md-2">
+      <h3>
+        Todo:
+      </h3>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          Add grades to pupils.
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

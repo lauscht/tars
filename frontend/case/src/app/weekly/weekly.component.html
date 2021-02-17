@@ -5,10 +5,13 @@
     </div>
     <main class="col-12 col-md-9 col-lg-8 py-md-3 pl-md-5 bd-content" role="main">
       <h1>
-        This Week
+        <i class="fal fa-calendar-week"></i>
+        Week overview
       </h1>
       <div class="flex justify-between">
-        <div>Planned lessons for week {{day.weekNumber}}</div>
+        <div>
+          <week-input [date]="day" (dateChanged)="updateDays()"></week-input>
+        </div>
         <div>
           <button class="h-12 w-12 bg-green-200 hover:bg-green-400 rounded-full flex items-center justify-center"
             (click)="add()" matTooltip="Add new lesson" matTooltipPosition="left">
@@ -31,19 +34,18 @@
               [ngClass]="{'border-solid': lesson.hasContent, 'border-dashed': !lesson.hasContent}">
               <div class="flex justify-between">
                 <div>
-                  <i class="fas fa-door-closed"></i>
+                  <i class="fal fa-door-closed"></i>
                   {{ lesson.room }}
                 </div>
                 <div>
                   <i class="fal fa-users-class"></i>
-                  {{lesson.course.name }}                                  
-                  {{ lesson.course.subject }}                  
+                  {{lesson.course.name }}
+                  {{ lesson.course.subject }}
                 </div>
               </div>
-
-              <small>
+              <p class="text-xs truncate">
                 {{ lesson.content }}
-              </small>
+              </p>
               <div *ngIf="lesson.homework">
                 <i class="fas fa-home" [matTooltip]="lesson.homework"></i>
               </div>
@@ -73,11 +75,19 @@
           Manchmal gibt es auch samstags kurse.
           Ansicht wechselbar 5,6 oder 7 Tage.
         </li>
+        <li class="list-group-item">
+          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          Add color property to courses.
+        </li>
+        <li class="list-group-item">
+          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          Change alpha with day time
+        </li>
       </ul>
     </div>
   </div>
 </div>
 
-<app-flyout [visible]="this.editLessonState == 'in'">
-  <app-lesson *ngIf="lesson" [lesson]="lesson"></app-lesson>
-</app-flyout>
+<flyout [visible]="this.editLessonState == 'in'">
+  <lesson *ngIf="lesson" [lesson]="lesson"></lesson>
+</flyout>

@@ -14,7 +14,7 @@ export class WeeklyHelper {
     return this.startOfWeek(DateTime.local());
   }
   end(): DateTime {
-    this.endOfWeek(DateTime.local());
+    return this.endOfWeek(DateTime.local());
   }
 
   startOfWeek(day: DateTime) {

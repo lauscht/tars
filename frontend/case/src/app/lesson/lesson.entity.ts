@@ -1,13 +1,6 @@
 import { Duration, DateTime } from 'luxon';
+import { Course } from '../course/course.entity';
 
-export class Course {
-  constructor(
-    public name: string,
-    public subject: string
-  ) {
-
-  }
-}
 
 export class ScheduledLesson {
   constructor(
@@ -31,14 +24,13 @@ export class Lesson {
     public room: string,
     public start: DateTime,
     public duration: Duration,
-    public content?: string,
-    public detailedContent?: string,
+    public content: string,
     public homework?: string
   ) {
   }
 
   get hasContent() {
-    return this.content || this.detailedContent;
+    return this.content;
   }
   get end(){
     return this.start.plus(this.duration);

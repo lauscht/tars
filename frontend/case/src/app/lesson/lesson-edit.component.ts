@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Lesson } from './lesson.entity';
 
 @Component({
-  selector: 'app-lesson-edit',
+  selector: 'lesson-edit',
   templateUrl: './lesson-edit.component.html',
   styleUrls: ['./lesson-edit.component.css'],
 })

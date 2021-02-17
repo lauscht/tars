@@ -1,40 +1,57 @@
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { WeeklyComponent } from './weekly/weekly.component';
-import { LessonEditComponent } from './lesson/lesson-edit.component';
-import { LessonComponent } from './lesson/lesson.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
-import { FormsModule } from '@angular/forms';
+
 import { LuxonModule } from 'luxon-angular';
+import { MatLuxonDateModule } from 'ngx-material-luxon';
 import { MarkdownModule } from 'ngx-markdown';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+
+import { HeaderComponent } from './header/header.component';
+import { WeeklyComponent } from './weekly/weekly.component';
+import { CourseComponent } from './course/course.component';
+
+import { LessonComponent } from './lesson/lesson.component';
+import { LessonEditComponent } from './lesson/lesson-edit.component';
+
 import { FlyoutComponent } from './shared/flyout/flyout.component';
+import { WeekInputComponent } from './shared/week-input/week-input.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    WeekInputComponent,
     WeeklyComponent,
     LessonComponent,
     LessonEditComponent,
-    FlyoutComponent
+    FlyoutComponent,
+    CourseComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MarkdownModule.forRoot(),
     AppRoutingModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatTooltipModule,
     MatInputModule,
     MatTabsModule,
     FormsModule,
     LuxonModule,
-    NgbModule    
+    MatLuxonDateModule,
+    NgbModule
   ],
   providers: [
   ],

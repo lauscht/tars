@@ -1,0 +1,21 @@
+
+
+<div class="rounded-full bg-indigo-200" [ngClass]="{'pt-1': edit}" (dblclick)="edit =!edit" >
+  <button class="btn btn-default" (click)="goToPreviousWeek()" matTooltip="Go to previous week"
+    matTooltipPosition="left">
+    <i class="fas fa-chevron-left"></i>
+  </button>
+  <button (click)="edit=true" *ngIf="!edit" matTooltip="Click to select your week.">
+    W{{date.weekNumber}}
+  </button>
+  <mat-form-field *ngIf="edit">   
+    <mat-label>Week {{date.weekNumber}}</mat-label>
+    <input matInput [matDatepicker]="picker" placeholder="{{date | date:'shortDate' }}" [(ngModel)]="date"
+      (dateChange)="dateChanged.emit()">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <button class="btn btn-default" (click)="goToNextWeek()" matTooltip="Go to next week" matTooltipPosition="right">
+    <i class="fas fa-chevron-right"></i>
+  </button>    
+</div>
