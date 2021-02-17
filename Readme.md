@@ -1,4 +1,6 @@
-# User Story
+# Teachers' Artificial Secretary
+
+## User Story
 
 As a teacher, I want to 
 - have a weekly calender with timetable.
