@@ -1,6 +1,5 @@
-<div class="p-1 mt-2 border-2 border-indigo-100 rounded hover:bg-green-400" matTooltip="Show lesson"
-    [ngClass]="{'border-solid': lesson.hasContent, 'border-dashed': !lesson.hasContent}"
-    [ngClass]="colorCss">
+<div class="p-1 mt-2 border-2 rounded " matTooltip="Show lesson"    
+    [ngClass]="[color.getBackground(), color.getHover(), boarderCss]">
     
 
     <div class="grid grid-cols-1 2xl:grid-cols-2 gap-2">       
