@@ -1,31 +1,31 @@
-<div class="p-1 mt-2 border-2 rounded " matTooltip="Show lesson"    
+<div class="p-1 mt-2 border-2 rounded " matTooltip="Show lesson"
     [ngClass]="[color.getBackground(), color.getHover(), boarderCss]">
-    
 
-    <div class="grid grid-cols-1 2xl:grid-cols-2 gap-2">       
+
+    <div class="grid grid-cols-1 2xl:grid-cols-2 gap-2">
         <div>
             <i class="fas fa-door-closed"></i>
             <span>
                 {{ lesson.room }}
-            </span>            
+            </span>
         </div>
         <div>
             <i class="fal fa-users-class"></i>
             <span>
                 {{lesson.course.name }}
-                {{lesson.course.subject}}               
-            </span>        
+                {{lesson.course.subject}}
+            </span>
         </div>
         <div class="2xl:col-span-2">
             <i class="fas far fa-clock fa-fw"></i>
-            <span class="p-1">{{lesson.start | date:'shortTime' }}-{{lesson.end | date:'shortTime' }}</span> 
-        </div>       
-      </div>    
-     
+            <span class="p-1">{{lesson.start | date:'shortTime' }}-{{lesson.end | date:'shortTime' }}</span>
+        </div>
+    </div>
 
-    <small>
+
+    <p class="text-xs truncate">
         {{ lesson.content }}
-    </small>
+    </p>
     <div *ngIf="lesson.homework">
         <i class="fas fa-home" [matTooltip]="lesson.homework"></i>
     </div>

@@ -19,7 +19,7 @@ export class ColorService {
     ///https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Date/getDay
     switch (time.toJSDate().getDay()) {
       case WeekDay.Monday:
-        baseColor = "green";
+        baseColor = "purple";
         break;
       case WeekDay.Tuesday:
         baseColor = "blue";
@@ -28,13 +28,13 @@ export class ColorService {
         baseColor = "indigo";
         break;
       case WeekDay.Thursday:
-        baseColor = "indigo";
+        baseColor = "green";
         break;
       case WeekDay.Friday:
-        baseColor = "purple";
+        baseColor = "yellow";
         break;
       case WeekDay.Saturday:
-        baseColor = "pink";
+        baseColor = "red";
         break;
       default:
         baseColor = "gray";
