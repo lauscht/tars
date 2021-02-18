@@ -16,23 +16,23 @@ export class LessonTileComponent implements OnInit, DoCheck  {
   @Output()
   colorInfo: ColorInfo;
 
-  boarderCss: string;
+  borderCss: string;
 
   constructor(private colorService: ColorService) { }
 
   ngDoCheck(): void {
-   this.updateBoarder();
+   this.updateBorder();
   }
 
   ngOnInit(): void {
 
     this.colorInfo = this.colorService.getColor(this.lesson.start);
-    this.updateBoarder();
+    this.updateBorder();
 
   }
 
-  updateBoarder() {
-    this.boarderCss = this.lesson.hasContent ? 'border-solid' : 'border-dashed';
+  updateBorder() {
+    this.borderCss = this.lesson.hasContent ? 'border-solid' : 'border-dashed';
   }
 
 }

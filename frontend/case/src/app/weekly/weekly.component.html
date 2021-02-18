@@ -25,8 +25,8 @@
             {{day | date:'shortDate' }}
           </p>
           <hr>
-          <div *ngFor="let lesson of getLessonsOfTheDay(day);">      
-            <app-lesson-tile (click)="show(lesson)" [lesson]="lesson" ></app-lesson-tile>      
+          <div *ngFor="let lesson of getLessonsOfTheDay(day);">
+            <app-lesson-tile (click)="show(lesson)" [lesson]="lesson" ></app-lesson-tile>
           </div>
         </div>
       </div>
@@ -41,6 +41,14 @@
           <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
           Manchmal gibt es auch samstags kurse.
           Ansicht wechselbar 5,6 oder 7 Tage.
+        </li>
+        <li class="list-group-item">
+          <i class="fas fa-question rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          getBackground() shall we switch to props get background() instead?
+        </li>
+        <li class="list-group-item">
+          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          We should provide changeable colors and gradient settings :-)
         </li>
       </ul>
     </div>
