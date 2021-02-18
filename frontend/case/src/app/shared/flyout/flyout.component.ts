@@ -3,21 +3,21 @@ import {
   state,
   style,
   animate,
-  transition,  
+  transition,
 } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-flyout',
+  selector: 'flyout',
   templateUrl: './flyout.component.html',
   styleUrls: ['./flyout.component.css'],
   animations: [
-    trigger('openClose', [     
+    trigger('openClose', [
       state('open', style({
-        top: '70vh',             
+        top: '70vh',
       })),
       state('closed', style({
-        top: '100vh',        
+        top: '100vh',
       })),
       transition('open => closed', [
         animate('0.3s')
@@ -29,7 +29,7 @@ import { Component, Input, OnInit } from '@angular/core';
   ],
 })
 export class FlyoutComponent implements OnInit {
-  
+
   @Input()
   visible: boolean = false;
 

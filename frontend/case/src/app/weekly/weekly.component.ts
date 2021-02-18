@@ -4,9 +4,10 @@ import { LessonService } from './../lesson/lesson.service';
 import { Component, OnInit } from '@angular/core';
 import { Lesson } from '../lesson/lesson.entity';
 import { FlyInOutAnimation } from '../fly-in.animation';
+import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-weekly',
+  selector: 'weekly',
   templateUrl: './weekly.component.html',
   styleUrls: ['./weekly.component.css'],
   animations: [FlyInOutAnimation]
@@ -18,19 +19,13 @@ export class WeeklyComponent implements OnInit {
   public lesson: Lesson;
   public day;
   public end;
+  public dayForm;
 
   editLessonState = 'out';
   constructor(
     private lessonService: LessonService,
   ) {
-    const weekly = new WeeklyHelper();
-    const start = weekly.start();
-    this.day = start;
-    this.end = start.plus({days:weekly.days});
-    this.days = [];
-    for(var c = 0; c < weekly.days; c++){
-      this.days.push(start.plus({days: c}));
-    }
+    this.day = DateTime.local();
    }
 
    getLessonsOfTheDay(day){
@@ -40,7 +35,18 @@ export class WeeklyComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.updateDays();
+  }
 
+  updateDays() {
+    const weekly = new WeeklyHelper();
+    const start = weekly.startOfWeek(this.day);
+    this.end = start.plus({days:weekly.days});
+    const days = [];
+    for(var c = 0; c < weekly.days; c++){
+      days.push(start.plus({days: c}));
+    }
+    this.days = days;
   }
 
   add() {

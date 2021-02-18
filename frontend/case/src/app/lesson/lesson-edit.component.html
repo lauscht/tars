@@ -27,22 +27,8 @@
   <div class="flex items-center justify-between">
     <mat-form-field class="flex-grow">
       <mat-label>Content:</mat-label>
-      <input [(ngModel)]="lesson.content" matInput placeholder="Ex. It makes me feel...">
+      <textarea class="flex-grow" [(ngModel)]="lesson.content" matInput placeholder="Type in some content...">
     </mat-form-field>
-  </div>
-  <div class="flex items-center justify-between">
-    <mat-tab-group class="flex-grow">
-      <mat-tab label="Detailed Content">
-        <mat-form-field class="flex-grow">
-          <mat-label>Detailed Content:</mat-label>
-          <textarea class="flex-grow" [(ngModel)]="lesson.detailedContent" matInput placeholder="Ex. It makes me feel...">
-          </textarea>
-        </mat-form-field>
-      </mat-tab>
-      <mat-tab label="Preview">
-        <markdown class="flex-grow" [data]="lesson.detailedContent"></markdown>
-      </mat-tab>
-    </mat-tab-group>
   </div>
   <div class="flex items-center justify-between">
     <mat-form-field class="flex-grow">

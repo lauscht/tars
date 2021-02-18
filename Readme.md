@@ -49,6 +49,10 @@ As a teacher, I want to
     - export to excel
 
 - want to have a seating plan per room / class for continuous grading of pupils.
+    - from there assign penalty tasks
+
+- noticeboard for meeting minutes (Elterngespräche, (assigned to pupil))
+
 
 - use google authorization.
 - optional include external calender.
