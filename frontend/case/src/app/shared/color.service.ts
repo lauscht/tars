@@ -10,42 +10,37 @@ import { ColorInfo } from "./color.info";
 })
 export class ColorService {
 
-  constructor() { }
+  WeekColorMap: Map<WeekDay, string>;
 
-  public getColor(time: DateTime):ColorInfo {
+  constructor() {
+
+    this.WeekColorMap = new Map([
+      [WeekDay.Monday, "purple"],
+      [WeekDay.Tuesday, "blue"],
+      [WeekDay.Wednesday, "indigo"],
+      [WeekDay.Thursday, "green"],
+      [WeekDay.Friday, "yellow"],
+      [WeekDay.Saturday, "red"]
+    ]);
+
+  }
+
+  public getColor(time: DateTime): ColorInfo {
 
     let baseColor = "";
+      ///https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Date/getDay
+    const day = time.toJSDate().getDay();
 
-    ///https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Date/getDay
-    switch (time.toJSDate().getDay()) {
-      case WeekDay.Monday:
-        baseColor = "purple";
-        break;
-      case WeekDay.Tuesday:
-        baseColor = "blue";
-        break;
-      case WeekDay.Wednesday:
-        baseColor = "indigo";
-        break;
-      case WeekDay.Thursday:
-        baseColor = "green";
-        break;
-      case WeekDay.Friday:
-        baseColor = "yellow";
-        break;
-      case WeekDay.Saturday:
-        baseColor = "red";
-        break;
-      default:
-        baseColor = "gray";
-        break;
-    }
+    if (!this.WeekColorMap.has(day))
+      baseColor = "gray";
+    else
+      baseColor = this.WeekColorMap.get(day);
 
     const min = 6;
     // gradient range is 100-900
     const gradient = _.clamp(Math.abs(time.hour - min) * 100, 100, 900);
-    
-    return new ColorInfo(baseColor, gradient, gradient -100);
+
+    return new ColorInfo(baseColor, gradient, gradient - 100);
   }
 
 }

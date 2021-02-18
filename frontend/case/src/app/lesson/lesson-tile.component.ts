@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, DoCheck, Input, OnInit, Output } from '@angular/core';
 import { ColorInfo } from '../shared/color.info';
 import { ColorService } from '../shared/color.service';
 import { Lesson } from './lesson.entity';
@@ -8,21 +8,31 @@ import { Lesson } from './lesson.entity';
   templateUrl: './lesson-tile.component.html',
   styleUrls: ['./lesson-tile.component.css']
 })
-export class LessonTileComponent implements OnInit {
+export class LessonTileComponent implements OnInit, DoCheck  {
 
   @Input()
   lesson: Lesson;
 
-  color: ColorInfo;
+  @Output()
+  colorInfo: ColorInfo;
+
   boarderCss: string;
 
-  constructor( private colorService: ColorService) { }
+  constructor(private colorService: ColorService) { }
+
+  ngDoCheck(): void {
+   this.updateBoarder();
+  }
 
   ngOnInit(): void {
 
-    this.color = this.colorService.getColor(this.lesson.start);
-    this.boarderCss = this.lesson.hasContent ? 'border-solid':  'border-dashed';
+    this.colorInfo = this.colorService.getColor(this.lesson.start);
+    this.updateBoarder();
 
+  }
+
+  updateBoarder() {
+    this.boarderCss = this.lesson.hasContent ? 'border-solid' : 'border-dashed';
   }
 
 }
