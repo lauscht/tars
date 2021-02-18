@@ -61,12 +61,16 @@
           <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
           Change alpha with day time
         </li>
+        <li class="list-group-item">
+          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          white color and low alpha have to small contrast.
+        </li>
       </ul>
     </div>
   </div>
 </div>
 
 
-<app-flyout [visible]="this.editLessonState == 'in'">
-  <app-lesson *ngIf="lesson" [lesson]="lesson"></app-lesson>
-</app-flyout>
+<flyout [visible]="this.editLessonState == 'in'">
+  <lesson *ngIf="lesson" [lesson]="lesson"></lesson>
+</flyout>

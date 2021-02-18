@@ -35,10 +35,11 @@ import { WeekInputComponent } from './shared/week-input/week-input.component';
     LessonComponent,
     LessonEditComponent,
     FlyoutComponent,
-    LessonTileComponent
+    LessonTileComponent,
     CourseComponent,
     HeaderComponent,
   ],
+
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -52,7 +53,7 @@ import { WeekInputComponent } from './shared/week-input/week-input.component';
     FormsModule,
     LuxonModule,
     MatLuxonDateModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [
   ],
