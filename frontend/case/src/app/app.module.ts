@@ -24,8 +24,8 @@ import { LessonComponent } from './lesson/lesson.component';
 import { LessonEditComponent } from './lesson/lesson-edit.component';
 
 import { FlyoutComponent } from './shared/flyout/flyout.component';
+import { LessonTileComponent } from './lesson/lesson-tile.component';
 import { WeekInputComponent } from './shared/week-input/week-input.component';
-
 
 @NgModule({
   declarations: [
@@ -35,6 +35,7 @@ import { WeekInputComponent } from './shared/week-input/week-input.component';
     LessonComponent,
     LessonEditComponent,
     FlyoutComponent,
+    LessonTileComponent
     CourseComponent,
     HeaderComponent,
   ],

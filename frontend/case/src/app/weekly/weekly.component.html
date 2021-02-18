@@ -29,37 +29,7 @@
           </p>
           <hr>
           <div *ngFor="let lesson of getLessonsOfTheDay(day);">
-            <div class="p-1 mt-2 border-2 border-indigo-100 rounded hover:bg-green-400" matTooltip="Show lesson"
-              (click)="show(lesson)"
-              [ngClass]="{'border-solid': lesson.hasContent, 'border-dashed': !lesson.hasContent}">
-              <div class="flex justify-between">
-                <div>
-                  <i class="fal fa-door-closed"></i>
-                  {{ lesson.room }}
-                </div>
-                <div>
-                  <i class="fal fa-users-class"></i>
-                  {{lesson.course.name }}
-                  {{ lesson.course.subject }}
-                </div>
-              </div>
-              <p class="text-xs truncate">
-                {{ lesson.content }}
-              </p>
-              <div *ngIf="lesson.homework">
-                <i class="fas fa-home" [matTooltip]="lesson.homework"></i>
-              </div>
-              <div class="flex items-justify">
-                <div class="text-xs text-left">
-                  <i class="fas fa-step-forward"></i>
-                  {{lesson.start | date:'shortTime' }}-
-                </div>
-                <div class="text-xs text-right">
-                  {{lesson.end | date:'shortTime' }}
-                  <i class="fas fa-step-backward"></i>
-                </div>
-              </div>
-            </div>
+            <app-lesson-tile (click)="show(lesson)" [lesson]="lesson" ></app-lesson-tile>
           </div>
         </div>
       </div>
@@ -76,6 +46,14 @@
           Ansicht wechselbar 5,6 oder 7 Tage.
         </li>
         <li class="list-group-item">
+          <i class="fas fa-question rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          getBackground() shall we switch to props get background() instead?
+        </li>
+        <li class="list-group-item">
+          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+          We should provide changeable colors and gradient settings :-)
+        </li>
+        <li class="list-group-item">
           <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
           Add color property to courses.
         </li>
@@ -88,6 +66,7 @@
   </div>
 </div>
 
-<flyout [visible]="this.editLessonState == 'in'">
-  <lesson *ngIf="lesson" [lesson]="lesson"></lesson>
-</flyout>
+
+<app-flyout [visible]="this.editLessonState == 'in'">
+  <app-lesson *ngIf="lesson" [lesson]="lesson"></app-lesson>
+</app-flyout>
