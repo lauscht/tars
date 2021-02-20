@@ -4,10 +4,12 @@
       <!-- sidebar nav -->
     </div>
     <main class="col-12 col-md-9 col-lg-8 py-md-3 pl-md-5 bd-content" role="main">
-      <h1>
-        <i class="fal fa-calendar-week"></i>
-        Week overview
-      </h1>
+      <div>        
+        <h1>
+          <i class="fal fa-calendar-week"></i>
+          Week overview
+        </h1>
+      </div>      
       <div class="flex justify-between">
         <div>
           <week-input [date]="day" (dateChanged)="updateDays()"></week-input>
@@ -19,8 +21,9 @@
           </button>
         </div>
       </div>
-      <div class="flex item-center justify-between">
-        <div class="col col-lg-2" *ngFor="let day of days">
+      <div class="row flex item-center justify-between">        
+        <div class="col-md-12 col-lg-2" *ngFor="let day of days">
+          
           <p class="text-lg font-bold">
             {{day.weekdayLong}}
           </p>
@@ -29,9 +32,10 @@
           </p>
           <hr>
           <div *ngFor="let lesson of getLessonsOfTheDay(day);">
-            <app-lesson-tile (click)="show(lesson)" [lesson]="lesson" ></app-lesson-tile>
+            <app-lesson-tile (click)="show(lesson)" [lesson]="lesson"></app-lesson-tile>
           </div>
         </div>
+
       </div>
     </main>
     <!-- flyout menu?-->
