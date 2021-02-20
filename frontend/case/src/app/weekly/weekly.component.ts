@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Lesson } from '../lesson/lesson.entity';
 import { FlyInOutAnimation } from '../fly-in.animation';
 import { FormControl } from '@angular/forms';
+import { ColorService } from '../shared/color.service';
 
 @Component({
   selector: 'weekly',
@@ -24,6 +25,7 @@ export class WeeklyComponent implements OnInit {
   editLessonState = 'out';
   constructor(
     private lessonService: LessonService,
+    private colorService: ColorService
   ) {
     this.day = DateTime.local();
    }
@@ -32,6 +34,11 @@ export class WeeklyComponent implements OnInit {
      const weekday = day.weekday;
      return this.lessonService.getLessons().filter((l) =>
      l.start.weekday === weekday);
+   }
+
+   getColorOfTheDay(day){
+    const weekday = day.weekday;
+    return this.colorService.WeekColorMap.get(weekday);
    }
 
   ngOnInit(): void {

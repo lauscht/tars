@@ -4,15 +4,15 @@
       <!-- sidebar nav -->
     </div>
     <main class="col-12 col-md-9 col-lg-8 py-md-3 pl-md-5 bd-content" role="main">
-      <div>        
-        <h1>
-          <i class="fal fa-calendar-week"></i>
-          Week overview
-        </h1>
-      </div>      
-      <div class="flex justify-between">
+      <div class="flex justify-between pt-1">
+        <div>        
+          <h1>
+            <i class="fal fa-calendar-week"></i>
+            Week overview
+          </h1>
+        </div>      
         <div>
-          <week-input [date]="day" (dateChanged)="updateDays()"></week-input>
+          <week-input [date]="day" (dateChanged)="updateDays()"></week-input>        
         </div>
         <div>
           <button class="h-12 w-12 bg-green-200 hover:bg-green-400 rounded-full flex items-center justify-center"
@@ -20,11 +20,14 @@
             <i class="fas fa-plus text-xl"></i>
           </button>
         </div>
-      </div>
+      </div>           
       <div class="row flex item-center justify-between">        
-        <div class="col-md-12 col-lg-2" *ngFor="let day of days">
-          
+        <div class="col-md-12 col-lg-2 text-center" *ngFor="let day of days">   
+          <hr>                                        
           <p class="text-lg font-bold">
+            <span [ngStyle]="{'color': getColorOfTheDay(day)}">
+              <i class="fas fa-circle"></i>
+            </span>
             {{day.weekdayLong}}
           </p>
           <p>
