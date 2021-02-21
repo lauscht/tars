@@ -1,20 +1,36 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12 col-md-1 col-lg-2 bd-sidebar">
+      <!-- sidebar nav -->
       <h2>Courses</h2>
       <div class="list-group list-group-flush">
-        <a class="list-group-item list-group-item-action cursor-pointer" *ngFor="let c of this.courses"
+        <a *ngFor="let c of this.courses" class="list-group-item list-group-item-action cursor-pointer"
            (click)="course = c">
           <i class="fal fa-users-class"></i>
           {{c.name}} {{c.subject}}
         </a>
+        <a class="list-group-item list-group-item-action cursor-pointer"
+           (click)="add()">
+          <i class="fas fa-plus text-xl"></i>
+          Add course
+        </a>
       </div>
     </div>
     <main class="col-12 col-md-9 col-lg-8 py-md-3 pl-md-5 bd-content" role="main">
-      <h1>
-        <i class="fal fa-users-class"></i>
-        Course {{course.name}} {{course.subject}}
-      </h1>
+      <div class="flex justify-between pt-1">
+        <div>
+          <h1>
+            <i class="fal fa-users-class"></i>
+            {{course.name}} {{course.subject}}
+          </h1>
+        </div>
+        <div>
+          <button class="h-12 w-12 bg-green-200 hover:bg-green-400 rounded-full flex items-center justify-center"
+            (click)="add()" matTooltip="Add new course" matTooltipPosition="left">
+            <i class="fas fa-plus text-xl"></i>
+          </button>
+        </div>
+      </div>
       <mat-tab-group>
         <mat-tab label="Content">
           <div *ngFor="let lesson of lessons">
@@ -43,11 +59,11 @@
           </div>
         </mat-tab>
         <mat-tab label="Pupils ({{pupils.length}})">
-          <ul class="list-group mt-2">
-            <li class="list-group-item" *ngFor="let p of pupils">
-              {{ p.name }}
+          <ol class="list-group mt-2">
+            <li class="list-group-item" *ngFor="let p of pupils; index as i">
+              {{i+1}}. {{ p.name }}
             </li>
-          </ul>
+          </ol>
         </mat-tab>
       </mat-tab-group>
     </main>
