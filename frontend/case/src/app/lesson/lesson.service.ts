@@ -21,14 +21,6 @@ export class LessonService {
     const duration2 = Duration.fromISO('PT90M');
 
     const hours = [
-      { hour:  7, minute: 30},
-      { hour:  7, minute: 55 },
-      { hour:  8, minute: 45 },
-      { hour:  9, minute: 35 },
-      { hour: 10, minute: 40 },
-      { hour: 11, minute: 30 },
-      { hour: 12, minute: 20 },
-      { hour: 13, minute: 25 },
     ]
 
     const monday = weekly.start();
