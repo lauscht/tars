@@ -1,4 +1,4 @@
-<div class="p-1 mt-2 border-2 rounded text-white" matTooltip="Show lesson"
+<div class="p-1 mt-2 border-2 rounded text-white" matTooltip="Show lesson" (dblclick)="isEditState = !isEditState"
     [ngClass]="[colorInfo.getBackground(), colorInfo.getHover(), borderCss]">
 
 
@@ -21,11 +21,15 @@
             <span class="p-1">{{lesson.start | date:'shortTime' }}-{{lesson.end | date:'shortTime' }}</span>
         </div>
     </div>
-
-
-    <p class="text-xs truncate" #content>
+    
+    <p class="text-xs truncate" #content *ngIf="!isEditState">
         {{ lesson.content }}
     </p>
+
+    <textarea placeholder="content goes here" class="text-black" *ngIf="isEditState" [(ngModel)]="lesson.content " >
+        
+    </textarea>
+
     <div *ngIf="lesson.homework">
         <i class="fas fa-home" [matTooltip]="lesson.homework"></i>
     </div>
