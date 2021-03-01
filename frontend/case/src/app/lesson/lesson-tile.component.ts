@@ -17,6 +17,7 @@ export class LessonTileComponent implements OnInit, DoCheck  {
   colorInfo: ColorInfo;
 
   borderCss: string;
+  isEditState: boolean;
 
   constructor(private colorService: ColorService) { }
 
@@ -28,6 +29,7 @@ export class LessonTileComponent implements OnInit, DoCheck  {
 
     this.colorInfo = this.colorService.getColor(this.lesson.start);
     this.updateBorder();
+    this.isEditState = false;
 
   }
 
