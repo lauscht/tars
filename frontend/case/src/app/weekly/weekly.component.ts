@@ -4,8 +4,9 @@ import { LessonService } from './../lesson/lesson.service';
 import { Component, OnInit } from '@angular/core';
 import { Lesson } from '../lesson/lesson.entity';
 import { FlyInOutAnimation } from '../fly-in.animation';
-import { FormControl } from '@angular/forms';
 import { ColorService } from '../shared/color.service';
+import { Course } from '../course/course.entity';
+import { DoCheck } from '@angular/core';
 
 @Component({
   selector: 'weekly',
@@ -13,14 +14,15 @@ import { ColorService } from '../shared/color.service';
   styleUrls: ['./weekly.component.css'],
   animations: [FlyInOutAnimation]
 })
-export class WeeklyComponent implements OnInit {
+export class WeeklyComponent implements OnInit, DoCheck {
 
   public days: DateTime[];
-  public lessons;
-  public lesson: Lesson;
+  public selected: Lesson;
+  public previous: Lesson[];
+  public future:Lesson[];
   public day;
   public end;
-  public dayForm;
+
 
   editLessonState = 'out';
   constructor(
@@ -45,6 +47,19 @@ export class WeeklyComponent implements OnInit {
     this.updateDays();
   }
 
+  ngDoCheck(): void {
+
+    if(!this.selected && this.days && this.days.length > 0){
+      const lessons = this.getLessonsOfTheDay(this.days[0]);
+
+      if(lessons.length > 0){
+        this.show(lessons[0]);
+      }
+
+    }
+    
+  }
+
   updateDays() {
     const weekly = new WeeklyHelper();
     const start = weekly.startOfWeek(this.day);
@@ -60,7 +75,9 @@ export class WeeklyComponent implements OnInit {
     this.editLessonState = this.editLessonState === 'in' ? 'out' : 'in';
   }
   show(lesson: Lesson) {
-    this.lesson = lesson;
+    this.selected = lesson;
+    this.future = this.lessonService.getFuture(lesson);
+    this.previous = this.lessonService.getPrevious(lesson);
     this.editLessonState = 'in';
   }
 

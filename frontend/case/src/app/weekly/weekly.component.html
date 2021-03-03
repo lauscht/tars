@@ -1,18 +1,15 @@
-<div class="container-fluid">
+<div class="container-fluid pt-1">
   <div class="row">
-    <div class="col-12 col-md-1 col-lg-2 bd-sidebar">          
-   
-    </div>
     <main class="col-12 col-md-9 col-lg-8 py-md-3 pl-md-5 bd-content" role="main">
       <div class="flex justify-between pt-1">
-        <div>        
+        <div>
           <h1>
             <i class="fal fa-calendar-week"></i>
             Week overview
           </h1>
-        </div>      
+        </div>
         <div>
-          <week-input [date]="day" (dateChanged)="updateDays()"></week-input>        
+          <week-input [date]="day" (dateChanged)="updateDays()"></week-input>
         </div>
         <div>
           <button class="h-12 w-12 bg-green-200 hover:bg-green-400 rounded-full flex items-center justify-center"
@@ -20,10 +17,10 @@
             <i class="fas fa-plus text-xl"></i>
           </button>
         </div>
-      </div>           
-      <div class="row flex item-center justify-between">        
-        <div class="col-md-12 col-lg-2 text-center" *ngFor="let day of days">   
-          <hr>                                                 
+      </div>
+      <div class="row flex item-center justify-between">
+        <div class="col-md-12 col-lg-2 text-center" *ngFor="let day of days">
+          <hr>
           <p class="text-lg font-bold ">
             <span [ngStyle]="{'color': getColorOfTheDay(day)}">
               <i class="fas fa-circle"></i>
@@ -34,45 +31,99 @@
             {{day | date:'shortDate' }}
           </p>
           <hr>
-          <div *ngFor="let lesson of getLessonsOfTheDay(day);">
-            <app-lesson-tile (click)="show(lesson)" [lesson]="lesson"></app-lesson-tile>
+          <div *ngFor="let lesson of getLessonsOfTheDay(day);">           
+            <app-lesson-tile (click)="show(lesson)" [lesson]="lesson" [isSelected]="lesson === selected"></app-lesson-tile>
           </div>
         </div>
 
       </div>
-    </main>
-    <!-- flyout menu?-->
-    <div class="col-md-2">
-      <h3>
-        Todo:
-      </h3>
-      <ul class="list-group">
-        <li class="list-group-item">
-          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
-          Manchmal gibt es auch samstags kurse.
-          Ansicht wechselbar 5,6 oder 7 Tage.
-        </li>
-        <li class="list-group-item">
-          <i class="fas fa-question rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
-          getBackground() shall we switch to props get background() instead?
-        </li>
-        <li class="list-group-item">
-          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
-          We should provide changeable colors and gradient settings :-)
-        </li>
-        <li class="list-group-item">
-          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
-          Add color property to courses.
-        </li>
-        <li class="list-group-item">
-          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
-          Change alpha with day time
-        </li>
-        <li class="list-group-item">
-          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
-          white color and low alpha have to small contrast.
-        </li>
-      </ul>
+    </main>    
+    <div class="col-md-4 p-3 pl-4 border-left"  >  
+      <h2>
+        <i class="fal far fa-edit"></i>
+        {{selected.start.weekdayLong}} {{selected.course.name}} {{selected.start | date:'shortTime' }}-{{selected.end | date:'shortTime' }} at {{selected.room}}
+      </h2>
+      <div *ngIf="selected">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Lesson Content</label>
+          <textarea class="form-control" rows="5" [(ngModel)]="selected.content"></textarea>        
+        </div>    
+        <div class="form-group">
+          <label for="exampleInputPassword1">Homework</label>        
+          <textarea class="form-control" rows="8" [(ngModel)]="selected.homework"></textarea>
+        </div>  
+        <div class="row">
+          <div class="col-6 gap-6">
+            <button type="button" class="btn btn-primary btn-block">Save</button>
+          </div>
+          <div class="col-6 gap-6">
+            <button type="button" class="btn btn-light btn-block">Cancel</button>
+          </div>                    
+        </div>      
+        <hr>    
+        <div class="row">
+          <div class="col-4">     
+            
+            <div class="card">
+              <div class="card-header">
+                <i class="fal far fas fa-backward"></i>
+                Previous
+              </div>
+              <ol class="list-group list-group-flush" *ngFor="let p of previous">
+                <li class="list-group-item">             
+                 <a>{{p.content}} here we need a link to previous</a>            
+                </li>
+              </ol>      
+            </div>                        
+          </div>
+          <div class="offset-2 col-4">
+            <div class="card">
+              <div class="card-header">
+                <i class="fal far fas fas fa-forward"></i>
+                Futures
+              </div>
+              <ol class="list-group list-group-flush" *ngFor="let f of future">
+                <li class="list-group-item">
+                  <a>{{f.content}} here we need a link to next</a>            
+                </li>
+              </ol>        
+            </div>            
+          </div>
+        </div>        
+      </div>           
     </div>
   </div>
+</div>
+
+<div style="display: none;">
+  <h3>
+    Todo:
+  </h3>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+      Manchmal gibt es auch samstags kurse.
+      Ansicht wechselbar 5,6 oder 7 Tage.
+    </li>
+    <li class="list-group-item">
+      <i class="fas fa-question rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+      getBackground() shall we switch to props get background() instead?
+    </li>
+    <li class="list-group-item">
+      <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+      We should provide changeable colors and gradient settings :-)
+    </li>
+    <li class="list-group-item">
+      <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+      Add color property to courses.
+    </li>
+    <li class="list-group-item">
+      <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+      Change alpha with day time
+    </li>
+    <li class="list-group-item">
+      <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+      white color and low alpha have to small contrast.
+    </li>
+  </ul>
 </div>
