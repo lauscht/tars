@@ -13,11 +13,13 @@ export class LessonTileComponent implements OnInit, DoCheck  {
   @Input()
   lesson: Lesson;
 
+  @Input()
+  isSelected: boolean;
+
   @Output()
   colorInfo: ColorInfo;
 
-  borderCss: string;
-  isEditState: boolean;
+  borderCss: string;  
 
   constructor(private colorService: ColorService) { }
 
@@ -29,7 +31,6 @@ export class LessonTileComponent implements OnInit, DoCheck  {
 
     this.colorInfo = this.colorService.getColor(this.lesson.start);
     this.updateBorder();
-    this.isEditState = false;
 
   }
 
