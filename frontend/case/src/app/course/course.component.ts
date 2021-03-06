@@ -5,6 +5,8 @@ import { Pupil } from '../pupil/pupil.entity';
 import { PupilService } from '../pupil/pupil.service';
 import { Course } from './course.entity';
 import { CourseService } from './course.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'course',
@@ -22,6 +24,7 @@ export class CourseComponent implements OnInit {
     private courseService: CourseService,
     private lessonService: LessonService,
     private pupilService: PupilService,
+    private snackBar: MatSnackBar,
   ) {
     this.courses = this.courseService.getCourses();
     this.course = this.courses[0];

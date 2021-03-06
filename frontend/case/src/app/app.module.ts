@@ -1,3 +1,4 @@
+import { Assessment } from './assessment/assessment.entity';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -7,6 +8,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { LuxonModule } from 'luxon-angular';
 import { MatLuxonDateModule } from 'ngx-material-luxon';
@@ -27,6 +29,7 @@ import { FlyoutComponent } from './shared/flyout/flyout.component';
 import { LessonTileComponent } from './lesson/lesson-tile.component';
 import { WeekInputComponent } from './shared/week-input/week-input.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { AssessmentComponent } from './assessment/assessment.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
     CourseComponent,
     HeaderComponent,
     ScheduleComponent,
+    AssessmentComponent,
   ],
 
   imports: [
@@ -49,6 +53,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
     AppRoutingModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSnackBarModule,
     MatTooltipModule,
     MatInputModule,
     MatTabsModule,
