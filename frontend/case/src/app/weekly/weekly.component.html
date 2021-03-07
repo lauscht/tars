@@ -44,20 +44,21 @@
         {{selected.start.weekdayLong}} {{selected.course.name}} {{selected.start | date:'shortTime' }}-{{selected.end | date:'shortTime' }} at {{selected.room}}
       </h2>
       <div *ngIf="selected">
-        <div class="form-group">
-          <label for="exampleInputEmail1">Lesson Content</label>
-          <textarea class="form-control" rows="5" [(ngModel)]="selected.content"></textarea>        
+        <div class="form-group">          
+          <label for="content">Lesson Content</label>           
+          <markdownbox [(text)]="selected.content" [rows]="5" [isEditMode]="editContent" ></markdownbox>                       
         </div>    
         <div class="form-group">
-          <label for="exampleInputPassword1">Homework</label>        
-          <textarea class="form-control" rows="8" [(ngModel)]="selected.homework"></textarea>
+          <!-- <label for="homework">Homework</label>                  
+          selected homework is  {{selected.homework}}
+          <markdownbox [(text)]="selected.homework" [rows]="8" ></markdownbox>                        -->
         </div>  
         <div class="row">
           <div class="col-6 gap-6">
-            <button type="button" class="btn btn-primary btn-block">Save</button>
+            <button type="button" class="btn btn-primary btn-block" (click)="save()" >Save</button>
           </div>
           <div class="col-6 gap-6">
-            <button type="button" class="btn btn-light btn-block">Cancel</button>
+            <button type="button" class="btn btn-light btn-block" (click)="cancel()" >Cancel</button>
           </div>                    
         </div>      
         <hr>    
