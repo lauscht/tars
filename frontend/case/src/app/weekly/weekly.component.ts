@@ -7,6 +7,7 @@ import { FlyInOutAnimation } from '../fly-in.animation';
 import { ColorService } from '../shared/color.service';
 import { Course } from '../course/course.entity';
 import { DoCheck } from '@angular/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'weekly',
@@ -20,6 +21,7 @@ export class WeeklyComponent implements OnInit, DoCheck {
   public selected: Lesson;
   public previous: Lesson[];
   public future:Lesson[];
+  public editContent:boolean;
   public day;
   public end;
 
@@ -27,7 +29,7 @@ export class WeeklyComponent implements OnInit, DoCheck {
   editLessonState = 'out';
   constructor(
     private lessonService: LessonService,
-    private colorService: ColorService
+    private colorService: ColorService,    
   ) {
     this.day = DateTime.local();
    }
@@ -75,10 +77,26 @@ export class WeeklyComponent implements OnInit, DoCheck {
     this.editLessonState = this.editLessonState === 'in' ? 'out' : 'in';
   }
   show(lesson: Lesson) {
+
+    if(lesson != this.selected){
+      this.editContent = !lesson.content || lesson.content === null;
+    }
+    
     this.selected = lesson;
+    this.selected.homework = '';
     this.future = this.lessonService.getFuture(lesson);
     this.previous = this.lessonService.getPrevious(lesson);
     this.editLessonState = 'in';
+    
+  }
+
+  save(){
+    //Looks like MatSnackBar is incompatible! Todo check why!
+    //this.snackBar.open('Changes saved.');
+  }
+
+  cancel(){
+    //this.snackBar.open('Changes canceled.');
   }
 
 }

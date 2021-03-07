@@ -1,0 +1,11 @@
+<div *ngIf="isEditMode; then editMode else viewMode">
+</div>
+child content is {{text}}
+  <ng-template #editMode>
+    <textarea (dblclick)="isEditMode = !isEditMode" class="w-100" [(ngModel)]="text" placeholder="Enter your text here." rows="{{rows}}" (keyup)="update()"  ></textarea>
+  </ng-template>
+  
+  <ng-template #viewMode>
+    <markdown (dblclick)="isEditMode = !isEditMode" [data]="text" >      
+    </markdown>
+  </ng-template>
