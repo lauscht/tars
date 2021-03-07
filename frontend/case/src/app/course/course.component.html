@@ -31,6 +31,16 @@
           </button>
         </div>
       </div>
+      <div class="flex flex-row items-center justify-between">
+        <div>
+          <i class="far fa-filter"></i>
+          Filter: DateRange
+        </div>
+        <div *ngFor="let filter of filters">
+          {{filter}}
+        </div>
+      </div>
+
       <mat-tab-group>
         <mat-tab label="Content">
           <div *ngFor="let lesson of lessons">
@@ -58,192 +68,30 @@
             </ul>
           </div>
         </mat-tab>
-        <mat-tab label="Pupils ({{pupils.length}})">
-          <ol class="list-group mt-2">
-            <li class="list-group-item" *ngFor="let p of pupils; index as i">
-              {{i+1}}. {{ p.name }}
-            </li>
-            <li class="list-group-item">
-              <input placeholder="Enter name">
-              <button matTooltip="Add pupil" class="h-6 w-6 bg-green-200 hover:bg-green-400 rounded-full flex items-center justify-center">
-                <i class="fas fa-plus"></i>
-              </button>
-            </li>
-          </ol>
-        </mat-tab>
         <mat-tab label="Assessments">
           <ul class="list-group">
-            <li class="list-group-item">
+            <li class="list-group-item"
+              *ngFor="let ass of assessments">
               <div class="flex items-center justify-between">
                 <div>
-                  15.11.2020
+                  {{ ass.date | date:'fullDate'  }}
                 </div>
                 <div>
-                  Exam
+                  {{ ass.category }}
                 </div>
                 <div>
-                  Shakespeare
+                  {{ ass.context }}
                 </div>
                 <div>
                   <span class="fa-stack">
                     <i class="fas fa-slash fa-stack-1x"></i>
                     <i class="far fa-circle fa-stack-1x"></i>
                   </span>
-                  3.3
+                  {{ ass.average }}
                 </div>
                 <div>
                   <i class="far fa-balance-scale"></i>
-                  2
-                </div>
-              </div>
-            </li>
-
-            <li class="list-group-item">
-              <div class="flex items-center justify-between">
-                <div>
-                  10.12.2020
-                </div>
-                <div>
-                  Test
-                </div>
-                <div>
-                  Voc p80
-                </div>
-                <div>
-                  <span class="fa-stack">
-                    <i class="fas fa-slash fa-stack-1x"></i>
-                    <i class="far fa-circle fa-stack-1x"></i>
-                  </span>
-                  4.0
-                </div>
-                <div>
-                  <i class="far fa-balance-scale"></i>
-                  1
-                </div>
-              </div>
-            </li>
-
-            <li class="list-group-item">
-              <div class="flex items-center justify-between">
-                <div>
-                  20.12.2020
-                </div>
-                <div>
-                  Oral
-                </div>
-                <div>
-                  -
-                </div>
-                <div>
-                  <span class="fa-stack">
-                    <i class="fas fa-slash fa-stack-1x"></i>
-                    <i class="far fa-circle fa-stack-1x"></i>
-                  </span>
-                  2.0
-                </div>
-                <div>
-                  <i class="far fa-balance-scale"></i>
-                  2
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item">
-
-              <div class="flex items-center justify-between">
-                <div>
-                  22.12.2020
-                </div>
-                <div>
-                  Summary
-                </div>
-                <div>
-                  Halbjahresnoten
-                </div>
-                <div>
-                  <span class="fa-stack">
-                    <i class="fas fa-slash fa-stack-1x"></i>
-                    <i class="far fa-circle fa-stack-1x"></i>
-                  </span>
-                  2.92
-                </div>
-                <div>
-                  <i class="far fa-sigma"></i>
-                  5
-                </div>
-              </div>
-            </li>
-
-            <li class="list-group-item">
-              <div class="flex items-center justify-between">
-                <div>
-                  10.01.2021
-                </div>
-                <div>
-                  Test
-                </div>
-                <div>
-                  Voc p80
-                </div>
-                <div>
-                  <span class="fa-stack">
-                    <i class="fas fa-slash fa-stack-1x"></i>
-                    <i class="far fa-circle fa-stack-1x"></i>
-                  </span>
-                  4.0
-                </div>
-                <div>
-                  <i class="far fa-balance-scale"></i>
-                  1
-                </div>
-              </div>
-            </li>
-
-            <li class="list-group-item">
-              <div class="flex items-center justify-between">
-                <div>
-                  20.02.2021
-                </div>
-                <div>
-                  Oral
-                </div>
-                <div>
-                  -
-                </div>
-                <div>
-                  <span class="fa-stack">
-                    <i class="fas fa-slash fa-stack-1x"></i>
-                    <i class="far fa-circle fa-stack-1x"></i>
-                  </span>
-                  2.0
-                </div>
-                <div>
-                  <i class="far fa-balance-scale"></i>
-                  2
-                </div>
-              </div>
-            </li>
-
-            <li class="list-group-item">
-              <div class="flex items-center justify-between">
-                <div>
-                  04.03.2021
-                </div>
-                <div>
-                  Summary
-                </div>
-                <div>
-                  Zeugnisnote
-                </div>
-                <div>
-                  <span class="fa-stack">
-                    <i class="fas fa-slash fa-stack-1x"></i>
-                    <i class="far fa-circle fa-stack-1x"></i>
-                  </span>
-                  2.83
-                </div>
-                <div>
-                  <i class="far fa-sigma"></i>
-                  8
+                  {{ ass.weight }}
                 </div>
               </div>
             </li>
@@ -252,7 +100,19 @@
       </mat-tab-group>
     </main>
     <div class="col-md-2">
-
+      <!-- sidebar -->
+      Pupils {{pupils.length}}
+      <ol class="list-group mt-2">
+        <li class="list-group-item" *ngFor="let p of pupils; index as i">
+          {{i+1}}. {{ p.name }}
+        </li>
+        <li class="list-group-item">
+          <input placeholder="Enter name">
+          <button matTooltip="Add pupil" class="h-6 w-6 bg-green-200 hover:bg-green-400 rounded-full flex items-center justify-center">
+            <i class="fas fa-plus"></i>
+          </button>
+        </li>
+      </ol>
     </div>
   </div>
 </div>
