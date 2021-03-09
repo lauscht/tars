@@ -22,6 +22,9 @@ export class MarkdownboxComponent implements OnInit, OnChanges {
   rows: number;
 
   @Input()
+  placeholder: string;
+
+  @Input()
   isEditMode: boolean;
 
   @Output()
@@ -29,17 +32,15 @@ export class MarkdownboxComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.text = this.text ? this.text : null;
-    // this.isEditMode = (!this.text || this.text == "" || this.text == null);
-    // this.isEditModeChange.emit(this.isEditMode);
+    this.isEditMode = this.isEditMode;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.textChange.emit(changes['text'].currentValue);
 
-    if (changes['text'].currentValue == null && !this.isEditMode) {
-      this.isEditMode = true;
-      this.isEditModeChange.emit(this.isEditMode);
+    if(changes['text']){
+      this.textChange.emit(changes['text'].currentValue);    
     }    
+
   }
 
   update() {
@@ -48,6 +49,18 @@ export class MarkdownboxComponent implements OnInit, OnChanges {
 
   log(value: string) {
     console.log(value);
+  }
+
+  toogleEditMode() {
+
+    if (this.text != null) {
+      this.isEditMode = !this.isEditMode;      
+    }
+    else {
+      this.isEditMode = true;      
+    }
+    this.isEditModeChange.emit(this.isEditMode);
+
   }
 
 }

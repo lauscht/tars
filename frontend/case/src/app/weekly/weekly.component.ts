@@ -22,6 +22,7 @@ export class WeeklyComponent implements OnInit, DoCheck {
   public previous: Lesson[];
   public future:Lesson[];
   public editContent:boolean;
+  public editHomework:boolean;
   public day;
   public end;
 
@@ -79,11 +80,11 @@ export class WeeklyComponent implements OnInit, DoCheck {
   show(lesson: Lesson) {
 
     if(lesson != this.selected){
-      this.editContent = !lesson.content || lesson.content === null;
-    }
+      this.editContent = (lesson.content === null);
+      this.editHomework = (lesson.homework == null);
+    }    
     
-    this.selected = lesson;
-    this.selected.homework = '';
+    this.selected = lesson;    
     this.future = this.lessonService.getFuture(lesson);
     this.previous = this.lessonService.getPrevious(lesson);
     this.editLessonState = 'in';
