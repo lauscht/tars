@@ -46,11 +46,11 @@
       <div *ngIf="selected">
         <div class="form-group">               
           <label for="content">Lesson Content</label>           
-          <markdownbox [(text)]="selected.content" [rows]="5" [(isEditMode)]="editContent" [placeholder]="'Enter content here.'" ></markdownbox>                                 
+          <markdownbox [(text)]="selectedContent" [rows]="5" [(isEditMode)]="editContent" [placeholder]="'Enter content here.'" ></markdownbox>                                 
         </div>    
         <div class="form-group border-top">
           <label for="homework">Homework</label>                                   
-          <markdownbox [(text)]="selected.homework" [rows]="8" [(isEditMode)]="editHomework" [placeholder]="'Enter homework here.'" ></markdownbox>
+          <markdownbox [(text)]="selectedHomework" [rows]="8" [(isEditMode)]="editHomework" [placeholder]="'Enter homework here.'" ></markdownbox>
         </div>  
         <div class="row">
           <div class="col-6 gap-6">
