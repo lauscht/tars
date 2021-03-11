@@ -57,6 +57,7 @@ import { MarkdownboxComponent } from './shared/markdownbox/markdownbox.component
     LuxonModule,
     MatLuxonDateModule,    
     NgbModule,    
+    MatSnackBar,
   ],
   providers: [
   ],
