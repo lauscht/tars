@@ -33,6 +33,7 @@ export class WeeklyComponent implements OnInit, DoCheck {
   constructor(
     private lessonService: LessonService,
     private colorService: ColorService,
+    private snackBar: MatSnackBar
   ) {
     this.day = DateTime.local();
   }
@@ -99,7 +100,7 @@ export class WeeklyComponent implements OnInit, DoCheck {
     this.selected.content = this.selectedContent;
     this.selected.homework = this.selectedHomework;
     //Looks like MatSnackBar is incompatible! Todo check why!
-    //this.snackBar.open('Changes saved.');
+    this.snackBar.open('Changes saved.');
   }
 
   cancel() {
