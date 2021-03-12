@@ -26,7 +26,7 @@ import { LessonEditComponent } from './lesson/lesson-edit.component';
 import { FlyoutComponent } from './shared/flyout/flyout.component';
 import { LessonTileComponent } from './lesson/lesson-tile.component';
 import { WeekInputComponent } from './shared/week-input/week-input.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MarkdownboxComponent } from './shared/markdownbox/markdownbox.component';
 
 @NgModule({
@@ -57,7 +57,7 @@ import { MarkdownboxComponent } from './shared/markdownbox/markdownbox.component
     LuxonModule,
     MatLuxonDateModule,    
     NgbModule,    
-    MatSnackBar,
+    MatSnackBarModule,
   ],
   providers: [
   ],
