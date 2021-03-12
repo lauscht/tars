@@ -81,7 +81,7 @@ export class WeeklyComponent implements OnInit, DoCheck {
     this.editLessonState = this.editLessonState === 'in' ? 'out' : 'in';
   }
   show(lesson: Lesson) {
-
+    
     if (lesson != this.selected) {
       this.editContent = (lesson.content === null);
       this.editHomework = (lesson.homework == null);
@@ -107,6 +107,6 @@ export class WeeklyComponent implements OnInit, DoCheck {
     //this.snackBar.open('Changes canceled.');
     this.selectedContent = this.selected.content;
     this.selectedHomework = this.selected.homework;
-  }
+  } 
 
 }
