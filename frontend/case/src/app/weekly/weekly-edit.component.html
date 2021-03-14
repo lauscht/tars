@@ -1,0 +1,57 @@
+<div *ngIf="selected">
+    <h2>
+        <i class="fal far fa-edit"></i>
+        {{selected.start.weekdayLong}} {{selected.course.name}} {{selected.start | date:'shortTime' }}-{{selected.end |
+        date:'shortTime' }} at {{selected.room}}
+    </h2>
+    <div *ngIf="selected">
+        <div class="form-group">
+            <label for="content">Lesson Content</label>
+            <markdownbox [(text)]="selectedContent" [rows]="5" [(isEditMode)]="editContent"
+                [placeholder]="'Enter content here.'"></markdownbox>
+        </div>
+        <div class="form-group border-top">
+            <label for="homework">Homework</label>
+            <markdownbox [(text)]="selectedHomework" [rows]="8" [(isEditMode)]="editHomework"
+                [placeholder]="'Enter homework here.'"></markdownbox>
+        </div>
+        <div class="row">
+            <div class="col-6 gap-6">
+                <button type="button" class="btn btn-primary btn-block" (click)="save()">Save</button>
+            </div>
+            <div class="col-6 gap-6">
+                <button type="button" class="btn btn-light btn-block" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-4">
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fal far fas fa-backward"></i>
+                        Previous
+                    </div>
+                    <ol class="list-group list-group-flush" *ngFor="let p of previous">
+                        <li class="list-group-item">
+                            <a>{{p.content}} here we need a link to previous</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="offset-2 col-4">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fal far fas fas fa-forward"></i>
+                        Futures
+                    </div>
+                    <ol class="list-group list-group-flush" *ngFor="let f of future">
+                        <li class="list-group-item">
+                            <a>{{f.content}} here we need a link to next</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
