@@ -18,7 +18,6 @@ export class AssessmentComponent implements OnInit {
   set assessment(a: Assessment){
     this._assessment = a;
     this.grades = this.assessmentService.getGrades(this.assessment);
-    console.log(a, this.grades);
   }
 
   public grades: Grade[];

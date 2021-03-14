@@ -30,6 +30,7 @@ import { LessonTileComponent } from './lesson/lesson-tile.component';
 import { WeekInputComponent } from './shared/week-input/week-input.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { AssessmentComponent } from './assessment/assessment.component';
+import { GradesComponent } from './course/grades/grades.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { AssessmentComponent } from './assessment/assessment.component';
     HeaderComponent,
     ScheduleComponent,
     AssessmentComponent,
+    GradesComponent,
   ],
 
   imports: [

@@ -5,6 +5,7 @@ import { Assessment, Grade } from './assessment.entity';
 
 import { course9a, course7ab } from '../course/course.entities.mock';
 import { Course } from '../course/course.entity';
+import { Pupil } from '../pupil/pupil.entity';
 
 function DMY(date: string):DateTime {
   return DateTime.fromFormat(date, "dd.MM.yyyy");
@@ -49,6 +50,10 @@ export class AssessmentService {
 
   getGrades(assessment: Assessment) {
     return this._grades.filter((g) => g.assessmentId == assessment.id);
+  }
+
+  getGradesByPupil(pupil: Pupil) {
+    return this._grades.filter((g) => g.pupilId == pupil.id);
   }
 
 }

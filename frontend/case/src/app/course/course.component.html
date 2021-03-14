@@ -79,29 +79,8 @@
         </mat-tab>
         <mat-tab label="Grades">
           <div class="flex flex-col">
-            <table class="table">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Name</th>
-                  <th scope="col" *ngFor="let ass of assessments;">
-                      {{ass.category}}
-                  </th>
-                </tr>
-              </thead>
-              <tr *ngFor="let pupil of pupils; let i=index;">
-                <td scope="row">
-                  {{i+1}}
-                </td>
-                <td>
-                  {{pupil.name}}
-                </td>
-                <td *ngFor="let ass of assessments;">
-                  -
-                </td>
-              </tr>
-            </table>
-          </div>
+            <grades [course]="course"></grades>
+            </div>
         </mat-tab>
       </mat-tab-group>
     </main>
