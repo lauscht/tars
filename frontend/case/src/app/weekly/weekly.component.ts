@@ -99,7 +99,7 @@ export class WeeklyComponent implements OnInit, DoCheck {
   save() {
     this.selected.content = this.selectedContent;
     this.selected.homework = this.selectedHomework;
-    //Looks like MatSnackBar is incompatible! Todo check why!
+    this.lessonService.save(this.selected);    
     this.snackBar.open('Changes saved.');
   }
 
@@ -107,6 +107,8 @@ export class WeeklyComponent implements OnInit, DoCheck {
     //this.snackBar.open('Changes canceled.');
     this.selectedContent = this.selected.content;
     this.selectedHomework = this.selected.homework;
+
+    this.snackBar.open('Changes are canceled.');
   } 
 
 }
