@@ -26,7 +26,7 @@ import { LessonEditComponent } from './lesson/lesson-edit.component';
 import { FlyoutComponent } from './shared/flyout/flyout.component';
 import { LessonTileComponent } from './lesson/lesson-tile.component';
 import { WeekInputComponent } from './shared/week-input/week-input.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MarkdownboxComponent } from './shared/markdownbox/markdownbox.component';
 
 @NgModule({
@@ -60,6 +60,7 @@ import { MarkdownboxComponent } from './shared/markdownbox/markdownbox.component
     MatSnackBarModule,
   ],
   providers: [
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500, horizontalPosition: 'right', panelClass: 'tars-snackbar' }}
   ],
   bootstrap: [AppComponent]
 })
