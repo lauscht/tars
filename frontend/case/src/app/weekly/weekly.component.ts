@@ -18,13 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class WeeklyComponent implements OnInit, DoCheck {
 
   public days: DateTime[];
-  public selected: Lesson;
-  public previous: Lesson[];
-  public future: Lesson[];
-  public selectedContent: string;
-  public selectedHomework: string;
-  public editContent: boolean;
-  public editHomework: boolean;
+  public selected: Lesson;  
   public day;
   public end;
 
@@ -32,8 +26,7 @@ export class WeeklyComponent implements OnInit, DoCheck {
   editLessonState = 'out';
   constructor(
     private lessonService: LessonService,
-    private colorService: ColorService,
-    private snackBar: MatSnackBar
+    private colorService: ColorService    
   ) {
     this.day = DateTime.local();
   }
@@ -59,7 +52,7 @@ export class WeeklyComponent implements OnInit, DoCheck {
       const lessons = this.getLessonsOfTheDay(this.days[0]);
 
       if (lessons.length > 0) {
-        this.show(lessons[0]);
+        this.selected = lessons[0];
       }
 
     }
@@ -79,36 +72,6 @@ export class WeeklyComponent implements OnInit, DoCheck {
 
   add() {
     this.editLessonState = this.editLessonState === 'in' ? 'out' : 'in';
-  }
-  show(lesson: Lesson) {
-    
-    if (lesson != this.selected) {
-      this.editContent = (lesson.content === null);
-      this.editHomework = (lesson.homework == null);
-      this.selectedContent = lesson.content;
-      this.selectedHomework = lesson.homework;
-    }
-
-    this.selected = lesson;
-    this.future = this.lessonService.getFuture(lesson);
-    this.previous = this.lessonService.getPrevious(lesson);
-    this.editLessonState = 'in';
-
-  }
-
-  save() {
-    this.selected.content = this.selectedContent;
-    this.selected.homework = this.selectedHomework;
-    this.lessonService.save(this.selected);    
-    this.snackBar.open('Changes saved.');
-  }
-
-  cancel() {
-    //this.snackBar.open('Changes canceled.');
-    this.selectedContent = this.selected.content;
-    this.selectedHomework = this.selected.homework;
-
-    this.snackBar.open('Changes are canceled.');
-  } 
+  }  
 
 }

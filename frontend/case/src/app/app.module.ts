@@ -28,6 +28,7 @@ import { LessonTileComponent } from './lesson/lesson-tile.component';
 import { WeekInputComponent } from './shared/week-input/week-input.component';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MarkdownboxComponent } from './shared/markdownbox/markdownbox.component';
+import { WeeklyEditComponent } from './weekly/weekly-edit.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MarkdownboxComponent } from './shared/markdownbox/markdownbox.component
     CourseComponent,
     HeaderComponent,
     MarkdownboxComponent,
+    WeeklyEditComponent,
   ],
 
   imports: [
