@@ -32,7 +32,9 @@ export class CourseComponent implements OnInit {
     private assessmentService: AssessmentService,
     private snackBar: MatSnackBar,
   ) {
-    this.courses = this.courseService.getCourses();
+    this.courses = this.courseService.getCourses().sort(
+      (a, b) => a.name.localeCompare(b.name)
+    );
     this.course = this.courses[0];
     this.filters = ["lessons", "assessments"]
     this.content = [];

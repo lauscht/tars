@@ -1,9 +1,9 @@
-import { Assessment } from './assessment/assessment.entity';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
@@ -53,6 +53,7 @@ import { AssessmentComponent } from './assessment/assessment.component';
     AppRoutingModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatExpansionModule,
     MatSnackBarModule,
     MatTooltipModule,
     MatInputModule,

@@ -7,7 +7,12 @@
         <a *ngFor="let c of this.courses" class="list-group-item list-group-item-action cursor-pointer"
            (click)="course = c">
           <i class="fal fa-users-class"></i>
-          {{c.name}} {{c.subject}}
+          <span class="col-1">
+            {{c.name}}
+          </span>
+          <span class="col-1">
+            {{c.subject}}
+          </span>
         </a>
         <a class="list-group-item list-group-item-action cursor-pointer"
            (click)="add()">
@@ -21,7 +26,8 @@
         <div>
           <h1>
             <i class="fal fa-users-class"></i>
-            {{course.name}} {{course.subject}}
+            {{course.name}}
+            {{course.subject}}
           </h1>
         </div>
         <div>
@@ -31,13 +37,11 @@
           </button>
         </div>
       </div>
+
       <div class="flex flex-row items-center justify-between">
         <div>
           <i class="far fa-filter"></i>
           Filter: DateRange
-        </div>
-        <div *ngFor="let filter of filters">
-          {{filter}}
         </div>
       </div>
 
@@ -69,33 +73,9 @@
           </div>
         </mat-tab>
         <mat-tab label="Assessments">
-          <ul class="list-group">
-            <li class="list-group-item"
-              *ngFor="let ass of assessments">
-              <div class="flex items-center justify-between">
-                <div>
-                  {{ ass.date | date:'fullDate'  }}
-                </div>
-                <div>
-                  {{ ass.category }}
-                </div>
-                <div>
-                  {{ ass.context }}
-                </div>
-                <div>
-                  <span class="fa-stack">
-                    <i class="fas fa-slash fa-stack-1x"></i>
-                    <i class="far fa-circle fa-stack-1x"></i>
-                  </span>
-                  {{ ass.average }}
-                </div>
-                <div>
-                  <i class="far fa-balance-scale"></i>
-                  {{ ass.weight }}
-                </div>
-              </div>
-            </li>
-          </ul>
+          <div class="flex flex-col">
+            <assessment class="mt-2 mr-2 ml-2" [assessment]="ass" *ngFor="let ass of assessments"></assessment>
+          </div>
         </mat-tab>
       </mat-tab-group>
     </main>

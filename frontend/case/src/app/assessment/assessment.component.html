@@ -1,1 +1,38 @@
-<p>exam works!</p>
+
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ assessment.category }}
+      {{ assessment.context }}
+    </mat-panel-title>
+    <mat-panel-description>
+      {{ assessment.date | date:'fullDate'  }}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div class="flex">
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Grade</th>
+      </thead>
+      <tr *ngFor="let grade of grades; let i=index;">
+        <td scope="row">{{i}}</td>
+        <td>{{grade.pupil.name}}</td>
+        <td>{{grade.mark}}</td>
+      </tr>
+      <tr>
+        <td scope="row">-</td>
+        <td>
+          <i class="far fa-balance-scale"></i>
+          {{ assessment.weigth }}
+        </td>
+        <td>
+          Ø {{assessment.average}}
+        </td>
+      </tr>
+    </table>
+  </div>
+</mat-expansion-panel>

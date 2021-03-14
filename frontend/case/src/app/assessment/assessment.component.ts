@@ -1,13 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Assessment, Grade } from './assessment.entity';
+import { Component, Input, OnInit } from '@angular/core';
+import { AssessmentService } from './assessment.service';
 
 @Component({
-  selector: 'app-assement',
+  selector: 'assessment',
   templateUrl: './assessment.component.html',
   styleUrls: ['./assessment.component.css']
 })
 export class AssessmentComponent implements OnInit {
 
-  constructor() { }
+  private _assessment: Assessment;
+  get assessment(): Assessment {
+    return this._assessment;
+  }
+
+  @Input()
+  set assessment(a: Assessment){
+    this._assessment = a;
+    this.grades = this.assessmentService.getGrades(this.assessment);
+    console.log(a, this.grades);
+  }
+
+  public grades: Grade[];
+
+  constructor(
+    private assessmentService: AssessmentService,
+  ) { }
 
   ngOnInit(): void {
   }
