@@ -1,13 +1,18 @@
+import { Pupil } from './../pupil/pupil.entity';
 import { Assessment } from './../assessment/assessment.entity';
 import { AssessmentService } from './../assessment/assessment.service';
 import { Component, OnInit } from '@angular/core';
 import { Lesson } from '../lesson/lesson.entity';
 import { LessonService } from '../lesson/lesson.service';
-import { Pupil } from '../pupil/pupil.entity';
 import { PupilService } from '../pupil/pupil.service';
 import { Course } from './course.entity';
 import { CourseService } from './course.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+
+export class ExtendedPupil extends Pupil {
+  public filter: boolean = false;
+}
 
 
 @Component({
@@ -21,7 +26,7 @@ export class CourseComponent implements OnInit {
   private _course: Course;
   public lessons: Lesson[];
   public assessments: Assessment[];
-  public pupils: Pupil[];
+  public pupils: ExtendedPupil[];
   public filters: string[];
   public content: [];
 
@@ -47,7 +52,7 @@ export class CourseComponent implements OnInit {
   set course(value: Course) {
     this._course = value;
     this.lessons = this.lessonService.getLessonByCourse(value);
-    this.pupils = this.pupilService.getByCourse(value);
+    this.pupils = <ExtendedPupil[]>this.pupilService.getByCourse(value);
     this.assessments = this.assessmentService.getByCourse(value);
   }
 
@@ -56,5 +61,9 @@ export class CourseComponent implements OnInit {
 
   add():void {
 
+  }
+
+  toggleFilter(p: ExtendedPupil){
+    p.filter = !p.filter;
   }
 }

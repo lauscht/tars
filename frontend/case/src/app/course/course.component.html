@@ -80,7 +80,7 @@
         <mat-tab label="Grades">
           <div class="flex flex-col">
             <grades [course]="course"></grades>
-            </div>
+          </div>
         </mat-tab>
       </mat-tab-group>
     </main>
@@ -88,7 +88,8 @@
       <!-- sidebar -->
       Pupils {{pupils.length}}
       <ol class="list-group mt-2">
-        <li class="list-group-item" *ngFor="let p of pupils; index as i">
+        <li class="list-group-item" *ngFor="let p of pupils; index as i" (click)="toggleFilter(p)">
+          <i class="fas fa-filter" *ngIf="p.filter"></i>
           {{i+1}}. {{ p.name }}
         </li>
         <li class="list-group-item">
