@@ -22,8 +22,6 @@ export class WeeklyComponent implements OnInit, DoCheck {
   public day;
   public end;
 
-
-  editLessonState = 'out';
   constructor(
     private lessonService: LessonService,
     private colorService: ColorService    
@@ -69,9 +67,4 @@ export class WeeklyComponent implements OnInit, DoCheck {
     }
     this.days = days;
   }
-
-  add() {
-    this.editLessonState = this.editLessonState === 'in' ? 'out' : 'in';
-  }  
-
 }

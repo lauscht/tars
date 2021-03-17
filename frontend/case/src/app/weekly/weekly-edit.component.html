@@ -1,8 +1,9 @@
-<div *ngIf="selected">
-    <h2>
-        <i class="fal far fa-edit"></i>
+<div *ngIf="selected">    
+    <h2>               
+        <i class="fal far fa-edit"></i>        
         {{selected.start.weekdayLong}} {{selected.course.name}} {{selected.start | date:'shortTime' }}-{{selected.end |
         date:'shortTime' }} at {{selected.room}}
+        <i class="fas far fa-circle {{color.getText()}}"></i>
     </h2>
     <div *ngIf="selected">
         <div class="form-group">

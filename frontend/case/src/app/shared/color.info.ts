@@ -10,4 +10,8 @@ export class ColorInfo{
     getHover(){
         return `hover:bg-${this.baseColor}-${this.hoverGradient}`;
     }
+
+    getText(){
+        return `text-${this.baseColor}-${this.gradient}`;
+    }
 }

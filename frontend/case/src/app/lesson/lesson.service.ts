@@ -101,6 +101,6 @@ Lernen für KA - Fragen notieren`
   }
 
   save(l:Lesson){
-    console.log("Not implemented. So Feed me with code. ;-)");
+    console.log("Not implemented. So feed me with code. ;-)");
   }
 }
