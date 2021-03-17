@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Lesson } from '../lesson/lesson.entity';
 import { LessonService } from '../lesson/lesson.service';
+import { ColorInfo } from '../shared/color.info';
+import { ColorService } from '../shared/color.service';
 
 @Component({
   selector: 'weekly-edit',
@@ -20,9 +22,11 @@ export class WeeklyEditComponent implements OnInit, OnChanges {
   public selectedHomework: string;
   public editContent: boolean;
   public editHomework: boolean;
+  public color: ColorInfo;
 
   constructor(
     private lessonService: LessonService,
+    private colorService: ColorService,    
     private snackBar: MatSnackBar
   ) { }
 
@@ -47,6 +51,7 @@ export class WeeklyEditComponent implements OnInit, OnChanges {
     this.selected = lesson;
     this.future = this.lessonService.getFuture(lesson);
     this.previous = this.lessonService.getPrevious(lesson);
+    this.color = this.colorService.getColor(this.selected.start);
 
   }
 
@@ -55,10 +60,11 @@ export class WeeklyEditComponent implements OnInit, OnChanges {
     this.selected.homework = this.selectedHomework;
     this.lessonService.save(this.selected);
     this.snackBar.open('Changes saved.');
+    this.editContent = false;
+    this.editHomework= false;
   }
 
-  cancel() {
-    //this.snackBar.open('Changes canceled.');
+  cancel() {    
     this.selectedContent = this.selected.content;
     this.selectedHomework = this.selected.homework;
 

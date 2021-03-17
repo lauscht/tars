@@ -10,13 +10,7 @@
         </div>
         <div>
           <week-input [date]="day" (dateChanged)="updateDays()"></week-input>
-        </div>
-        <div>
-          <button class="h-12 w-12 bg-green-200 hover:bg-green-400 rounded-full flex items-center justify-center"
-            (click)="add()" matTooltip="Add new lesson" matTooltipPosition="left">
-            <i class="fas fa-plus text-xl"></i>
-          </button>
-        </div>
+        </div>        
       </div>
       <div class="row flex item-center justify-between">
         <div class="col-md-12 col-lg-2 text-center" *ngFor="let day of days">
