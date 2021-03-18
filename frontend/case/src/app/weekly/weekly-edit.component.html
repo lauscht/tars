@@ -18,10 +18,10 @@
         </div>
         <div class="row">
             <div class="col-6 gap-6">
-                <button type="button" class="btn btn-primary btn-block" (click)="save()">Save</button>
+                <button type="button" class="btn btn-primary btn-block"  [disabled]="!this.canBeSaved()" (click)="save()">Save</button>
             </div>
             <div class="col-6 gap-6">
-                <button type="button" class="btn btn-light btn-block" (click)="cancel()">Cancel</button>
+                <button type="button" class="btn btn-light btn-block" (click)="cancel()" [disabled]="!this.canBeSaved()" >Cancel</button>
             </div>
         </div>
         <hr>
