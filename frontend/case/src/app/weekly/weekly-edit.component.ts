@@ -13,8 +13,31 @@ import { ColorService } from '../shared/color.service';
 })
 export class WeeklyEditComponent implements OnInit, OnChanges {
 
+  private _selectedLesson: Lesson;
+
+  get selected() {
+    return this._selectedLesson;
+  }
+
   @Input()
-  public selected: Lesson;
+  set selected(value: Lesson) {
+
+    if (value == this.selected)
+      return;
+
+    if (this.canBeSaved()) {
+      const currentState = this._selectedLesson;
+      const currentContent = this.selectedContent;
+      const currentHomework = this.selectedHomework;
+      const refSnackbar = this.snackBar.open("Do you want to save your changes?", "save", { duration: 0 });
+
+      refSnackbar.onAction().subscribe(x => {
+        this.saveState(currentContent, currentHomework, currentState);
+        this._selectedLesson = value;
+      });
+    }
+    this._selectedLesson = value;
+  }
 
   public previous: Lesson[];
   public future: Lesson[];
@@ -26,7 +49,7 @@ export class WeeklyEditComponent implements OnInit, OnChanges {
 
   constructor(
     private lessonService: LessonService,
-    private colorService: ColorService,    
+    private colorService: ColorService,
     private snackBar: MatSnackBar
   ) { }
 
@@ -56,19 +79,28 @@ export class WeeklyEditComponent implements OnInit, OnChanges {
   }
 
   save() {
-    this.selected.content = this.selectedContent;
-    this.selected.homework = this.selectedHomework;
-    this.lessonService.save(this.selected);
-    this.snackBar.open('Changes saved.');
+    this.saveState(this.selectedContent, this.selectedHomework, this.selected);
     this.editContent = false;
-    this.editHomework= false;
+    this.editHomework = false;
   }
 
-  cancel() {    
+  saveState(currentContent: string, currentHomework: string, target: Lesson) {
+    target.content = currentContent;
+    target.homework = currentHomework;
+    this.lessonService.save(target);
+    this.snackBar.open('Changes saved.');
+
+  }
+
+  cancel() {
     this.selectedContent = this.selected.content;
     this.selectedHomework = this.selected.homework;
 
     this.snackBar.open('Changes are canceled.');
+  }
+
+  canBeSaved(): boolean {
+    return this.selectedContent != this.selected?.content || this.selectedHomework != this.selected?.homework;
   }
 
 }
