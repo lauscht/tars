@@ -10,11 +10,6 @@ import { CourseService } from './course.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 
-export class ExtendedPupil extends Pupil {
-  public filter: boolean = false;
-}
-
-
 @Component({
   selector: 'course',
   templateUrl: './course.component.html',
@@ -26,8 +21,7 @@ export class CourseComponent implements OnInit {
   private _course: Course;
   public lessons: Lesson[];
   public assessments: Assessment[];
-  public pupils: ExtendedPupil[];
-  public filters: string[];
+  public pupils: Pupil[];
   public content: [];
 
   constructor(
@@ -41,7 +35,6 @@ export class CourseComponent implements OnInit {
       (a, b) => a.name.localeCompare(b.name)
     );
     this.course = this.courses[0];
-    this.filters = ["lessons", "assessments"]
     this.content = [];
   }
 
@@ -52,7 +45,7 @@ export class CourseComponent implements OnInit {
   set course(value: Course) {
     this._course = value;
     this.lessons = this.lessonService.getLessonByCourse(value);
-    this.pupils = <ExtendedPupil[]>this.pupilService.getByCourse(value);
+    this.pupils = <Pupil[]>this.pupilService.getByCourse(value);
     this.assessments = this.assessmentService.getByCourse(value);
   }
 
@@ -63,7 +56,9 @@ export class CourseComponent implements OnInit {
 
   }
 
-  toggleFilter(p: ExtendedPupil){
-    p.filter = !p.filter;
+  selectedPupil: Pupil;
+
+  select(p: Pupil){
+    this.selectedPupil = (this.selectedPupil?.id === p.id) ? undefined : p;
   }
 }

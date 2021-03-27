@@ -74,12 +74,12 @@
         </mat-tab>
         <mat-tab label="Assessments">
           <div class="flex flex-col">
-            <assessment class="mt-2 mr-2 ml-2" [assessment]="ass" *ngFor="let ass of assessments"></assessment>
+            <assessment class="mt-2 mr-2 ml-2" [focusPupil]="selectedPupil" [assessment]="ass" *ngFor="let ass of assessments"></assessment>
           </div>
         </mat-tab>
         <mat-tab label="Grades">
           <div class="flex flex-col">
-            <grades [course]="course"></grades>
+            <grades [course]="course" [focusPupil]="selectedPupil"></grades>
           </div>
         </mat-tab>
       </mat-tab-group>
@@ -88,8 +88,8 @@
       <!-- sidebar -->
       Pupils {{pupils.length}}
       <ol class="list-group mt-2">
-        <li class="list-group-item" *ngFor="let p of pupils; index as i" (click)="toggleFilter(p)">
-          <i class="fas fa-filter" *ngIf="p.filter"></i>
+        <li class="list-group-item" *ngFor="let p of pupils; index as i" (click)="select(p)">
+          <i class="fas fa-filter" *ngIf="p.id == selectedPupil?.id"></i>
           {{i+1}}. {{ p.name }}
         </li>
         <li class="list-group-item">

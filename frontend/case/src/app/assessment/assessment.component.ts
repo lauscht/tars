@@ -1,3 +1,4 @@
+import { Pupil } from './../pupil/pupil.entity';
 import { Assessment, Grade } from './assessment.entity';
 import { Component, Input, OnInit } from '@angular/core';
 import { AssessmentService } from './assessment.service';
@@ -17,7 +18,30 @@ export class AssessmentComponent implements OnInit {
   @Input()
   set assessment(a: Assessment){
     this._assessment = a;
-    this.grades = this.assessmentService.getGrades(this.assessment);
+    this.update();
+  }
+
+  _focusPupil: Pupil;
+
+  @Input()
+  set focusPupil(pupil: Pupil) {
+    this._focusPupil = pupil;
+    this.update();
+  }
+
+  update() {
+    if (this._assessment === undefined) {
+      return;
+    }
+
+    let grades = this.assessmentService.getGrades(this.assessment);
+
+    if (this._focusPupil !== undefined)
+    {
+      grades = grades.filter((g) => g.pupilId == this._focusPupil.id);
+    }
+
+    this.grades = grades;
   }
 
   public grades: Grade[];
