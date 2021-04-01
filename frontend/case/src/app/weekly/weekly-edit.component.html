@@ -3,7 +3,7 @@
         <i class="fal far fa-edit"></i>        
         {{selected.start.weekdayLong}} {{selected.course.name}} {{selected.start | date:'shortTime' }}-{{selected.end |
         date:'shortTime' }} at {{selected.room}}
-        <i class="fas far fa-circle {{color.getText()}}"></i>
+        <i class="fas far fa-circle {{color.getText()}}"></i>    
     </h2>
     <div *ngIf="selected">
         <div class="form-group">
@@ -17,13 +17,16 @@
                 [placeholder]="'Enter homework here.'"></markdownbox>
         </div>
         <div class="row">
-            <div class="col-6 gap-6">
-                <button type="button" class="btn btn-primary btn-block"  [disabled]="!this.canBeSaved()" (click)="save()">Save</button>
+            <div class="col-4 gap-4">
+                <button type="button" class="btn btn-primary btn-block"  [disabled]="!this.canBeSaved()" (click)="save()" title="Save your changes." >Save</button>
             </div>
-            <div class="col-6 gap-6">
-                <button type="button" class="btn btn-light btn-block" (click)="cancel()" [disabled]="!this.canBeSaved()" >Cancel</button>
+            <div class="col-4 gap-4">
+                <button type="button" class="btn btn-light btn-block" (click)="cancel()" [disabled]="!this.canBeSaved()" title="Cancel you changes." >Cancel</button>
             </div>
-        </div>
+            <div class="col-4 gap-4">
+                <button type="button" class="btn btn-warning btn-block" (click)="remove()" title="Remove this item." ><i class="fas far far fa-trash-alt"></i></button>
+            </div>            
+        </div>        
         <hr>
         <div class="row">
             <div class="col-4">

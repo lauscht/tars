@@ -33,7 +33,7 @@
       </div>
     </main>    
     <div class="col-md-4 p-3 pl-4 border-left"  >  
-      <weekly-edit [(selected)]="selected" ></weekly-edit>                         
+      <weekly-edit [(selected)]="selected" (removed)="removed($event)" ></weekly-edit>                         
     </div>
   </div>
 </div>

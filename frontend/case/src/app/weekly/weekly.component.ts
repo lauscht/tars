@@ -67,4 +67,8 @@ export class WeeklyComponent implements OnInit, DoCheck {
     }
     this.days = days;
   }
+
+  removed(lesson:Lesson){
+   this.updateDays();
+  }
 }

@@ -1,4 +1,4 @@
-import { Input, OnChanges, SimpleChanges } from '@angular/core';
+import { EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Lesson } from '../lesson/lesson.entity';
@@ -38,6 +38,9 @@ export class WeeklyEditComponent implements OnInit, OnChanges {
     }
     this._selectedLesson = value;
   }
+
+  @Output() 
+  removed = new EventEmitter<Lesson>();
 
   public previous: Lesson[];
   public future: Lesson[];
@@ -101,6 +104,15 @@ export class WeeklyEditComponent implements OnInit, OnChanges {
 
   canBeSaved(): boolean {
     return this.selectedContent != this.selected?.content || this.selectedHomework != this.selected?.homework;
+  }
+
+  remove(): void {
+
+      const refSnackbar = this.snackBar.open("Are you sure to remove this item?", "remove", { duration: 0 });
+      refSnackbar.onAction().subscribe(()=> {
+        this.lessonService.remove(this._selectedLesson);
+        this.removed.emit(this._selectedLesson);
+      } );
   }
 
 }
