@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -51,6 +52,7 @@ export class WeeklyEditComponent implements OnInit, OnChanges {
   public color: ColorInfo;
 
   constructor(
+    private viewportScroller: ViewportScroller,
     private lessonService: LessonService,
     private colorService: ColorService,
     private snackBar: MatSnackBar
@@ -113,6 +115,11 @@ export class WeeklyEditComponent implements OnInit, OnChanges {
         this.lessonService.remove(this._selectedLesson);
         this.removed.emit(this._selectedLesson);
       } );
+  }
+
+  scrollToSelected(){
+    var target = `#${this.selected.course.name}_${this.selected.start.toMillis()}`;
+    this.viewportScroller.scrollToAnchor(target);    
   }
 
 }
