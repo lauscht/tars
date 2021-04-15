@@ -1,9 +1,12 @@
-<div *ngIf="selected">    
+<div *ngIf="selected" id="#edit">    
     <h2>               
         <i class="fal far fa-edit"></i>        
         {{selected.start.weekdayLong}} {{selected.course.name}} {{selected.start | date:'shortTime' }}-{{selected.end |
-        date:'shortTime' }} at {{selected.room}}
-        <i class="fas far fa-circle {{color.getText()}}"></i>    
+        date:'shortTime' }} at {{selected.room}}        
+        <button (click)="scrollToSelected()" title="Scroll to lesson.">            
+            <i class="fas far fa-circle {{color.getText()}}"  >            
+            </i>     
+        </button>        
     </h2>
     <div *ngIf="selected">
         <div class="form-group">
