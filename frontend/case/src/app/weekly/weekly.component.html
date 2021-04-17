@@ -1,80 +1,72 @@
-<div class="container-fluid">
+<div class="container-fluid pt-1">
   <div class="row">
-    <div class="col-12 col-md-1 col-lg-2 bd-sidebar">
-      <!-- sidebar nav -->
-    </div>
     <main class="col-12 col-md-9 col-lg-8 py-md-3 pl-md-5 bd-content" role="main">
-      <div>        
-        <h1>
-          <i class="fal fa-calendar-week"></i>
-          Week overview
-        </h1>
-      </div>      
-      <div class="flex justify-between">
+      <div class="flex justify-between pt-1">
+        <div>
+          <h1>
+            <i class="fal fa-calendar-week"></i>
+            Week overview
+          </h1>
+        </div>
         <div>
           <week-input [date]="day" (dateChanged)="updateDays()"></week-input>
-        </div>
-        <div>
-          <button class="h-12 w-12 bg-green-200 hover:bg-green-400 rounded-full flex items-center justify-center"
-            (click)="add()" matTooltip="Add new lesson" matTooltipPosition="left">
-            <i class="fas fa-plus text-xl"></i>
-          </button>
-        </div>
+        </div>        
       </div>
-      <div class="row flex item-center justify-between">        
-        <div class="col-md-12 col-lg-2" *ngFor="let day of days">
-          
-          <p class="text-lg font-bold">
+      <div class="row flex item-center justify-between">
+        <div class="col-md-12 col-lg-2 text-center" *ngFor="let day of days">
+          <hr>
+          <p class="text-lg font-bold ">
+            <span [ngStyle]="{'color': getColorOfTheDay(day)}">
+              <i class="fas fa-circle"></i>
+            </span>
             {{day.weekdayLong}}
           </p>
           <p>
             {{day | date:'shortDate' }}
           </p>
           <hr>
-          <div *ngFor="let lesson of getLessonsOfTheDay(day);">
-            <app-lesson-tile (click)="show(lesson)" [lesson]="lesson"></app-lesson-tile>
+          <div *ngFor="let lesson of getLessonsOfTheDay(day);">           
+            <app-lesson-tile (click)="selected = lesson" [lesson]="lesson" [isSelected]="lesson === selected"></app-lesson-tile>
           </div>
         </div>
 
       </div>
-    </main>
-    <!-- flyout menu?-->
-    <div class="col-md-2">
-      <h3>
-        Todo:
-      </h3>
-      <ul class="list-group">
-        <li class="list-group-item">
-          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
-          Manchmal gibt es auch samstags kurse.
-          Ansicht wechselbar 5,6 oder 7 Tage.
-        </li>
-        <li class="list-group-item">
-          <i class="fas fa-question rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
-          getBackground() shall we switch to props get background() instead?
-        </li>
-        <li class="list-group-item">
-          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
-          We should provide changeable colors and gradient settings :-)
-        </li>
-        <li class="list-group-item">
-          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
-          Add color property to courses.
-        </li>
-        <li class="list-group-item">
-          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
-          Change alpha with day time
-        </li>
-        <li class="list-group-item">
-          <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
-          white color and low alpha have to small contrast.
-        </li>
-      </ul>
+    </main>    
+    <div class="col-md-4 p-3 pl-4 border-left"  >  
+      <weekly-edit [(selected)]="selected" (removed)="removed($event)" ></weekly-edit>                         
     </div>
   </div>
 </div>
 
-
-<flyout [visible]="this.editLessonState == 'in'">
-  <lesson *ngIf="lesson" [lesson]="lesson"></lesson>
-</flyout>
+<div style="display: none;">
+  <h3>
+    Todo:
+  </h3>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+      Manchmal gibt es auch samstags kurse.
+      Ansicht wechselbar 5,6 oder 7 Tage.
+    </li>
+    <li class="list-group-item">
+      <i class="fas fa-question rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+      getBackground() shall we switch to props get background() instead?
+    </li>
+    <li class="list-group-item">
+      <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+      We should provide changeable colors and gradient settings :-)
+    </li>
+    <li class="list-group-item">
+      <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+      Add color property to courses.
+    </li>
+    <li class="list-group-item">
+      <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+      Change alpha with day time
+    </li>
+    <li class="list-group-item">
+      <i class="fas fa-info rounded-full bg-indigo-400 w-6 h-6 flex items-center justify-center"></i>
+      white color and low alpha have to small contrast.
+    </li>
+  </ul>
+</div>

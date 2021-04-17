@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { Component, DoCheck, Input, OnInit, Output } from '@angular/core';
 import { ColorInfo } from '../shared/color.info';
 import { ColorService } from '../shared/color.service';
@@ -13,12 +14,17 @@ export class LessonTileComponent implements OnInit, DoCheck  {
   @Input()
   lesson: Lesson;
 
+  @Input()
+  isSelected: boolean;
+
   @Output()
   colorInfo: ColorInfo;
 
-  borderCss: string;
+  borderCss: string;  
 
-  constructor(private colorService: ColorService) { }
+  constructor(
+    private viewportScroller: ViewportScroller,
+    private colorService: ColorService) { }
 
   ngDoCheck(): void {
    this.updateBorder();
@@ -33,6 +39,10 @@ export class LessonTileComponent implements OnInit, DoCheck  {
 
   updateBorder() {
     this.borderCss = this.lesson.hasContent ? 'border-solid' : 'border-dashed';
+  }
+
+  scrollToEdit(){
+    this.viewportScroller.scrollToAnchor('#edit');
   }
 
 }

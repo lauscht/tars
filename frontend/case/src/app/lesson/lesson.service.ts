@@ -99,4 +99,12 @@ Lernen für KA - Fragen notieren`
   getFuture(l: Lesson): Lesson[] {
     return this.lessons.filter((v) => v.course === l.course && v.start > l.start);
   }
+
+  save(l:Lesson){
+    console.log("Not implemented. So feed me with code. ;-)");
+  }
+
+  remove(l:Lesson){
+    console.log("Not implemented. So feed me with code. ;-)");
+  }
 }
