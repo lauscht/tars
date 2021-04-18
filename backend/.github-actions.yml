@@ -1,0 +1,20 @@
+name: Tars Backend Build
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'backend/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Docker Test
+        run: docker build . --target=test
+
+      - name: Docker Build
+        run: docker build . --target=final -t kipp/main:latest
