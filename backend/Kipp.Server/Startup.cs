@@ -36,6 +36,8 @@ namespace Kipp.Server
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kipp - A Tars Backend"));
             }
 
             app.UseRouting();
