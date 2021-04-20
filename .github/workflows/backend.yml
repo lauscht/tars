@@ -19,7 +19,7 @@ on:
 
 jobs:
   build:
-    runs-on: Linux-x64
+    runs-on: self-hosted
 
     steps:
       - uses: actions/checkout@v2
