@@ -1,0 +1,31 @@
+name: Tars Backend Build
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+    paths:
+      - 'backend/**'
+
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'backend/**'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: Linux-x64
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Docker Test
+        run: docker build . --target=test
+
+      - name: Docker Build
+        run: docker build . --target=final -t kipp/main:latest
