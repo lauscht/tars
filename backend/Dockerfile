@@ -3,10 +3,12 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-COPY ["Kipp.Framework", "Kipp.Server"]
-RUN dotnet restore "Kipp.*/*.csproj"
-WORKDIR "/src/"
-RUN dotnet build "*.csproj" -c Release -o /app/build
+COPY ["Kipp.Framework", "Kipp.Framework"]
+RUN dotnet restore "/src/Kipp.Framework/Kipp.Framework.csproj"
+RUN dotnet build "Kipp.Framework/Kipp.Framework.csproj" -c Release -o /app/build
+COPY ["Kipp.Server", "Kipp.Server"]
+RUN dotnet restore "/src/Kipp.Server/Kipp.Server.csproj"
+RUN dotnet build "Kipp.Server/Kipp.Server.csproj" -c Release -o /app/build
  
 FROM build AS publish
 RUN dotnet publish "Kipp.Server/Kipp.Server.csproj" -c Release -o /app/publish
