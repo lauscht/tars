@@ -4,8 +4,6 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["Kipp.Framework", "Kipp.Framework"]
-RUN dotnet restore "/src/Kipp.Framework/Kipp.Framework.csproj"
-RUN dotnet build "Kipp.Framework/Kipp.Framework.csproj" -c Release -o /app/build
 COPY ["Kipp.Server", "Kipp.Server"]
 RUN dotnet restore "/src/Kipp.Server/Kipp.Server.csproj"
 RUN dotnet build "Kipp.Server/Kipp.Server.csproj" -c Release -o /app/build
@@ -21,5 +19,7 @@ EXPOSE 8080
 ENTRYPOINT ["dotnet", "Kipp.Server.dll"]
 
 FROM build as test
-COPY ["Kipp.Framework.Tests", "Kipp.Server.Tests"]
-RUN dotnet test "*.Tests.csproj" --collect:"XPlat Code Coverage" -r "/src/TestResults/"
+COPY ["Kipp.Framework.Tests", "Kipp.Framework.Tests"]
+COPY ["Kipp.Server.Tests", "Kipp.Server.Tests"]
+RUN dotnet test "/src/Kipp.Framework.Tests/Kipp.Framework.Tests.csproj" --collect:"XPlat Code Coverage" -r "/src/TestResults/"
+RUN dotnet test "/src/Kipp.Server.Tests/Kipp.Server.Tests.csproj" --collect:"XPlat Code Coverage" -r "/src/TestResults/"
