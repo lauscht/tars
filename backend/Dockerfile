@@ -1,7 +1,7 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:5.0-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/core/sdk:5.0-buster AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["Kipp.Framework", "Kipp.Server"]
 RUN dotnet restore "Kipp.*/*.csproj"
