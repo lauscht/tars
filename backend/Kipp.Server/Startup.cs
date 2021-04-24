@@ -28,7 +28,7 @@ namespace Kipp.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureOption<DatabaseOptions>(Configuration);
-            
+
             services.AddSwaggerGen();
             services.AddControllers();
 
