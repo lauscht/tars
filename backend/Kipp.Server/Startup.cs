@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Kipp.Server.Options;
+using Kipp.Server.Services;
+using Kipp.Framework.Services;
 
 namespace Kipp.Server
 {
@@ -27,7 +29,11 @@ namespace Kipp.Server
         {
             services.ConfigureOption<DatabaseOptions>(Configuration);
             
+            services.AddSwaggerGen();
             services.AddControllers();
+
+            // Repositories
+            services.AddSingleton<ILessonRepository, LessonRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,10 +43,16 @@ namespace Kipp.Server
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kipp - A Tars Backend"));
+                app.UseSwaggerUI(c => {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kipp - A Tars Backend");
+                    c.RoutePrefix = String.Empty;
+                });
             }
 
             app.UseRouting();
+            app.UseEndpoints(c => {
+                c.MapControllers();
+            });
         }
     }
 }
