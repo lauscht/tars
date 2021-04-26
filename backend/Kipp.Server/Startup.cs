@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Kipp.Server.Options;
 using Kipp.Server.Services;
 using Kipp.Framework.Services;
+using Microsoft.OpenApi.Models;
 
 namespace Kipp.Server
 {
@@ -28,8 +29,19 @@ namespace Kipp.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureOption<DatabaseOptions>(Configuration);
-
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "KIPP API",
+                    Description = "",
+                    Contact = new OpenApiContact
+                    {
+                        Url = new Uri("https://github.com/lauscht/tars"),
+                    },
+                });
+            });
             services.AddControllers();
 
             // Repositories
@@ -45,13 +57,15 @@ namespace Kipp.Server
             }
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => {
+            app.UseSwaggerUI(c =>
+            {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kipp - A Tars Backend");
                 c.RoutePrefix = String.Empty;
             });
-            
+
             app.UseRouting();
-            app.UseEndpoints(c => {
+            app.UseEndpoints(c =>
+            {
                 c.MapControllers();
             });
         }
