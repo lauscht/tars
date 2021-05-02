@@ -1,0 +1,30 @@
+name: Tars Frontend Build
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+    paths:
+      - 'frontend/**'
+
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'frontend/**'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Docker Build
+        run: |
+          cd frontend
+          docker build . --target=server-build -t case/main:latest
