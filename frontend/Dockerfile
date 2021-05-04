@@ -1,15 +1,26 @@
-FROM node:10 AS ui-build
+FROM node:16-buster-slim AS ui-build
 WORKDIR /usr/src/app
 COPY case/ ./case/
-RUN cd case && npm install @angular/cli && npm install && npm run build
+RUN cd case && npm install @angular/cli && npm install && npm run build 
 
-FROM node:10 AS server-build
-WORKDIR /root/
-COPY --from=ui-build /usr/src/app/case/dist ./case/dist
-COPY package*.json ./
-RUN npm install
-COPY server.js .
+FROM nginx:1.20.0-alpine AS server-build
 
-EXPOSE 3080
+COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./app.conf /etc/nginx/conf.d/default.conf
 
-CMD ["node", "server.js"]
+RUN adduser -S www-data -G www-data
+
+RUN touch /var/run/nginx.pid && \
+  mkdir /var/www && \
+  chown -R www-data:www-data /var/run/nginx.pid && \
+  chown -R www-data:www-data /var/cache/nginx && \
+  chown -R www-data:www-data /var/www
+
+USER www-data
+
+WORKDIR /var/www
+
+COPY --from=ui-build /usr/src/app/case/dist/case ./
+COPY --from=ui-build /usr/src/app/case/node_modules ./
+
+EXPOSE 8080
