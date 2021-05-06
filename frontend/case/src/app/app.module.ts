@@ -29,6 +29,9 @@ import { WeekInputComponent } from './shared/week-input/week-input.component';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MarkdownboxComponent } from './shared/markdownbox/markdownbox.component';
 import { WeeklyEditComponent } from './weekly/weekly-edit.component';
+import { LoginComponent } from './login/login.component';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -43,9 +46,11 @@ import { WeeklyEditComponent } from './weekly/weekly-edit.component';
     HeaderComponent,
     MarkdownboxComponent,
     WeeklyEditComponent,
+    LoginComponent,
   ],
 
   imports: [
+    HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
     MarkdownModule.forRoot(),
@@ -60,6 +65,7 @@ import { WeeklyEditComponent } from './weekly/weekly-edit.component';
     MatLuxonDateModule,    
     NgbModule,    
     MatSnackBarModule,
+    OAuthModule.forRoot()
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500, horizontalPosition: 'right', panelClass: 'tars-snackbar' }}

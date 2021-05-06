@@ -12,6 +12,7 @@ using Kipp.Server.Options;
 using Kipp.Server.Services;
 using Kipp.Framework.Services;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Kipp.Server
 {
@@ -29,6 +30,8 @@ namespace Kipp.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureOption<DatabaseOptions>(Configuration);
+            services.ConfigureOption<GooglAuthOptions>(Configuration);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -42,7 +45,15 @@ namespace Kipp.Server
                     },
                 });
             });
-            services.AddControllers();
+            services.AddControllers();            
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    var googleAuthNSection =Configuration.Get<GooglAuthOptions>();
+
+                    options.ClientId = googleAuthNSection.ClientId;
+                    options.ClientSecret = googleAuthNSection.ClientSecret;
+                });
 
             // Repositories
             services.AddSingleton<ILessonRepository, LessonRepository>();
