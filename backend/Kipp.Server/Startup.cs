@@ -22,7 +22,7 @@ namespace Kipp.Server
 
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));            
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -45,12 +45,11 @@ namespace Kipp.Server
                     },
                 });
             });
-            services.AddControllers();            
+            services.AddControllers();
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
-                    var googleAuthNSection =Configuration.Get<GooglAuthOptions>();
-
+                    var googleAuthNSection = Configuration.Get<GooglAuthOptions>();
                     options.ClientId = googleAuthNSection.ClientId;
                     options.ClientSecret = googleAuthNSection.ClientSecret;
                 });
@@ -66,7 +65,8 @@ namespace Kipp.Server
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

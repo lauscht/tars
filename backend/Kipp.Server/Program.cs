@@ -21,7 +21,10 @@ namespace Kipp.Server
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>()
-                              .UseKestrel(options => options.AddServerHeader = false);
+                              .UseKestrel(options =>
+                              {
+                                  options.AddServerHeader = false;
+                              });
                 });
     }
 }
