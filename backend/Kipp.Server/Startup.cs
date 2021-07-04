@@ -59,7 +59,7 @@ namespace Kipp.Server
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kipp - A Tars Backend");
+                c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "Kipp - A Tars Backend");
                 c.RoutePrefix = String.Empty;
             });
 
