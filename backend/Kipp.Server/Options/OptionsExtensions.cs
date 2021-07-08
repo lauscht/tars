@@ -9,15 +9,20 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Kipp.Server.Options{
+namespace Kipp.Server.Options
+{
 
-    internal static class OptionsExtensions{
-        internal static IServiceCollection ConfigureOption<T>(this IServiceCollection services, IConfiguration configuration) where T: class{
+    internal static class OptionsExtensions
+    {
+        internal static IServiceCollection ConfigureOption<T>(this IServiceCollection services, IConfiguration configuration) where T : class
+        {
             var section_name = typeof(T).Name;
-            section_name = section_name.Replace("Options", "");
+            section_name = section_name.Replace("Options", "");           
 
-            var section = configuration.GetSection(section_name);
-            return services.Configure<T>(section);
+            return services.Configure<T>(con =>
+            {
+                configuration.GetSection(section_name).Bind(con);
+            });            
         }
     }
 }

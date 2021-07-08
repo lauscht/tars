@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using Kipp.Server.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Xunit;
 
 namespace Kipp.Server.Tests
 {
     public class OptionsExtensionsTests
     {
-        [Fact]
+        [Fact(DisplayName = "Test that we can read the configuration.")]
         public void ConfigureOption01()
         {
             //arrange
@@ -17,22 +18,23 @@ namespace Kipp.Server.Tests
             var myConfiguration = new Dictionary<string, string>
             {
                 {"GooglAuth:ClientId", "ClientId"},
-                {"GooglAuth:ClientSecret", "ClientSecret"}
+                {"GooglAuth:ClientSecret", "ClientSecret"},
             };
 
             var configuration = new ConfigurationBuilder()
                                 .AddInMemoryCollection(myConfiguration)
                                 .Build();
-            
+
             //act           
             services.ConfigureOption<GooglAuthOptions>(configuration);
 
             //assert
-            var result = configuration.Get<GooglAuthOptions>();
+            var result = services.BuildServiceProvider().GetService<IOptions<GooglAuthOptions>>();
 
             Assert.NotNull(result);
-            Assert.NotNull(result.ClientId);
-            Assert.NotNull(result.ClientSecret);
+            Assert.NotNull(result.Value);
+            Assert.NotNull(result.Value.ClientId);
+            Assert.NotNull(result.Value.ClientSecret);
         }
     }
 }
