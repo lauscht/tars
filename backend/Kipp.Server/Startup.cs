@@ -13,6 +13,7 @@ using Kipp.Server.Services;
 using Kipp.Framework.Services;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 
 namespace Kipp.Server
 {
@@ -49,7 +50,7 @@ namespace Kipp.Server
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
-                    var googleAuthNSection = Configuration.Get<GooglAuthOptions>();
+                    var googleAuthNSection = this.Configuration.GetOptions<GooglAuthOptions>();
                     options.ClientId = googleAuthNSection.ClientId;
                     options.ClientSecret = googleAuthNSection.ClientSecret;
                 });
