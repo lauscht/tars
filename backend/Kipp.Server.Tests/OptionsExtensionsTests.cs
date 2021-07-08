@@ -14,16 +14,8 @@ namespace Kipp.Server.Tests
         public void ConfigureOption01()
         {
             //arrange
-            var services = new ServiceCollection();
-            var myConfiguration = new Dictionary<string, string>
-            {
-                {"GooglAuth:ClientId", "ClientId"},
-                {"GooglAuth:ClientSecret", "ClientSecret"},
-            };
-
-            var configuration = new ConfigurationBuilder()
-                                .AddInMemoryCollection(myConfiguration)
-                                .Build();
+            var services = new ServiceCollection();            
+            var configuration = this.SetupConfiguration();
 
             //act           
             services.ConfigureOption<GooglAuthOptions>(configuration);
@@ -35,6 +27,36 @@ namespace Kipp.Server.Tests
             Assert.NotNull(result.Value);
             Assert.NotNull(result.Value.ClientId);
             Assert.NotNull(result.Value.ClientSecret);
+        }
+
+        [Fact(DisplayName = "Test that we can read the configuration.")]
+        public void GetOptions01()
+        {
+            //arrange
+            var configuration = this.SetupConfiguration();
+
+            //act
+            var result = configuration.GetOptions<GooglAuthOptions>();
+
+            //assert
+            Assert.NotNull(result);
+            Assert.NotNull(result.ClientId);
+            Assert.NotNull(result.ClientSecret);
+        }
+
+        private IConfiguration SetupConfiguration()
+        {
+            var myConfiguration = new Dictionary<string, string>
+            {
+                {"GooglAuth:ClientId", "ClientId"},
+                {"GooglAuth:ClientSecret", "ClientSecret"},
+            };
+
+            var configuration = new ConfigurationBuilder()
+                                .AddInMemoryCollection(myConfiguration)
+                                .Build();
+
+            return configuration;
         }
     }
 }
