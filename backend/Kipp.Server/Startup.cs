@@ -54,12 +54,22 @@ namespace Kipp.Server
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
+                app.UseSwagger();
 
-            app.UseSwagger();
+            }else
+            {
+                app.UseSwagger(c =>
+                {
+                    c.PreSerializeFilters.Add((swagger, httpReq) =>
+                    {
+                        swagger.Servers = new List<OpenApiServer> { new OpenApiServer { Url = $"{httpReq.Scheme}://tars.lauscht.com/api" } };
+                    });
+                });
+            };
+            
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kipp - A Tars Backend");
+                c.SwaggerEndpoint("swagger/v1/swagger.json", "Kipp - A Tars Backend");
                 c.RoutePrefix = String.Empty;
             });
 
