@@ -19,13 +19,17 @@ on:
 
 jobs:
   build:
-    runs-on: Linux-x64
+    runs-on: self-hosted
 
     steps:
       - uses: actions/checkout@v2
       
       - name: Docker Test
-        run: docker build . --target=test
+        run: |
+          cd backend
+          docker build . --target=test
 
       - name: Docker Build
-        run: docker build . --target=final -t kipp/main:latest
+        run: |
+          cd backend
+          docker build . --target=final -t kipp/main:latest

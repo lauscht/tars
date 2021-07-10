@@ -58,3 +58,8 @@ As a teacher, I want to
 
 - use google authorization.
 - optional include external calender.
+
+
+## Backend
+
+- dotnet 5 
