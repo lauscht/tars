@@ -11,13 +11,15 @@ using Microsoft.Extensions.Hosting;
 
 namespace Kipp.Server.Options{
 
-    internal static class OptionsExtensions{
-        internal static IServiceCollection ConfigureOption<T>(this IServiceCollection services, IConfiguration configuration) where T: class{
-            var section_name = typeof(T).Name;
-            section_name.Replace("Options", "");
+    public static class OptionsExtensions{
+        public static IServiceCollection ConfigureOption<T>(this IServiceCollection services, IConfiguration configuration) where T: class{
+            var section_name = GetSectionName<T>();
 
             var section = configuration.GetSection(section_name);
             return services.Configure<T>(section);
         }
+
+        public static string GetSectionName<T>() =>
+            typeof(T).Name.Replace("Options", "");
     }
 }

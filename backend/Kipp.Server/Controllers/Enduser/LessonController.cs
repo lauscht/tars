@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Kipp.Framework.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Kipp.Server.Controllers.Enduser{
+namespace Kipp.Server.Controllers.Enduser
+{
 
     [ApiController]
     [Route("enduser/lesson")]
-    public class LessonController: ControllerBase {
+    public class LessonController: ControllerBase 
+    {
 
         private ILessonRepository LessonRepository {get;}
         
