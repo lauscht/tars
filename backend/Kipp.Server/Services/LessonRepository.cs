@@ -19,16 +19,19 @@ namespace Kipp.Server.Services
             this.Lessons = databaseContext.Lessons;
         }
 
-        public void Create(Lesson entity) =>
-            this.Lessons.InsertOne(entity);
+        public async Task<IEnumerable<Lesson>> Get(Course course) =>
+            (await this.Lessons.FindAsync((lesson) => lesson.Course.Equals(course))).ToEnumerable();
 
-        public long Delete(Lesson entity) =>
-            this.Lessons.DeleteOne(lesson => lesson.Equals(entity)).DeletedCount;
+        public async Task<Lesson> Get(Identity identity) =>
+            (await this.Lessons.FindAsync((lesson) => lesson.Identity.Value == identity.Value)).FirstOrDefault();
 
-        public IEnumerable<Lesson> Get() =>
-            this.Lessons.AsQueryable();
+        public async Task Create(Lesson entity) =>
+            await this.Lessons.InsertOneAsync(entity);
 
-        public void Update(Lesson entity) =>
-            this.Lessons.FindOneAndReplace(lesson => lesson.Equals(entity), entity);
+        public async Task<long> Delete(Identity identity) =>
+            (await this.Lessons.DeleteOneAsync(lesson => lesson.Identity.Value == identity.Value)).DeletedCount;
+
+        public async Task Update(Identity identity, Lesson entity) =>
+            await this.Lessons.FindOneAndReplaceAsync(lesson => lesson.Identity.Value == identity.Value, entity);
     }
 }

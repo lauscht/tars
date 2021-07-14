@@ -1,10 +1,16 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace Kipp.Framework.Models
 {
+    [DebuggerDisplay("Lesson {Identity} for {Course} in {Room} starts {Start}")]
     public class Lesson 
     {
+        /// <summary>
+        /// Unique Identity
+        /// </summary>
+        public Identity Identity { get; set; }
         /// <summary>
         /// Identity of the course.
         /// </summary>
