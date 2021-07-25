@@ -26,6 +26,8 @@ namespace Kipp.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureOption<DatabaseOptions>(Configuration);
+            services.ConfigureOption<GoogleAuthOptions>(Configuration);
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo

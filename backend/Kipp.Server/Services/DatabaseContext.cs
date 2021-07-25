@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Kipp.Framework.Models;
 using Kipp.Server.Options;
 using MongoDB.Driver;
@@ -9,12 +10,17 @@ namespace Kipp.Server.Services
     {
         public IMongoDatabase Database { get; protected set; }
 
-        public DatabaseContext(DatabaseOptions options)
+        public DatabaseContext(DatabaseOptions databaseOptions)
         {
-            var client = new MongoClient(options.ConnectionString);
+            if (databaseOptions is null)
+                throw new ArgumentNullException(nameof(databaseOptions));
 
-            if (client != null)
-                this.Database = client.GetDatabase(options.DatabaseName);
+            var mongoClient = new MongoClient(databaseOptions.ConnectionString);
+
+            if (mongoClient is null)
+                throw new ArgumentNullException(nameof(mongoClient));
+
+            this.Database = mongoClient.GetDatabase(databaseOptions.DatabaseName);
         }
 
         public async Task<bool> Healthy() =>
