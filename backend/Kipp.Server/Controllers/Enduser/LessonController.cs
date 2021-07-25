@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Kipp.Framework.Models;
 using Kipp.Framework.Services;
@@ -22,10 +23,17 @@ namespace Kipp.Server.Controllers.Enduser
         }
 
         [HttpGet]
+        public ActionResult<IEnumerable<Lesson>> GetLessons()
+        {
+            var results = LessonRepository.Get().AsEnumerable();
+            return Ok(results);
+        }
+
+        [HttpGet]
         [Route("{identity}")]
         public async Task<ActionResult<Lesson>> GetLessonAsync([FromQuery] Identity identity)
         {
-            var result = LessonRepository.Get(identity);
+            var result = await LessonRepository.Get(identity);
             if (result is null)
                 return NotFound();
 

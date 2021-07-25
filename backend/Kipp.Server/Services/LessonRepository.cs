@@ -3,6 +3,7 @@ using Kipp.Framework.Services;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Kipp.Server.Services
@@ -18,6 +19,9 @@ namespace Kipp.Server.Services
 
             this.Lessons = databaseContext.Lessons;
         }
+
+        public IQueryable<Lesson> Get() =>
+            Lessons.AsQueryable();
 
         public async Task<IEnumerable<Lesson>> Get(Course course) =>
             (await this.Lessons.FindAsync((lesson) => lesson.Course.Equals(course))).ToEnumerable();
