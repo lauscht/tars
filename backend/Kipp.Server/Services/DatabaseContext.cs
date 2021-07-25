@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Kipp.Framework.Models;
 using Kipp.Server.Options;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace Kipp.Server.Services
@@ -10,8 +11,9 @@ namespace Kipp.Server.Services
     {
         public IMongoDatabase Database { get; protected set; }
 
-        public DatabaseContext(DatabaseOptions databaseOptions)
+        public DatabaseContext(IOptions<DatabaseOptions> options)
         {
+            var databaseOptions = options?.Value;
             if (databaseOptions is null)
                 throw new ArgumentNullException(nameof(databaseOptions));
 

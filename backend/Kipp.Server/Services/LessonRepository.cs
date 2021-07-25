@@ -12,7 +12,7 @@ namespace Kipp.Server.Services
     {
         private IMongoCollection<Lesson> Lessons { get; }
 
-        public LessonRepository(DatabaseContext databaseContext)
+        public LessonRepository(IDatabaseContext databaseContext)
         {
             if (databaseContext is null)
                 throw new ArgumentNullException(nameof(databaseContext));
