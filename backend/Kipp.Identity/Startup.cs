@@ -2,8 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using IdentityServer4;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -12,16 +14,16 @@ namespace Kipp.Identity
     public class Startup
     {
         public IWebHostEnvironment Environment { get; }
+        public IConfiguration Configuration { get; }
 
-        public Startup(IWebHostEnvironment environment)
+        public Startup(IWebHostEnvironment environment, IConfiguration configuration)
         {
             Environment = environment;
+            Configuration = configuration;
         }
-
         public void ConfigureServices(IServiceCollection services)
-        {
-            // uncomment, if you want to add an MVC-based UI
-            //services.AddControllersWithViews();
+        {            
+            services.AddControllersWithViews();
 
             var builder = services.AddIdentityServer(options =>
             {
@@ -42,10 +44,21 @@ namespace Kipp.Identity
                 .AddGoogle(options =>
                 {
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-        
-                    options.ClientId = this.Configure["Google:ClientId"];
-                    options.ClientSecret = this.Configure["Google:ClientSecret"];
+
+                    options.ClientId = this.Configuration["GooglAuth:ClientId"];
+                    options.ClientSecret = this.Configuration["GooglAuth:ClientSecret"];
                 });
+
+            services.AddCors(options =>
+            {
+                // this defines a CORS policy called "default"
+                options.AddPolicy("default", policy =>
+                {
+                    policy.WithOrigins("https://localhost:5003")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app)
@@ -54,19 +67,16 @@ namespace Kipp.Identity
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            // uncomment if you want to add MVC
+            app.UseCors("default");          
             //app.UseStaticFiles();
-            //app.UseRouting();
+            app.UseRouting();
 
-            app.UseIdentityServer();
-
-            // uncomment, if you want to add MVC
-            //app.UseAuthorization();
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapDefaultControllerRoute();
-            //});
+            app.UseIdentityServer();            
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+               endpoints.MapDefaultControllerRoute();
+            });
         }
     }
 }
