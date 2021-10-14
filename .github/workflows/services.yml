@@ -18,16 +18,14 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Docker Test Framework
-        run: docker build -f Kipp.Framework/Dockerfile . --target=test
-
-      - name: Docker Test Identity
-        run: docker build -f Kipp.Identity/Dockerfile . --target=test
-
-      - name: Docker Test Server
-        run: docker build -f Kipp.Server/Dockerfile . --target=test
+        run: |
+          cd backend;
+          docker build -f Kipp.Framework/Dockerfile . --target=test
+          docker build -f Kipp.Identity/Dockerfile . --target=test
+          docker build -f Kipp.Server/Dockerfile . --target=test
 
       - name: Docker Build
-        run: docker build -f Kipp.Identity/Dockerfile . --target=final -t kipp/identity:latest
-      
-      - name: Docker Build
-        run: docker build -f Kipp.Server/Dockerfile . --target=final -t kipp/server:latest
+        run: |
+          cd backend;
+          docker build -f Kipp.Identity/Dockerfile . --target=final -t kipp/identity:latest
+          docker build -f Kipp.Server/Dockerfile . --target=final -t kipp/server:latest
