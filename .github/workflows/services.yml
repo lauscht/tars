@@ -1,0 +1,33 @@
+name: Tars Services Build
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'backend/**'
+
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Docker Test Framework
+        run: docker build -f Kipp.Framework/Dockerfile . --target=test
+
+      - name: Docker Test Identity
+        run: docker build -f Kipp.Identity/Dockerfile . --target=test
+
+      - name: Docker Test Server
+        run: docker build -f Kipp.Server/Dockerfile . --target=test
+
+      - name: Docker Build
+        run: docker build -f Kipp.Identity/Dockerfile . --target=final -t kipp/identity:latest
+      
+      - name: Docker Build
+        run: docker build -f Kipp.Server/Dockerfile . --target=final -t kipp/server:latest
