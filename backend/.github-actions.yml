@@ -12,9 +12,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
-      - name: Docker Test
-        run: docker build . --target=test
+
+      - name: Docker Test Framework
+        run: docker build -f Kipp.Framework/Dockerfile . --target=test
+
+      - name: Docker Test Identity
+        run: docker build -f Kipp.Identity/Dockerfile . --target=test
+
+      - name: Docker Test Server
+        run: docker build -f Kipp.Server/Dockerfile . --target=test
 
       - name: Docker Build
-        run: docker build . --target=final -t kipp/main:latest
+        run: docker build -f Kipp.Identity/Dockerfile . --target=final -t kipp/identity:latest
+      
+      - name: Docker Build
+        run: docker build -f Kipp.Server/Dockerfile . --target=final -t kipp/server:latest
