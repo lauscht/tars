@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Docker Test Framework
+      - name: Docker Test
         run: |
           cd backend;
           docker build -f Kipp.Framework/Dockerfile . --target=test
