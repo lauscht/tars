@@ -1,9 +1,5 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
-WORKDIR /src
-COPY ["Kipp.Framework", "Kipp.Framework"]
-RUN dotnet restore "/src/Kipp.Framework/Kipp.Framework.csproj"
-RUN dotnet build "Kipp.Framework/Kipp.Framework.csproj" -c Release -o /app/build
- 
+FROM mcr.microsoft.com/dotnet/sdk:3.1-alpine AS build
+WORKDIR /src 
 COPY ["Kipp.Identity", "Kipp.Identity"]
 RUN dotnet restore "/src/Kipp.Identity/Kipp.Identity.csproj"
 RUN dotnet build "Kipp.Identity/Kipp.Identity.csproj" -c Release -o /app/build
@@ -15,7 +11,7 @@ RUN dotnet test "/src/Kipp.Identity.Tests/Kipp.Identity.Tests.csproj" --collect:
 FROM build AS publish
 RUN dotnet publish "Kipp.Identity/Kipp.Identity.csproj" -c Release -o /app/publish
  
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS final
+FROM mcr.microsoft.com/dotnet/aspnet:3.1-alpine AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENV ASPNETCORE_URLS=http://+:8080

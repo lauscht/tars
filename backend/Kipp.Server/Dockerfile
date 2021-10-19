@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build
 WORKDIR /src
 COPY ["Kipp.Framework", "Kipp.Framework"]
 RUN dotnet restore "/src/Kipp.Framework/Kipp.Framework.csproj"
@@ -15,7 +15,7 @@ RUN dotnet test "/src/Kipp.Server.Tests/Kipp.Server.Tests.csproj" --collect:"XPl
 FROM build AS publish
 RUN dotnet publish "Kipp.Server/Kipp.Server.csproj" -c Release -o /app/publish
  
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS final
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENV ASPNETCORE_URLS=http://+:8080
