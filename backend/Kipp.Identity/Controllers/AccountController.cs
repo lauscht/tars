@@ -33,7 +33,11 @@ namespace Kipp.Identity
                            .Where(x => x.DisplayName != null)
                            .ToList();
 
-            return RedirectToAction("Challenge", "External", new { scheme = providers.First().Name, returnUrl });
+            return RedirectToAction(
+                nameof(ExternalController.Challenge),
+                nameof(ExternalController),
+                new { scheme = providers.First().Name, returnUrl }
+            );
         }
     }
 }

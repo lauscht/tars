@@ -13,6 +13,7 @@ namespace Kipp.Identity
 {
     public class Startup
     {
+        private string PathBase {get; set;}
         public IWebHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
 
@@ -23,8 +24,9 @@ namespace Kipp.Identity
         }
         public void ConfigureServices(IServiceCollection services)
         {            
-            services.AddControllersWithViews();
+            PathBase = this.Configuration.GetValue<string>(nameof(PathBase));
 
+            services.AddControllersWithViews();
             var builder = services.AddIdentityServer(options =>
             {
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
@@ -47,6 +49,8 @@ namespace Kipp.Identity
 
                     options.ClientId = this.Configuration["GoogleAuth:ClientId"];
                     options.ClientSecret = this.Configuration["GoogleAuth:ClientSecret"];
+
+                    options.CallbackPath = $"{this.PathBase}/signin-google";
                 });
 
             services.AddCors(options =>
@@ -54,7 +58,10 @@ namespace Kipp.Identity
                 // this defines a CORS policy called "default"
                 options.AddPolicy("default", policy =>
                 {
-                    policy.WithOrigins("https://localhost:5003", "https://tars.lauscht.com/")
+                    policy.WithOrigins(
+                            "https://localhost:5003",
+                            "https://tars.lauscht.com/"
+                            )
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -67,6 +74,9 @@ namespace Kipp.Identity
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            app.UsePathBase(PathBase);
+
             app.UseCors("default");
             //app.UseStaticFiles();
             app.UseRouting();
