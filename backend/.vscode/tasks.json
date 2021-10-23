@@ -2,7 +2,48 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "build-identity",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Kipp.Identity/Kipp.Identity.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "publish-identity",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/Kipp.Identity/Kipp.Identity.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch-identity",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "${workspaceFolder}/Kipp.Identity/Kipp.Identity.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-server",
             "command": "dotnet",
             "type": "process",
             "args": [
@@ -14,7 +55,7 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "publish",
+            "label": "publish-server",
             "command": "dotnet",
             "type": "process",
             "args": [
@@ -26,7 +67,7 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "watch",
+            "label": "watch-server",
             "command": "dotnet",
             "type": "process",
             "args": [

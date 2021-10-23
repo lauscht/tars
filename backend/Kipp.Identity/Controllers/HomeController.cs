@@ -20,7 +20,10 @@ namespace Kipp.Identity
         private readonly IWebHostEnvironment Environment;
         private readonly ILogger Logger;
 
-        public HomeController(IIdentityServerInteractionService interaction, IWebHostEnvironment environment, ILogger<HomeController> logger)
+        public HomeController(
+            IIdentityServerInteractionService interaction, 
+            IWebHostEnvironment environment, 
+            ILogger<HomeController> logger)
         {
             this.Interaction = interaction;
             this.Environment = environment;

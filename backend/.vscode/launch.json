@@ -5,10 +5,10 @@
             // Use IntelliSense to find out which attributes exist for C# debugging
             // Use hover for the description of the existing attributes
             // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": ".NET Core Launch (web)",
+            "name": "Kipp.Sever",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build-server",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/Kipp.Server/bin/Debug/net5.0/Kipp.Server.dll",
             "args": [],
@@ -22,6 +22,32 @@
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
                 "urls": "http://localhost:5001/"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+            "name": "Kipp.Indentity",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-identity",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/Kipp.Identity/bin/Debug/netcoreapp3.1/Kipp.Identity.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Kipp.Identity",
+            "stopAtEntry": false,
+            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "urls": "http://localhost:5002/"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
