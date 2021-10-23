@@ -32,14 +32,7 @@ namespace Kipp.Identity
 
         public IActionResult Index()
         {
-            if (Environment.IsDevelopment())
-            {
-                // only show in development
-                return View();
-            }
-
-            Logger.LogInformation("Homepage is disabled in production. Returning 404.");
-            return NotFound();
+            return View();
         }
 
         /// <summary>
