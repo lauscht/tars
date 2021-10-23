@@ -18,10 +18,10 @@ namespace Kipp.Server.Tests
             var configuration = this.SetupConfiguration();
 
             //act           
-            services.ConfigureOption<GooglAuthOptions>(configuration);
+            services.ConfigureOption<GoogleAuthOptions>(configuration);
 
             //assert
-            var result = services.BuildServiceProvider().GetService<IOptions<GooglAuthOptions>>();
+            var result = services.BuildServiceProvider().GetService<IOptions<GoogleAuthOptions>>();
 
             Assert.NotNull(result);
             Assert.NotNull(result.Value);
@@ -36,7 +36,7 @@ namespace Kipp.Server.Tests
             var configuration = this.SetupConfiguration();
 
             //act
-            var result = configuration.GetOptions<GooglAuthOptions>();
+            var result = configuration.GetOptions<GoogleAuthOptions>();
 
             //assert
             Assert.NotNull(result);
@@ -48,8 +48,8 @@ namespace Kipp.Server.Tests
         {
             var myConfiguration = new Dictionary<string, string>
             {
-                {"GooglAuth:ClientId", "ClientId"},
-                {"GooglAuth:ClientSecret", "ClientSecret"},
+                {"GoogleAuth:ClientId", "ClientId"},
+                {"GoogleAuth:ClientSecret", "ClientSecret"},
             };
 
             var configuration = new ConfigurationBuilder()
