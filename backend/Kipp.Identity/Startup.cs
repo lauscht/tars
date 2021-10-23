@@ -49,8 +49,6 @@ namespace Kipp.Identity
 
                     options.ClientId = this.Configuration["GoogleAuth:ClientId"];
                     options.ClientSecret = this.Configuration["GoogleAuth:ClientSecret"];
-
-                    options.CallbackPath = $"{this.PathBase}/signin-google";
                 });
 
             services.AddCors(options =>
