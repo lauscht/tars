@@ -14,11 +14,13 @@ using Kipp.Framework.Services;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Kipp.Server
 {
     public class Startup
     {
+        private const string GoogleAuthenticationScheme = "GoogleAuthenticationScheme";
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
@@ -47,13 +49,34 @@ namespace Kipp.Server
                 });
             });
             services.AddControllers();
-            services.AddAuthentication()
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                })
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/auth/google-login"; // Must be lowercase
+                })
                 .AddGoogle(options =>
                 {
                     var googleAuthNSection = this.Configuration.GetOptions<GoogleAuthOptions>();
+                    
                     options.ClientId = googleAuthNSection.ClientId;
                     options.ClientSecret = googleAuthNSection.ClientSecret;
+                    options.CallbackPath = "/auth/google-callback";
                 });
+            services.AddAuthorization();
+
+            services.AddCors(options =>
+            {
+                // this defines a CORS policy called "default"
+                options.AddPolicy("default", policy =>
+                {
+                    policy.WithOrigins("https://localhost:5001", "https://tars.lauscht.com/")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
 
             // Repositories
             services.AddSingleton<ILessonRepository, LessonRepository>();
@@ -77,16 +100,20 @@ namespace Kipp.Server
                 });
             };
             
+            app.UseCors("default");
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("swagger/v1/swagger.json", "Kipp - A Tars Backend");
                 c.RoutePrefix = String.Empty;
+                c.DocumentTitle = "Kipp - A Tars Backend";
+                c.SwaggerEndpoint("swagger/v1/swagger.json", "Kipp - A Tars Backend");
             });
 
             app.UseAuthentication();
-            app.UseAuthorization();
 
             app.UseRouting();
+
+            app.UseAuthorization();
+
             app.UseEndpoints(c =>
             {
                 c.MapControllers();
