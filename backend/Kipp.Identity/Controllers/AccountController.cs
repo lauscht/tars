@@ -35,7 +35,7 @@ namespace Kipp.Identity
 
             return RedirectToAction(
                 nameof(ExternalController.Challenge),
-                nameof(ExternalController),
+                "External",
                 new { scheme = providers.First().Name, returnUrl }
             );
         }
