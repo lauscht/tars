@@ -45,8 +45,8 @@ namespace Kipp.Identity
                 {
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
 
-                    options.ClientId = this.Configuration["GooglAuth:ClientId"];
-                    options.ClientSecret = this.Configuration["GooglAuth:ClientSecret"];
+                    options.ClientId = this.Configuration["GoogleAuth:ClientId"];
+                    options.ClientSecret = this.Configuration["GoogleAuth:ClientSecret"];
                 });
 
             services.AddCors(options =>

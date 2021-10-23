@@ -1,5 +1,5 @@
 namespace Kipp.Server.Options {
-    public class GooglAuthOptions {
+    public class GoogleAuthOptions {
         public string ClientId {get; set;}
         public string ClientSecret {get; set;}
     }

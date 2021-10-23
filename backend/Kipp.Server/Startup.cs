@@ -31,7 +31,7 @@ namespace Kipp.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureOption<DatabaseOptions>(Configuration);
-            services.ConfigureOption<GooglAuthOptions>(Configuration);
+            services.ConfigureOption<GoogleAuthOptions>(Configuration);
 
             services.AddSwaggerGen(c =>
             {
@@ -50,7 +50,7 @@ namespace Kipp.Server
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
-                    var googleAuthNSection = this.Configuration.GetOptions<GooglAuthOptions>();
+                    var googleAuthNSection = this.Configuration.GetOptions<GoogleAuthOptions>();
                     options.ClientId = googleAuthNSection.ClientId;
                     options.ClientSecret = googleAuthNSection.ClientSecret;
                 });
