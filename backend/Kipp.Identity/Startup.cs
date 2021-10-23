@@ -67,7 +67,7 @@ namespace Kipp.Identity
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors("default");          
+            app.UseCors("default");
             //app.UseStaticFiles();
             app.UseRouting();
 
