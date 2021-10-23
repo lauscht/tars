@@ -14,6 +14,12 @@ RUN dotnet publish "Kipp.Identity/Kipp.Identity.csproj" -c Release -o /app/publi
 FROM mcr.microsoft.com/dotnet/aspnet:3.1-alpine AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+ARG UID=1000
+ARG GID=1000
+RUN chown -R ${UID} /app
+USER ${UID}
+
 ENV ASPNETCORE_URLS=http://+:8080
 EXPOSE 8080
 ENTRYPOINT ["dotnet", "Kipp.Identity.dll"]

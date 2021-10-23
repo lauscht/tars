@@ -18,6 +18,12 @@ RUN dotnet publish "Kipp.Server/Kipp.Server.csproj" -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+ARG UID=1000
+ARG GID=1000
+RUN chown -R ${UID} /app
+USER ${UID}
+
 ENV ASPNETCORE_URLS=http://+:8080
 EXPOSE 8080
 ENTRYPOINT ["dotnet", "Kipp.Server.dll"]
