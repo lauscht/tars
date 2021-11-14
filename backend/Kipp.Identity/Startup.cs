@@ -3,11 +3,15 @@
 
 
 using IdentityServer4;
+using Kipp.Identity.Models.Identity;
+using Kipp.Identity.Options;
+using Kipp.Identity.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MongoDB.Bson.Serialization;
 
 namespace Kipp.Identity
 {
@@ -64,6 +68,16 @@ namespace Kipp.Identity
                         .AllowAnyMethod();
                 });
             });
+
+            // register your custom serializer
+            BsonSerializer.RegisterSerializer(
+                typeof(UserIdentity),
+                new UserIdentitySerializer()
+            );
+
+            services.Configure<DatabaseOptions>(Configuration.GetSection("Database"));
+            services.AddSingleton<IDatabaseContext, DatabaseContext>();
+            services.AddSingleton<IUserRepository, UserRepository>();
         }
 
         public void Configure(IApplicationBuilder app)

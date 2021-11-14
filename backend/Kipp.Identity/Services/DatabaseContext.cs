@@ -17,6 +17,7 @@ namespace Kipp.Identity.Services
             if (databaseOptions is null)
                 throw new ArgumentNullException(nameof(databaseOptions));
 
+            var url = new MongoUrl(databaseOptions.ConnectionString);
             var mongoClient = new MongoClient(databaseOptions.ConnectionString);
 
             if (mongoClient is null)

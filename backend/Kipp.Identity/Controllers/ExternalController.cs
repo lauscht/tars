@@ -101,14 +101,7 @@ namespace Kipp.Identity
             }
 
             // lookup our user and external provider info
-            var (user, providerIdentity, claims) = await FindUserFromExternalProvider(result);
-            if (user == null)
-            {
-                // this might be where you might initiate a custom workflow for user registration
-                // in this sample we don't show how that would be done, as our sample implementation
-                // simply auto-provisions new external user
-                user = await AutoProvisionUser(providerIdentity, claims);
-            }
+            var (user, providerIdentity) = await IdentifyUserFromExternalProvider(result);
 
             // this allows us to collect any additional claims or properties
             // for the specific protocols used and store them in the local auth cookie.
@@ -141,20 +134,10 @@ namespace Kipp.Identity
             return Redirect(returnUrl);
         }
 
-        private async Task<(User user, ProviderIdentity providerIdentity, IEnumerable<Claim> claims)> FindUserFromExternalProvider(AuthenticateResult result)
+        private async Task<(User user, ProviderIdentity providerIdentity)> IdentifyUserFromExternalProvider(AuthenticateResult result)
         {
-            var externalUser = result.Principal;
 
-            // try to determine the unique id of the external user (issued by the provider)
-            // the most common claim type for that are the sub claim and the NameIdentifier
-            // depending on the external provider, some other claim type might be used
-            var userIdClaim = externalUser.FindFirst(JwtClaimTypes.Subject) ??
-                              externalUser.FindFirst(ClaimTypes.NameIdentifier) ??
-                              throw new Exception("Unknown userid");
-
-            // remove the user id claim so we don't include it as an extra claim if/when we provision the user
-            var claims = externalUser.Claims.ToList();
-            claims.Remove(userIdClaim);
+            var (userIdClaim, claims) = ExtractUserIdAndClaimsFromClaimsPrincipal(result.Principal);
 
             // Create an identity for external user.
             var providerIdentity = new ProviderIdentity()
@@ -165,13 +148,65 @@ namespace Kipp.Identity
 
             // find external user
             var user = await Users.GetByProviderIdentity(providerIdentity);
+            
+            if (user is null)
+            {
+                // this might be where you might initiate a custom workflow for user registration
+                // in this sample we don't show how that would be done, as our sample implementation
+                // simply auto-provisions new external user
+                user = await AutoProvisionUser(result.Principal, providerIdentity, claims);
+            }
 
-            return (user, providerIdentity, claims);
+            return (user, providerIdentity);
         }
 
-        private async Task<User> AutoProvisionUser(ProviderIdentity providerIdentity, IEnumerable<Claim> claims)
+        private (Claim, List<Claim>) ExtractUserIdAndClaimsFromClaimsPrincipal(ClaimsPrincipal principal) 
         {
+            // try to determine the unique id of the external user (issued by the provider)
+            // the most common claim type for that are the sub claim and the NameIdentifier
+            // depending on the external provider, some other claim type might be used
+            var userIdClaim = principal.FindFirst(JwtClaimTypes.Subject) ??
+                              principal.FindFirst(ClaimTypes.NameIdentifier) ??
+                              throw new Exception("Unknown userid");
+
+            // remove the user id claim so we don't include it as an extra claim if/when we provision the user
+            var claims = principal.Claims.ToList();
+            claims.Remove(userIdClaim);
+
+            return (userIdClaim, claims);
+        }
+
+        private string ExtractUserNameFromClaimsPrincipal(ClaimsPrincipal principal, List<Claim> claims) 
+        {
+            var claim = principal.FindFirst(JwtClaimTypes.Name) ??
+                        principal.FindFirst(ClaimTypes.Name);
+            if (claim is null)
+                return String.Empty;
+            
+            claims.Remove(claim);
+            return claim.Value;
+        } 
+
+        private string ExtractUserEMailFromClaimsPrincipal(ClaimsPrincipal principal, List<Claim> claims) 
+        {
+            var claim = principal.FindFirst(JwtClaimTypes.Email) ??
+                        principal.FindFirst(ClaimTypes.Email);
+            if (claim is null)
+                return String.Empty;
+            
+            claims.Remove(claim);
+            return claim.Value;
+        } 
+
+        private async Task<User> AutoProvisionUser(ClaimsPrincipal principal, ProviderIdentity providerIdentity, List<Claim> claims)
+        {
+            var userName = ExtractUserNameFromClaimsPrincipal(principal, claims);
+            var userMail = ExtractUserEMailFromClaimsPrincipal(principal, claims);
+
             var user = Kipp.Identity.Models.User.Create(providerIdentity);
+            user.Username = userName;
+            user.Email = userMail;
+
             await Users.Create(user);
             return user;
         }

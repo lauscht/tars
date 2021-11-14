@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using Kipp.Identity.Models.Identity;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Kipp.Identity.Models
@@ -13,6 +15,7 @@ namespace Kipp.Identity.Models
         public UserIdentity Identity { get; set; }
 
         public string Username {get; set;}
+        public string Email {get; set;}
         public List<ProviderIdentity> Identities { get; set; }
         public DateTime Created { get; protected set; }
         public DateTime LastLogin { get; set; }
@@ -21,6 +24,7 @@ namespace Kipp.Identity.Models
         {
             return new User()
             {
+                Identity = Guid.NewGuid().ToString(),
                 Identities = new List<ProviderIdentity>() {providerIdentity,},
                 Created = DateTime.Now,
             };
