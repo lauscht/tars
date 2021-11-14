@@ -14,6 +14,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Kipp.Identity.Services;
+using Kipp.Identity.Models;
+using Kipp.Identity.Models.Identity;
 
 namespace Kipp.Identity
 {    
@@ -25,7 +28,7 @@ namespace Kipp.Identity
     [AllowAnonymous]
     public class ExternalController : Controller
     {
-        private readonly TestUserStore Users;
+        private readonly IUserRepository Users;
         private readonly IIdentityServerInteractionService InteractionService;
         private readonly IClientStore ClientStore;
         private readonly ILogger<ExternalController> Logger;
@@ -36,11 +39,11 @@ namespace Kipp.Identity
             IClientStore clientStore,
             IEventService events,
             ILogger<ExternalController> logger,
-            TestUserStore users = null)
+            IUserRepository users)
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
             // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
-            this.Users = users ?? new TestUserStore(TestUsers.Users);
+            this.Users = users ?? throw new ArgumentNullException(nameof(users));
 
             this.InteractionService = interaction;
             this.ClientStore = clientStore;
@@ -98,13 +101,13 @@ namespace Kipp.Identity
             }
 
             // lookup our user and external provider info
-            var (user, provider, providerUserId, claims) = FindUserFromExternalProvider(result);
+            var (user, providerIdentity, claims) = await FindUserFromExternalProvider(result);
             if (user == null)
             {
                 // this might be where you might initiate a custom workflow for user registration
                 // in this sample we don't show how that would be done, as our sample implementation
                 // simply auto-provisions new external user
-                user = AutoProvisionUser(provider, providerUserId, claims);
+                user = await AutoProvisionUser(providerIdentity, claims);
             }
 
             // this allows us to collect any additional claims or properties
@@ -115,10 +118,10 @@ namespace Kipp.Identity
             ProcessLoginCallback(result, additionalLocalClaims, localSignInProps);
             
             // issue authentication cookie for user
-            var isuser = new IdentityServerUser(user.SubjectId)
+            var isuser = new IdentityServerUser(user.Identity)
             {
                 DisplayName = user.Username,
-                IdentityProvider = provider,
+                IdentityProvider = providerIdentity.Provider,
                 AdditionalClaims = additionalLocalClaims
             };
 
@@ -132,12 +135,13 @@ namespace Kipp.Identity
 
             // check if external login is in the context of an OIDC request
             var context = await InteractionService.GetAuthorizationContextAsync(returnUrl);
-            await EventService.RaiseAsync(new UserLoginSuccessEvent(provider, providerUserId, user.SubjectId, user.Username, true, context?.Client.ClientId));
+            await EventService.RaiseAsync(new UserLoginSuccessEvent(
+                providerIdentity.Provider, providerIdentity.Identity, user.Identity, user.Username, true, context?.Client.ClientId));
             
             return Redirect(returnUrl);
         }
 
-        private (TestUser user, string provider, string providerUserId, IEnumerable<Claim> claims) FindUserFromExternalProvider(AuthenticateResult result)
+        private async Task<(User user, ProviderIdentity providerIdentity, IEnumerable<Claim> claims)> FindUserFromExternalProvider(AuthenticateResult result)
         {
             var externalUser = result.Principal;
 
@@ -152,18 +156,23 @@ namespace Kipp.Identity
             var claims = externalUser.Claims.ToList();
             claims.Remove(userIdClaim);
 
-            var provider = result.Properties.Items["scheme"];
-            var providerUserId = userIdClaim.Value;
+            // Create an identity for external user.
+            var providerIdentity = new ProviderIdentity()
+            {
+                Provider = result.Properties.Items["scheme"],
+                Identity = userIdClaim.Value
+            };
 
             // find external user
-            var user = Users.FindByExternalProvider(provider, providerUserId);
+            var user = await Users.GetByProviderIdentity(providerIdentity);
 
-            return (user, provider, providerUserId, claims);
+            return (user, providerIdentity, claims);
         }
 
-        private TestUser AutoProvisionUser(string provider, string providerUserId, IEnumerable<Claim> claims)
+        private async Task<User> AutoProvisionUser(ProviderIdentity providerIdentity, IEnumerable<Claim> claims)
         {
-            var user = Users.AutoProvisionUser(provider, providerUserId, claims.ToList());
+            var user = Kipp.Identity.Models.User.Create(providerIdentity);
+            await Users.Create(user);
             return user;
         }
 
