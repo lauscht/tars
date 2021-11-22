@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Kipp.Identity.Models;
-using Kipp.Identity.Models.Identity;
+using Kipp.Identity.Models.Identities;
 
 namespace Kipp.Identity.Services
 {

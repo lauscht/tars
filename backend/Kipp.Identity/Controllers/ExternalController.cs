@@ -16,7 +16,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Kipp.Identity.Services;
 using Kipp.Identity.Models;
-using Kipp.Identity.Models.Identity;
+using Kipp.Identity.Models.Identities;
 
 namespace Kipp.Identity
 {    

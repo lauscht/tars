@@ -3,7 +3,6 @@
 
 
 using IdentityServer4;
-using Kipp.Identity.Models.Identity;
 using Kipp.Identity.Options;
 using Kipp.Identity.Services;
 using Microsoft.AspNetCore.Builder;
@@ -68,12 +67,6 @@ namespace Kipp.Identity
                         .AllowAnyMethod();
                 });
             });
-
-            // register your custom serializer
-            BsonSerializer.RegisterSerializer(
-                typeof(UserIdentity),
-                new UserIdentitySerializer()
-            );
 
             services.Configure<DatabaseOptions>(Configuration.GetSection("Database"));
             services.AddSingleton<IDatabaseContext, DatabaseContext>();

@@ -1,5 +1,5 @@
 using Kipp.Identity.Models;
-using Kipp.Identity.Models.Identity;
+using Kipp.Identity.Models.Identities;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;

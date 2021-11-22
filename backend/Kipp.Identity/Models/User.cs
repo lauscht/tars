@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using Kipp.Identity.Models.Identity;
+using Kipp.Identity.Models.Identities;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
@@ -24,7 +24,7 @@ namespace Kipp.Identity.Models
         {
             return new User()
             {
-                Identity = Guid.NewGuid().ToString(),
+                Identity = new UserIdentity(),
                 Identities = new List<ProviderIdentity>() {providerIdentity,},
                 Created = DateTime.Now,
             };
