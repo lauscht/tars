@@ -15,12 +15,16 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Kipp.Framework.Options;
 
 namespace Kipp.Server
 {
     public class Startup
     {
-        private const string GoogleAuthenticationScheme = "GoogleAuthenticationScheme";
+
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
@@ -33,10 +37,33 @@ namespace Kipp.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureOption<DatabaseOptions>(Configuration);
-            services.ConfigureOption<GoogleAuthOptions>(Configuration);
+            services.ConfigureOption<TarsAuthenticationOptions>(Configuration);
 
             services.AddSwaggerGen(c =>
             {
+                var jwtSecurityScheme = new OpenApiSecurityScheme
+                {
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Name = "JWT Authentication",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
+
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+
+                c.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { jwtSecurityScheme, Array.Empty<string>() }
+                });
+
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
@@ -48,31 +75,40 @@ namespace Kipp.Server
                     },
                 });
             });
-            services.AddControllers();
-            services.AddAuthentication(options =>
-                {
-                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                })
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "/auth/google-login"; // Must be lowercase
-                })
-                .AddGoogle(options =>
-                {
-                    var googleAuthNSection = this.Configuration.GetOptions<GoogleAuthOptions>();
-                    
-                    options.ClientId = googleAuthNSection.ClientId;
-                    options.ClientSecret = googleAuthNSection.ClientSecret;
-                    options.CallbackPath = "/auth/google-callback";
-                });
-            services.AddAuthorization();
 
+            var authenticationOptions = Configuration.GetOptions<TarsAuthenticationOptions>();
+            var authenticationSecret = Encoding.ASCII.GetBytes(authenticationOptions.ClientSecret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.Authority = "https://localhost:5003";
+                options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
+                /*
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = false,
+                    //IssuerSigningKey = new SymmetricSecurityKey(authenticationSecret),
+                    ValidateIssuer = false,
+                    //ValidIssuer = authenticationOptions.Issuer,
+                    ValidateAudience = false,
+                    //ValidAudience = authenticationOptions.Audience
+                };*/ 
+            });
+
+            services.AddControllers();
             services.AddCors(options =>
             {
                 // this defines a CORS policy called "default"
                 options.AddPolicy("default", policy =>
                 {
-                    policy.WithOrigins("https://localhost:5001", "https://tars.lauscht.com/")
+                    policy.WithOrigins("http://localhost:5004", "https://localhost:5005",
+                        "https://localhost:5001", "https://tars.lauscht.com/")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -100,6 +136,7 @@ namespace Kipp.Server
                 });
             };
             
+            // app.UseMiddleware<JwtMiddleware>();
             app.UseCors("default");
             app.UseSwaggerUI(c =>
             {

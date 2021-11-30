@@ -17,12 +17,11 @@ namespace Kipp.Server.Options
         internal static IServiceCollection ConfigureOption<T>(this IServiceCollection services, IConfiguration configuration) where T : class
         {
             var section_name = GetSectionNameFor<T>();
-            return services.Configure<T>(con =>
-            {
-                configuration.GetSection(section_name).Bind(con);
-            });
+            return services.Configure<T>(con => 
+                configuration.GetSection(section_name).Bind(con)
+            );
         }
-    
+
         internal static string GetSectionNameFor<T>()
         {
             var section_name = typeof(T).Name;

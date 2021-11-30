@@ -110,6 +110,8 @@ namespace Kipp.Identity
             var localSignInProps = new AuthenticationProperties();
             ProcessLoginCallback(result, additionalLocalClaims, localSignInProps);
             
+            additionalLocalClaims.Add(new Claim(ClaimTypes.Role, "developer"));
+            
             // issue authentication cookie for user
             var isuser = new IdentityServerUser(user.Identity)
             {

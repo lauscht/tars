@@ -10,6 +10,9 @@ namespace Kipp.Identity
 {
     public static class Config
     {
+        public const string KippApiScopeName = "app.api.kipp";
+        public const string TarsFrontendCliendId = "app.client.tars";
+        public const string PostmanCliendId = "app.client.postman";
         public static IEnumerable<IdentityResource> IdentityResources =>
             new IdentityResource[]
             {
@@ -17,11 +20,24 @@ namespace Kipp.Identity
                 new IdentityResources.Profile(),
             };
 
+
+        public static IEnumerable<ApiResource> ApiResources =>
+            new List<ApiResource>
+            {
+                new ApiResource {
+                    Name = "Kipp.Server",
+                    DisplayName = "Tars Backend - Kipp",
+                    // ApiSecrets = { new Secret("a75a559d-1dab-4c65-9bc0-f8e590cb388d".Sha256()) },
+                    Scopes = {
+                        KippApiScopeName
+                    }
+                }
+            };
+
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope("scope1"),
-                new ApiScope("scope2"),
+                new ApiScope(KippApiScopeName),
             };
 
         public static IEnumerable<Client> Clients =>
@@ -29,22 +45,41 @@ namespace Kipp.Identity
             {
                 new Client
                 {
-                    ClientId = "js",
-                    ClientName = "JavaScript Client",
+                    ClientId = PostmanCliendId,
+                    ClientName = "Postman Test - Case",
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireClientSecret = false,
+                    RequirePkce = false,
 
-                    RedirectUris =           { "https://localhost:5003/callback.html" },
-                    PostLogoutRedirectUris = { "https://localhost:5003/index.html" },
-                    AllowedCorsOrigins =     { "https://localhost:5003" },
+                    RedirectUris =           { "https://oauth.pstmn.io/v1/browser-callback", "https://oauth.pstmn.io/v1/callback" },
+                    PostLogoutRedirectUris = { "https://localhost:5001/index.html" },
+                    AllowedCorsOrigins =     { "https://localhost:5001" },
 
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "api1"
+                        KippApiScopeName
                     }
-                }
+                },
+                new Client
+                {
+                    ClientId = TarsFrontendCliendId,
+                    ClientName = "Tars Frontend - Case",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequireClientSecret = false,
+
+                    RedirectUris =           { "https://localhost:5001/callback.html" },
+                    PostLogoutRedirectUris = { "https://localhost:5001/index.html" },
+                    AllowedCorsOrigins =     { "https://localhost:5001" },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        KippApiScopeName
+                    }
+                },
             };
     }
 }

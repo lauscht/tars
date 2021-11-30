@@ -1,3 +1,4 @@
+using Kipp.Identity.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,16 @@ namespace Kipp.Identity
                 "External",
                 new { scheme = providers.First().Name, returnUrl }
             );
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Index()
+        {   
+            var user = new User() {
+                Username = HttpContext.User.Identity.Name
+            };
+            return View(user);
         }
     }
 }
