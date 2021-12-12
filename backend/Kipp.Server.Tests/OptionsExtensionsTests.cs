@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Kipp.Framework.Options;
 using Kipp.Server.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,15 +19,15 @@ namespace Kipp.Server.Tests
             var configuration = this.SetupConfiguration();
 
             //act           
-            services.ConfigureOption<GoogleAuthOptions>(configuration);
+            services.ConfigureOption<DatabaseOptions>(configuration);
 
             //assert
-            var result = services.BuildServiceProvider().GetService<IOptions<GoogleAuthOptions>>();
+            var result = services.BuildServiceProvider().GetService<IOptions<DatabaseOptions>>();
 
             Assert.NotNull(result);
             Assert.NotNull(result.Value);
-            Assert.NotNull(result.Value.ClientId);
-            Assert.NotNull(result.Value.ClientSecret);
+            Assert.NotNull(result.Value.DatabaseName);
+            Assert.NotNull(result.Value.ConnectionString);
         }
 
         [Fact(DisplayName = "Test that we can read the configuration.")]
@@ -36,20 +37,20 @@ namespace Kipp.Server.Tests
             var configuration = this.SetupConfiguration();
 
             //act
-            var result = configuration.GetOptions<GoogleAuthOptions>();
+            var result = configuration.GetOptions<DatabaseOptions>();
 
             //assert
             Assert.NotNull(result);
-            Assert.NotNull(result.ClientId);
-            Assert.NotNull(result.ClientSecret);
+            Assert.NotNull(result.DatabaseName);
+            Assert.NotNull(result.ConnectionString);
         }
 
         private IConfiguration SetupConfiguration()
         {
             var myConfiguration = new Dictionary<string, string>
             {
-                {"GoogleAuth:ClientId", "ClientId"},
-                {"GoogleAuth:ClientSecret", "ClientSecret"},
+                {"Database:DatabaseName", "DatabaseName"},
+                {"Database:ConnectionString", "ConnectionString"},
             };
 
             var configuration = new ConfigurationBuilder()

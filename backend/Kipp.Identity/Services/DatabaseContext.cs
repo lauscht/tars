@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Kipp.Identity.Models;
-using Kipp.Identity.Options;
+using Kipp.Framework.Options;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 

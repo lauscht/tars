@@ -5,15 +5,17 @@
 using IdentityServer4;
 using IdentityServer4.Models;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace Kipp.Identity
 {
-    public static class Config
+    public class Config
     {
+        public const string KippApiAudienceName = "Kipp.Api";
         public const string KippApiScopeName = "app.api.kipp";
         public const string TarsFrontendCliendId = "app.client.tars";
         public const string PostmanCliendId = "app.client.postman";
-        public static IEnumerable<IdentityResource> IdentityResources =>
+        public IEnumerable<IdentityResource> IdentityResources =>
             new IdentityResource[]
             {
                 new IdentityResources.OpenId(),
@@ -21,26 +23,26 @@ namespace Kipp.Identity
             };
 
 
-        public static IEnumerable<ApiResource> ApiResources =>
+        public IEnumerable<ApiResource> ApiResources =>
             new List<ApiResource>
             {
                 new ApiResource {
-                    Name = "Kipp.Server",
+                    Name = KippApiAudienceName,
                     DisplayName = "Tars Backend - Kipp",
-                    // ApiSecrets = { new Secret("a75a559d-1dab-4c65-9bc0-f8e590cb388d".Sha256()) },
+                    
                     Scopes = {
                         KippApiScopeName
                     }
                 }
             };
 
-        public static IEnumerable<ApiScope> ApiScopes =>
+        public IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope(KippApiScopeName),
+                new ApiScope(KippApiScopeName, new string[] {ClaimTypes.Role, } ),
             };
 
-        public static IEnumerable<Client> Clients =>
+        public IEnumerable<Client> Clients =>
             new Client[]
             {
                 new Client
@@ -50,6 +52,7 @@ namespace Kipp.Identity
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireClientSecret = false,
                     RequirePkce = false,
+                    AlwaysIncludeUserClaimsInIdToken = true,
 
                     RedirectUris =           { "https://oauth.pstmn.io/v1/browser-callback", "https://oauth.pstmn.io/v1/callback" },
                     PostLogoutRedirectUris = { "https://localhost:5001/index.html" },

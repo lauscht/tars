@@ -1,4 +1,4 @@
-namespace Kipp.Identity.Options{
+namespace Kipp.Framework.Options{
     public class DatabaseOptions
     {
         public string ConnectionString { get; set; }
