@@ -20,7 +20,7 @@ namespace Kipp.Framework.Tests.Serializer
         public void CanConvertShouldWork(Type type, bool expected)
         {
             // Act
-            var result = Serializer.GetType() == type;
+            var result = Serializer.ValueType == type;
 
             // Assert
             Assert.Equal(expected, result);

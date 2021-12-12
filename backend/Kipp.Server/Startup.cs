@@ -20,8 +20,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Kipp.Framework.Options;
 using Newtonsoft.Json;
-using Kipp.Server.Middlewares;
-using Kipp.Server.Middlewares.Jwt;
 using Kipp.Server.Configuration;
 
 namespace Kipp.Server
@@ -42,7 +40,6 @@ namespace Kipp.Server
         {
             services.ConfigureOption<DatabaseOptions>(Configuration);
 
-            services.AddScoped<IJwtValidator, JwtValidator>();
             services.AddSwaggerConfiguration();
 
             var authorizationOptions = Configuration.GetOptions<JwtAuthorizationOptions>();
