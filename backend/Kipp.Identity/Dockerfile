@@ -1,6 +1,12 @@
 FROM mcr.microsoft.com/dotnet/sdk:3.1-alpine AS build
 WORKDIR /src 
+
+COPY ["Kipp.Framework", "Kipp.Framework"]
+RUN dotnet restore "/src/Kipp.Framework/Kipp.Framework.csproj"
+RUN dotnet build "Kipp.Framework/Kipp.Framework.csproj" -c Release -o /app/build
+
 COPY ["Kipp.Identity", "Kipp.Identity"]
+
 RUN dotnet restore "/src/Kipp.Identity/Kipp.Identity.csproj"
 RUN dotnet build "Kipp.Identity/Kipp.Identity.csproj" -c Release -o /app/build
  
