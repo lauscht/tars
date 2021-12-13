@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Kipp.Identity.Models {
+namespace Kipp.Identity.Models.Identities {
     public class ProviderIdentity: IEquatable<ProviderIdentity> {
         public string Provider {get;set;}
         public string Identity {get;set;}

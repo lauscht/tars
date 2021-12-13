@@ -1,3 +1,4 @@
+using Kipp.Framework.Models.Identities;
 using Kipp.Identity.Models;
 using Kipp.Identity.Models.Identities;
 using MongoDB.Driver;

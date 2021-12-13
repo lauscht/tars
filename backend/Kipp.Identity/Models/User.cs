@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using Kipp.Framework.Models.Identities;
 using Kipp.Identity.Models.Identities;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;

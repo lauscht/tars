@@ -20,7 +20,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Kipp.Framework.Options;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Kipp.Server.Configuration;
+using System.Security.Claims;
 
 namespace Kipp.Server
 {
@@ -39,6 +41,10 @@ namespace Kipp.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureOption<DatabaseOptions>(Configuration);
+
+            // Repositories
+            services.AddSingleton<IDatabaseContext, DatabaseContext>();
+            services.AddSingleton<ILessonRepository, LessonRepository>();
 
             services.AddSwaggerConfiguration();
 
@@ -63,10 +69,12 @@ namespace Kipp.Server
                     ValidateAudience = !String.IsNullOrEmpty(options.Audience),
                     ValidTypes = new[] { "at+jwt" },
                     RequireSignedTokens = true,
+
+                    NameClaimType = ClaimTypes.NameIdentifier
                 };
             });
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddCors(options =>
             {
                 // this defines a CORS policy called "default"
@@ -82,8 +90,6 @@ namespace Kipp.Server
                 });
             });
 
-            // Repositories
-            services.AddSingleton<ILessonRepository, LessonRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
